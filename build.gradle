@@ -1,0 +1,72 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.jetbrains.kotlin.jvm' version '2.3.21'
+}
+
+java {
+}
+
+group = 'org.example'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.jline:jline:3.29.0'
+    implementation 'org.apache.logging.log4j:log4j-core:2.22.1'
+    implementation 'org.apache.logging.log4j:log4j-api:2.22.1'
+    implementation 'org.postgresql:postgresql:42.7.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+
+tasks.withType(Jar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+task clientJar(type: Jar) {
+    archiveBaseName = 'client'
+    archiveVersion = '1.0'
+    manifest {
+        attributes 'Main-Class': 'org.example.client.Client'
+    }
+    from sourceSets.main.output
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    exclude 'org/example/server/**'
+}
+
+task serverJar(type: Jar) {
+    archiveBaseName = 'server'
+    archiveVersion = '1.0'
+    manifest {
+        attributes 'Main-Class': 'org.example.server.Server'
+    }
+    from sourceSets.main.output
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    exclude 'org/example/client/**'
+}
+
+task buildClient {
+    dependsOn clientJar
+}
+
+task buildServer {
+    dependsOn serverJar
+}
+
+task buildAll {
+    dependsOn clientJar, serverJar
+}
+
+tasks.withType(JavaExec) {
+    jvmArgs += '--enable-native-access=ALL-UNNAMED'
+}
+kotlin {
+    jvmToolchain(17)
+}
