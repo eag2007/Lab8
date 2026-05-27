@@ -128,4 +128,4 @@ src/main/java/org/example/
 
 ## Вариант
 
-1
+28
