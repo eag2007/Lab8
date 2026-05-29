@@ -2,6 +2,12 @@ plugins {
     id 'java'
     id 'application'
     id 'org.jetbrains.kotlin.jvm' version '2.3.21'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+javafx {
+    version = '21.0.3'
+    modules = ['javafx.controls', 'javafx.fxml']
 }
 
 java {
@@ -60,8 +66,20 @@ task buildServer {
     dependsOn serverJar
 }
 
+task guiJar(type: Jar) {
+    archiveBaseName = 'gui-client'
+    archiveVersion  = '1.0'
+    manifest { attributes 'Main-Class': 'org.example.gui.GuiClient' }
+    from sourceSets.main.output
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    exclude 'org/example/server/**'
+}
+task buildGui {
+    dependsOn guiJar
+}
+
 task buildAll {
-    dependsOn clientJar, serverJar
+    dependsOn clientJar, serverJar, guiJar
 }
 
 tasks.withType(JavaExec) {
