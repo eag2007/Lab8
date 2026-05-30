@@ -3,6 +3,7 @@ package org.example.server.commands;
 import org.example.packet.collection.Route;
 import org.example.packet.collection.RouteClient;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.interfaces.Command;
 import org.example.server.logger.ServerLogger;
@@ -17,6 +18,7 @@ public class AverageOfDistance implements Command {
             if (managerCollections.getSizeCollections() == 0) {
 
                 Server.writeExecutor(
+                        ResponseType.AVERAGE_OF_DISTANCE,
                         Codes.WARNING,
                         "Коллекция пуста",
                         0.0,
@@ -32,6 +34,7 @@ public class AverageOfDistance implements Command {
                     .orElse(0.0);
 
             Server.writeExecutor(
+                    ResponseType.AVERAGE_OF_DISTANCE,
                     Codes.OK,
                     "Среднее значение distance",
                     average,
@@ -44,6 +47,7 @@ public class AverageOfDistance implements Command {
             try {
 
                 Server.writeExecutor(
+                        ResponseType.AVERAGE_OF_DISTANCE,
                         Codes.ERROR,
                         "Ошибка: " + e.getMessage(),
                         null,

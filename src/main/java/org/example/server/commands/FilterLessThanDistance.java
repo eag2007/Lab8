@@ -3,6 +3,7 @@ package org.example.server.commands;
 import org.example.packet.collection.Route;
 import org.example.packet.collection.RouteClient;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.interfaces.Command;
 import org.example.server.logger.ServerLogger;
@@ -26,6 +27,7 @@ public class FilterLessThanDistance implements Command {
             if (result.isEmpty()) {
 
                 Server.writeExecutor(
+                        ResponseType.FILTER_LESS_THAN_DISTANCE,
                         Codes.WARNING,
                         "Нет элементов с distance меньше " + distance,
                         result,
@@ -36,6 +38,7 @@ public class FilterLessThanDistance implements Command {
             }
 
             Server.writeExecutor(
+                    ResponseType.FILTER_LESS_THAN_DISTANCE,
                     Codes.OK,
                     "Найдено элементов: " + result.size(),
                     result,
@@ -48,6 +51,7 @@ public class FilterLessThanDistance implements Command {
             ServerLogger.error("Ошибка: {}", e.getMessage());
 
             Server.writeExecutor(
+                    ResponseType.FILTER_LESS_THAN_DISTANCE,
                     Codes.ERROR,
                     "Ошибка: " + e.getMessage(),
                     null,

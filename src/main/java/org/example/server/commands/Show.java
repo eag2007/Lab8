@@ -3,6 +3,7 @@ package org.example.server.commands;
 import org.example.packet.collection.Route;
 import org.example.packet.collection.RouteClient;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.interfaces.Command;
 import org.example.server.logger.ServerLogger;
@@ -20,6 +21,7 @@ public class Show implements Command {
             if (routes.isEmpty()) {
 
                 Server.writeExecutor(
+                        ResponseType.SHOW,
                         Codes.OK,
                         "Коллекция пуста",
                         routes,
@@ -29,6 +31,7 @@ public class Show implements Command {
             } else {
 
                 Server.writeExecutor(
+                        ResponseType.SHOW,
                         Codes.OK,
                         "Найдено элементов: " + routes.size(),
                         routes,
@@ -43,6 +46,7 @@ public class Show implements Command {
             ServerLogger.error("Ошибка при получении коллекции: {}", e.getMessage());
 
             Server.writeExecutor(
+                    ResponseType.SHOW,
                     Codes.ERROR,
                     "Ошибка при получении коллекции: " + e.getMessage(),
                     null,

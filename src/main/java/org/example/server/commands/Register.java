@@ -2,6 +2,7 @@ package org.example.server.commands;
 
 import org.example.packet.collection.RouteClient;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.interfaces.Command;
 import org.example.server.logger.ServerLogger;
@@ -19,6 +20,7 @@ public class Register implements Command {
             if (conn == null) {
 
                 Server.writeExecutor(
+                        ResponseType.REGISTER,
                         Codes.ERROR,
                         "База данных временно недоступна",
                         null,
@@ -31,6 +33,7 @@ public class Register implements Command {
             if (password.length() < 4) {
 
                 Server.writeExecutor(
+                        ResponseType.REGISTER,
                         Codes.WARNING,
                         "Пароль слишком короткий",
                         null,
@@ -57,6 +60,7 @@ public class Register implements Command {
             Server.getLoginToChannel().put(login, clientChannel);
 
             Server.writeExecutor(
+                    ResponseType.REGISTER,
                     Codes.OK,
                     "Пользователь зарегистрирован",
                     null,
@@ -71,6 +75,7 @@ public class Register implements Command {
             if (e.getMessage().contains("unique")) {
 
                 Server.writeExecutor(
+                        ResponseType.REGISTER,
                         Codes.WARNING,
                         "Пользователь существует",
                         null,
@@ -81,6 +86,7 @@ public class Register implements Command {
             } else {
 
                 Server.writeExecutor(
+                        ResponseType.REGISTER,
                         Codes.ERROR,
                         "Ошибка базы данных",
                         null,
@@ -94,6 +100,7 @@ public class Register implements Command {
             ServerLogger.error("Ошибка Регистрации: {}", e.getMessage());
 
             Server.writeExecutor(
+                    ResponseType.REGISTER,
                     Codes.ERROR,
                     "Ошибка регистрациии",
                     null,

@@ -3,6 +3,7 @@ package org.example.server.commands;
 import org.example.packet.collection.Route;
 import org.example.packet.collection.RouteClient;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.interfaces.Command;
 import org.example.server.logger.ServerLogger;
@@ -19,6 +20,7 @@ public class RemoveFirst implements Command {
             if (route == null) {
 
                 Server.writeExecutor(
+                        ResponseType.REMOVE_FIRST,
                         Codes.WARNING,
                         "Коллекция пуста",
                         null,
@@ -31,6 +33,7 @@ public class RemoveFirst implements Command {
             if (!route.getAuthor().equals(login)) {
 
                 Server.writeExecutor(
+                        ResponseType.REMOVE_FIRST,
                         Codes.WARNING,
                         "Первый элемент принадлежит другому пользователю",
                         null,
@@ -47,6 +50,7 @@ public class RemoveFirst implements Command {
             if (deletedId == 0) {
 
                 Server.writeExecutor(
+                        ResponseType.REMOVE_FIRST,
                         Codes.ERROR,
                         "Ошибка удаления из БД",
                         null,
@@ -59,6 +63,7 @@ public class RemoveFirst implements Command {
             if (deletedId == -1) {
 
                 Server.writeExecutor(
+                        ResponseType.REMOVE_FIRST,
                         Codes.ERROR,
                         "Ошибка при удалении из БД",
                         null,
@@ -71,6 +76,7 @@ public class RemoveFirst implements Command {
             if (deletedId == -3) {
 
                 Server.writeExecutor(
+                        ResponseType.REMOVE_FIRST,
                         Codes.ERROR,
                         "База данных на сервере недоступна",
                         null,
@@ -83,6 +89,7 @@ public class RemoveFirst implements Command {
             managerCollections.removeRouteById(id);
 
             Server.writeExecutor(
+                    ResponseType.REMOVE_FIRST,
                     Codes.OK,
                     "Объект удалён с id = " + id,
                     id,
@@ -97,6 +104,7 @@ public class RemoveFirst implements Command {
             ServerLogger.error("Ошибка удаления первого элемента: {}", e.getMessage());
 
             Server.writeExecutor(
+                    ResponseType.REMOVE_FIRST,
                     Codes.ERROR,
                     "Ошибка: " + e.getMessage(),
                     null,

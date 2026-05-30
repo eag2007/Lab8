@@ -3,6 +3,7 @@ package org.example.server.commands;
 import org.example.packet.collection.Route;
 import org.example.packet.collection.RouteClient;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.interfaces.Command;
 import org.example.server.logger.ServerLogger;
@@ -31,6 +32,7 @@ public class RemoveAllByDistance implements Command {
             managerCollections.removeAllByDistanceCollections(routesNew);
 
             Server.writeExecutor(
+                    ResponseType.REMOVE_ALL_BY_DISTANCE,
                     Codes.OK,
                     "Удалено элементов: " + removedCount,
                     null,
@@ -45,6 +47,7 @@ public class RemoveAllByDistance implements Command {
             try {
 
                 Server.writeExecutor(
+                        ResponseType.REMOVE_ALL_BY_DISTANCE,
                         Codes.ERROR,
                         "Ошибка: " + e.getMessage(),
                         null,

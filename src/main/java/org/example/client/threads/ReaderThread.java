@@ -3,6 +3,7 @@ package org.example.client.threads;
 import org.example.client.modules.ReadModule;
 import org.example.packet.ResponsePacket;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 
 import java.io.IOException;
 import java.nio.channels.ClosedChannelException;
@@ -43,6 +44,7 @@ public class ReaderThread extends Thread {
                 if (running) {
                     try {
                         managerResponseQueue.put(new ResponsePacket(
+                                ResponseType.ERROR,
                                 Codes.ERROR,
                                 "Потеряно соединение с сервером: " + e.getMessage(),
                                 null
@@ -55,6 +57,7 @@ public class ReaderThread extends Thread {
             } catch (ClassNotFoundException e) {
                 try {
                     managerResponseQueue.put(new ResponsePacket(
+                            ResponseType.ERROR,
                             Codes.ERROR,
                             "Ошибка десериализации ответа: " + e.getMessage(),
                             null

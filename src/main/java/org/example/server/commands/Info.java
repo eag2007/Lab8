@@ -2,6 +2,7 @@ package org.example.server.commands;
 
 import org.example.packet.collection.RouteClient;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.interfaces.Command;
 import org.example.server.logger.ServerLogger;
@@ -22,6 +23,7 @@ public class Info implements Command {
             info.put("type", "PriorityQueue<Route>");
 
             Server.writeExecutor(
+                    ResponseType.INFO,
                     Codes.OK,
                     "Информация о коллекции",
                     info,
@@ -34,6 +36,7 @@ public class Info implements Command {
             ServerLogger.error("Ошибка info: {}", e.getMessage());
 
             Server.writeExecutor(
+                    ResponseType.INFO,
                     Codes.ERROR,
                     "Ошибка: " + e.getMessage(),
                     null,

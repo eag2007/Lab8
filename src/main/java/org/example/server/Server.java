@@ -4,6 +4,7 @@ import org.example.packet.CommandPacket;
 import org.example.packet.ResponsePacket;
 import org.example.packet.collection.Route;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.logger.ServerLogger;
 import org.example.server.managers.ManagerCollections;
 import org.example.server.managers.ManagerDataBase;
@@ -213,8 +214,9 @@ public class Server {
         return loginToChannel;
     }
 
-    public static void writeExecutor(Codes status_code, String message, Object data, SocketChannel clientChannel) {
+    public static void writeExecutor(ResponseType type, Codes status_code, String message, Object data, SocketChannel clientChannel) {
         ResponsePacket response = new ResponsePacket(
+                type,
                 status_code,
                 message,
                 data

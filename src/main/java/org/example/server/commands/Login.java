@@ -2,6 +2,7 @@ package org.example.server.commands;
 
 import org.example.packet.collection.RouteClient;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.interfaces.Command;
 import org.example.server.logger.ServerLogger;
@@ -20,6 +21,7 @@ public class Login implements Command {
             if (conn == null) {
 
                 Server.writeExecutor(
+                        ResponseType.LOGIN,
                         Codes.ERROR,
                         "База данных временно недоступна",
                         null,
@@ -47,6 +49,7 @@ public class Login implements Command {
                     Server.getLoginToChannel().put(login, clientChannel);
 
                     Server.writeExecutor(
+                            ResponseType.LOGIN,
                             Codes.OK,
                             "Успешно вошли в аккаунт",
                             null,
@@ -57,6 +60,7 @@ public class Login implements Command {
                 } else {
 
                     Server.writeExecutor(
+                            ResponseType.LOGIN,
                             Codes.WARNING,
                             "Неверный пароль",
                             null,
@@ -70,6 +74,7 @@ public class Login implements Command {
             } else {
 
                 Server.writeExecutor(
+                        ResponseType.LOGIN,
                         Codes.WARNING,
                         "Пользователь не найден",
                         null,
@@ -83,6 +88,7 @@ public class Login implements Command {
             ServerLogger.error("Ошибка БД при входе: {}", e.getMessage());
 
             Server.writeExecutor(
+                    ResponseType.LOGIN,
                     Codes.ERROR,
                     "Ошибка входа",
                     null,

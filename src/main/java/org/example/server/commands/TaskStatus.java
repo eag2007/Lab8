@@ -2,6 +2,7 @@ package org.example.server.commands;
 
 import org.example.packet.collection.RouteClient;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.interfaces.Command;
 import org.example.server.logger.ServerLogger;
@@ -21,6 +22,7 @@ public class TaskStatus implements Command {
             try {
 
                 Server.writeExecutor(
+                        ResponseType.TASK_STATUS,
                         Codes.WARNING,
                         "Использование: task_status {taskId}",
                         null,
@@ -39,6 +41,7 @@ public class TaskStatus implements Command {
             try {
 
                 Server.writeExecutor(
+                        ResponseType.TASK_STATUS,
                         Codes.WARNING,
                         "Задача с id '" + taskId + "' не найдена",
                         null,
@@ -63,6 +66,7 @@ public class TaskStatus implements Command {
 
         try {
             Server.writeExecutor(
+                    ResponseType.TASK_STATUS,
                     Codes.OK,
                     "Статус задачи",
                     data,

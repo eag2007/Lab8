@@ -3,6 +3,7 @@ package org.example.server.commands;
 import org.example.packet.collection.Route;
 import org.example.packet.collection.RouteClient;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.interfaces.Command;
 import org.example.server.logger.ServerLogger;
@@ -28,6 +29,7 @@ public class See implements Command {
             if (total == 0) {
 
                 Server.writeExecutor(
+                        ResponseType.SEE,
                         Codes.OK,
                         "Коллекция пуста",
                         null,
@@ -45,6 +47,7 @@ public class See implements Command {
                 } catch (NumberFormatException e) {
 
                     Server.writeExecutor(
+                            ResponseType.SEE,
                             Codes.WARNING,
                             "Неверный номер страницы",
                             null,
@@ -63,6 +66,7 @@ public class See implements Command {
                 } catch (NumberFormatException e) {
 
                     Server.writeExecutor(
+                            ResponseType.SEE,
                             Codes.WARNING,
                             "Неверный размер страницы",
                             null,
@@ -95,6 +99,7 @@ public class See implements Command {
                     page, totalPages, pageSize);
 
             Server.writeExecutor(
+                    ResponseType.SEE,
                     Codes.OK,
                     message,
                     data,
@@ -107,6 +112,7 @@ public class See implements Command {
             ServerLogger.error("Ошибка в see: {}", e.getMessage());
             try {
                 Server.writeExecutor(
+                        ResponseType.SEE,
                         Codes.ERROR,
                         "Ошибка: " + e.getMessage(),
                         null,

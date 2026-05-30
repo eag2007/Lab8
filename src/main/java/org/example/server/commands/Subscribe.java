@@ -1,6 +1,7 @@
 package org.example.server.commands;
 
 import org.example.packet.collection.RouteClient;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.interfaces.Command;
 import org.example.packet.enums.Codes;
@@ -18,6 +19,7 @@ public class Subscribe implements Command {
             if (args[0].equals("false")) {
 
                 Server.writeExecutor(
+                        ResponseType.SUBSCRIBE,
                         Codes.PUSH,
                         managerPush.deleteSubscribe(login, false) ?
                                 "Вы отписались от рассылки уведомлений" : "Вы не были подписаны на рассылку уведомлений",
@@ -30,6 +32,7 @@ public class Subscribe implements Command {
                 managerPush.addSubscribe(login, false);
 
                 Server.writeExecutor(
+                        ResponseType.SUBSCRIBE,
                         Codes.PUSH,
                         "Вы подписались на рассылку уведомлений",
                         null,
@@ -40,6 +43,7 @@ public class Subscribe implements Command {
             } else {
 
                 Server.writeExecutor(
+                        ResponseType.SUBSCRIBE,
                         Codes.PUSH_ERROR,
                         "Неверный тип аргумента команды",
                         null,
@@ -51,6 +55,7 @@ public class Subscribe implements Command {
         }
 
         Server.writeExecutor(
+                ResponseType.SUBSCRIBE,
                 Codes.PUSH_ERROR,
                 "Неверное количество аргументов",
                 null,

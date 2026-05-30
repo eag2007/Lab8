@@ -1,6 +1,7 @@
 package org.example.server.managers;
 
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 
 import java.nio.channels.SocketChannel;
@@ -34,6 +35,7 @@ public class ManagerPush {
             SocketChannel channel = Server.getLoginToChannel().get(login);
             if (channel != null && channel.isOpen()) {
                 Server.writeExecutor(
+                        ResponseType.PUSH,
                         Codes.PUSH,
                         message,
                         null,

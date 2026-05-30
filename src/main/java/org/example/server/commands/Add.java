@@ -3,6 +3,7 @@ package org.example.server.commands;
 import org.example.packet.collection.Route;
 import org.example.packet.collection.RouteClient;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.interfaces.Command;
 import org.example.server.logger.ServerLogger;
@@ -19,6 +20,7 @@ public class Add implements Command {
             if (route == null) {
 
                 Server.writeExecutor(
+                        ResponseType.ADD,
                         Codes.WARNING,
                         "Маршрут с таким именем уже существует",
                         null,
@@ -31,6 +33,7 @@ public class Add implements Command {
             managerCollections.addCollections(route);
 
             Server.writeExecutor(
+                    ResponseType.ADD,
                     Codes.OK,
                     "Объект добавлен в коллекцию с ID: " + route.getId(),
                     route.getId(),
@@ -46,6 +49,7 @@ public class Add implements Command {
             if ("DB_UNAVAILABLE".equals(e.getMessage())) {
 
                 Server.writeExecutor(
+                        ResponseType.ADD,
                         Codes.ERROR,
                         "База данных на сервере недоступна",
                         null,
@@ -58,6 +62,7 @@ public class Add implements Command {
             ServerLogger.error("Ошибка добавления: {}", e.getMessage());
 
             Server.writeExecutor(
+                    ResponseType.ADD,
                     Codes.ERROR,
                     "Ошибка добавления: " + e.getMessage(),
                     null,

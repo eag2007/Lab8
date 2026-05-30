@@ -5,6 +5,7 @@ import org.example.packet.collection.Location;
 import org.example.packet.collection.Route;
 import org.example.packet.collection.RouteClient;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.interfaces.Command;
 import org.example.server.logger.ServerLogger;
@@ -31,6 +32,7 @@ public class GenerateData implements Command {
         if (args.length < 1) {
             try {
                 Server.writeExecutor(
+                        ResponseType.GENERATE_DATA,
                         Codes.WARNING,
                         "Использование: generate_data {count}",
                         null,
@@ -49,6 +51,7 @@ public class GenerateData implements Command {
         } catch (NumberFormatException e) {
             try {
                 Server.writeExecutor(
+                        ResponseType.GENERATE_DATA,
                         Codes.WARNING,
                         "Аргумент count должен быть положительным целым числом",
                         null,
@@ -69,6 +72,7 @@ public class GenerateData implements Command {
             responseData.put("count", String.valueOf(count));
 
             Server.writeExecutor(
+                    ResponseType.GENERATE_DATA,
                     Codes.OK,
                     "Задача принята. Используйте 'task_status " + taskId + "' для проверки статуса.",
                     responseData,

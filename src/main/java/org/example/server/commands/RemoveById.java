@@ -2,6 +2,7 @@ package org.example.server.commands;
 
 import org.example.packet.collection.RouteClient;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.interfaces.Command;
 import org.example.server.logger.ServerLogger;
@@ -16,6 +17,7 @@ public class RemoveById implements Command {
             if (args == null || args.length < 1) {
 
                 Server.writeExecutor(
+                        ResponseType.REMOVE_BY_ID,
                         Codes.WARNING,
                         "Не указан ID",
                         null,
@@ -32,6 +34,7 @@ public class RemoveById implements Command {
             if (deletedId == 0) {
 
                 Server.writeExecutor(
+                        ResponseType.REMOVE_BY_ID,
                         Codes.WARNING,
                         "Элемент с id " + id + " не найден у пользователя " + login,
                         null,
@@ -44,6 +47,7 @@ public class RemoveById implements Command {
             if (deletedId == -1) {
 
                 Server.writeExecutor(
+                        ResponseType.REMOVE_BY_ID,
                         Codes.ERROR,
                         "Ошибка при удалении из БД",
                         null,
@@ -56,6 +60,7 @@ public class RemoveById implements Command {
             if (deletedId == -3) {
 
                 Server.writeExecutor(
+                        ResponseType.REMOVE_BY_ID,
                         Codes.ERROR,
                         "База данных на сервере недоступна",
                         null,
@@ -68,6 +73,7 @@ public class RemoveById implements Command {
             managerCollections.removeRouteById(id);
 
             Server.writeExecutor(
+                    ResponseType.REMOVE_BY_ID,
                     Codes.OK,
                     "Элемент с id " + id + " удалён",
                     null,
@@ -81,6 +87,7 @@ public class RemoveById implements Command {
         } catch (NumberFormatException e) {
 
             Server.writeExecutor(
+                    ResponseType.REMOVE_BY_ID,
                     Codes.WARNING,
                     "ID должен быть числом",
                     null,
@@ -93,6 +100,7 @@ public class RemoveById implements Command {
             ServerLogger.error("Ошибка удаления: {}", e.getMessage());
 
             Server.writeExecutor(
+                    ResponseType.REMOVE_BY_ID,
                     Codes.ERROR,
                     "Ошибка: " + e.getMessage(),
                     null,

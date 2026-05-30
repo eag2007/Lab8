@@ -43,6 +43,7 @@ task clientJar(type: Jar) {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
     exclude 'org/example/server/**'
+    exclude 'org/example/gui/**'
 }
 
 task serverJar(type: Jar) {
@@ -56,6 +57,7 @@ task serverJar(type: Jar) {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
     exclude 'org/example/client/**'
+    exclude 'org/example/gui/**'
 }
 
 task buildClient {
@@ -66,20 +68,33 @@ task buildServer {
     dependsOn serverJar
 }
 
-task guiJar(type: Jar) {
-    archiveBaseName = 'gui-client'
-    archiveVersion  = '1.0'
-    manifest { attributes 'Main-Class': 'org.example.gui.GuiClient' }
+task clientGuiJar(type: Jar) {
+    archiveBaseName = 'client-gui'
+    archiveVersion = '1.0'
+    manifest {
+        attributes 'Main-Class': 'org.example.gui.Main'
+    }
     from sourceSets.main.output
-    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
     exclude 'org/example/server/**'
+    exclude 'org/example/client/**'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from {
+        project.sourceSets.main.runtimeClasspath.findAll {
+            it.name.contains('javafx') || it.name.contains('javafx-base') || it.name.contains('javafx-controls') || it.name.contains('javafx-fxml')
+        }.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
+
 task buildGui {
-    dependsOn guiJar
+    dependsOn clientGuiJar
 }
 
 task buildAll {
-    dependsOn clientJar, serverJar, guiJar
+    dependsOn clientJar, serverJar, clientGuiJar
 }
 
 tasks.withType(JavaExec) {
@@ -87,4 +102,13 @@ tasks.withType(JavaExec) {
 }
 kotlin {
     jvmToolchain(17)
+}
+
+task runGui(type: JavaExec) {
+    mainClass = 'org.example.gui.Main'
+    classpath = sourceSets.main.runtimeClasspath
+    jvmArgs = [
+            '--module-path', classpath.asPath,
+            '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
 }

@@ -3,6 +3,7 @@ package org.example.server.commands;
 import org.example.packet.collection.Route;
 import org.example.packet.collection.RouteClient;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.interfaces.Command;
 import org.example.server.logger.ServerLogger;
@@ -18,6 +19,7 @@ public class AddIfMax implements Command {
             if (value == null) {
 
                 Server.writeExecutor(
+                        ResponseType.ADD_IF_MAX,
                         Codes.WARNING,
                         "Не переданы данные элемента",
                         null,
@@ -46,6 +48,7 @@ public class AddIfMax implements Command {
                 if (maxRoute != null && tempRoute.compareTo(maxRoute) <= 0) {
 
                     Server.writeExecutor(
+                            ResponseType.ADD_IF_MAX,
                             Codes.WARNING,
                             "Элемент не добавлен (не превышает максимальный)",
                             null,
@@ -61,6 +64,7 @@ public class AddIfMax implements Command {
             if (newRoute == null) {
 
                 Server.writeExecutor(
+                        ResponseType.ADD_IF_MAX,
                         Codes.WARNING,
                         "Маршрут с таким именем уже существует",
                         null,
@@ -73,6 +77,7 @@ public class AddIfMax implements Command {
             managerCollections.addCollections(newRoute);
 
             Server.writeExecutor(
+                    ResponseType.ADD_IF_MAX,
                     Codes.OK,
                     "Элемент добавлен с ID: " + newRoute.getId(),
                     newRoute.getId(),
@@ -87,6 +92,7 @@ public class AddIfMax implements Command {
             if ("DB_UNAVAILABLE".equals(e.getMessage())) {
 
                 Server.writeExecutor(
+                        ResponseType.ADD_IF_MAX,
                         Codes.ERROR,
                         "База данных на сервере недоступна",
                         null,
@@ -99,6 +105,7 @@ public class AddIfMax implements Command {
             ServerLogger.error("Ошибка при добавлении: {}", e.getMessage());
 
             Server.writeExecutor(
+                    ResponseType.ADD_IF_MAX,
                     Codes.ERROR,
                     "Ошибка: " + e.getMessage(),
                     null,

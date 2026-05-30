@@ -2,6 +2,7 @@ package org.example.server.commands;
 
 import org.example.packet.collection.RouteClient;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.interfaces.Command;
 import org.example.server.logger.ServerLogger;
@@ -19,6 +20,7 @@ public class Clear implements Command {
             if (flag >= 0) {
 
                 Server.writeExecutor(
+                        ResponseType.CLEAR,
                         Codes.OK,
                         "Коллекция очищена",
                         null,
@@ -32,6 +34,7 @@ public class Clear implements Command {
 
             if (flag == -3) {
                 Server.writeExecutor(
+                        ResponseType.CLEAR,
                         Codes.ERROR,
                         "База данных на сервере недоступна",
                         null,
@@ -41,6 +44,7 @@ public class Clear implements Command {
             }
 
             Server.writeExecutor(
+                    ResponseType.CLEAR,
                     Codes.WARNING,
                     "Коллекция очистилась но сохранилась в БД",
                     null,
@@ -53,6 +57,7 @@ public class Clear implements Command {
             try {
 
                 Server.writeExecutor(
+                        ResponseType.CLEAR,
                         Codes.ERROR,
                         "Ошибка: " + e.getMessage(),
                         null,

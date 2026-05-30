@@ -3,6 +3,7 @@ package org.example.server.commands;
 import org.example.packet.collection.Route;
 import org.example.packet.collection.RouteClient;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.interfaces.Command;
 import org.example.server.logger.ServerLogger;
@@ -17,6 +18,7 @@ public class Update implements Command {
             if (args == null || args.length < 1) {
 
                 Server.writeExecutor(
+                        ResponseType.UPDATE,
                         Codes.WARNING,
                         "Не указан ID",
                         null,
@@ -34,6 +36,7 @@ public class Update implements Command {
                 if (existingRoute == null) {
 
                     Server.writeExecutor(
+                            ResponseType.UPDATE,
                             Codes.WARNING,
                             "Элемент с id " + id + " не найден у пользователя " + login,
                             null,
@@ -44,6 +47,7 @@ public class Update implements Command {
                 }
 
                 Server.writeExecutor(
+                        ResponseType.UPDATE,
                         Codes.OK,
                         "Элемент с id " + id + " найден",
                         existingRoute,
@@ -58,6 +62,7 @@ public class Update implements Command {
             if (updatedRoute == null) {
 
                 Server.writeExecutor(
+                        ResponseType.UPDATE,
                         Codes.WARNING,
                         "Элемент с id " + id + " не найден у пользователя " + login,
                         null,
@@ -70,6 +75,7 @@ public class Update implements Command {
             managerCollections.updateRoute(updatedRoute);
 
             Server.writeExecutor(
+                    ResponseType.UPDATE,
                     Codes.OK,
                     "Элемент с id " + id + " обновлен",
                     null,
@@ -83,6 +89,7 @@ public class Update implements Command {
         } catch (NumberFormatException e) {
 
             Server.writeExecutor(
+                    ResponseType.UPDATE,
                     Codes.WARNING,
                     "ID должен быть числом",
                     null,
@@ -95,6 +102,7 @@ public class Update implements Command {
             if ("DB_UNAVAILABLE".equals(e.getMessage())) {
 
                 Server.writeExecutor(
+                        ResponseType.UPDATE,
                         Codes.ERROR,
                         "База данных на сервере недоступна",
                         null,
@@ -107,6 +115,7 @@ public class Update implements Command {
             ServerLogger.error("Ошибка в update: {}", e.getMessage());
 
             Server.writeExecutor(
+                    ResponseType.UPDATE,
                     Codes.ERROR,
                     "Ошибка: " + e.getMessage(),
                     null,

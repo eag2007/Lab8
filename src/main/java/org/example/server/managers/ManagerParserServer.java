@@ -3,6 +3,7 @@ package org.example.server.managers;
 import org.example.packet.CommandPacket;
 import org.example.packet.ResponsePacket;
 import org.example.packet.enums.Codes;
+import org.example.packet.enums.ResponseType;
 import org.example.server.Server;
 import org.example.server.commands.*;
 import org.example.server.interfaces.Command;
@@ -90,6 +91,7 @@ public class ManagerParserServer {
 
     private void sendError(SocketChannel clientChannel, Codes code, String message) {
         Server.writeExecutor(
+                ResponseType.ERROR,
                 code,
                 message,
                 null,
