@@ -6,6 +6,14 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import org.example.gui.managers.ManagerAuth;
+import org.example.packet.CommandPacket;
+import org.example.packet.ResponsePacket;
+import org.example.packet.enums.Codes;
+
+import java.io.IOException;
+
+import static org.example.gui.Main.*;
 
 
 public class LoginController {
@@ -23,32 +31,29 @@ public class LoginController {
 
     @FXML
     private void onLoginClick() {
-        System.out.println("КНОПКА НАЖАТА!!!!!");  // ЭТО ДОЛЖНО ВЫВЕСТИСЬ
         String login = loginField.getText();
         String password = passwordField.getText();
 
-//        try {
-//            CommandPacket packet = new CommandPacket("login", null, null, login, password);
-//            writeModule.writePacketForServer(server, packet);
-//            ResponsePacket response = readModule.readResponseForClient(server);
-//
-////            if (response != null && response.getStatusCode() == Codes.OK) {
-////                Client.login = inputLogin;
-////                Client.password_hash = inputPassword;
-////                managerInputOutput.writeLineIO("Вы вошли в аккаунт\n", Colors.GREEN);
-////                return true;
-////            }
-//            //managerInputOutput.writeLineIO("Ошибка входа: " + (response != null ? response.getMessage() : "нет ответа") + "\n", Colors.RED);
-//        } catch (Exception e) {
-//            //managerInputOutput.writeLineIO("Соединение потеряно, переподключение...\n", Colors.YELLOW);
-//            //closeServer();
-//            //connect(currentPort);
-//        }
+        try {
+            CommandPacket packet = new CommandPacket(
+                    "login",
+                    null,
+                    null,
+                    login,
+                    password
+            );
 
-        System.out.println(login);
-        System.out.println(password);
+            writeModule.writePacketForServer(server, packet);
+            ResponsePacket responsePacket = readModule.readResponseForClient(server);
 
-        showMainWindow(login);
+            if (responsePacket != null && responsePacket.getStatusCode().equals(Codes.OK)) {
+                ManagerAuth.setLogin(login);
+                ManagerAuth.setPassword(password);
+                showMainWindow(login);
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

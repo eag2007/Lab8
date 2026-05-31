@@ -2,16 +2,15 @@ package org.example.gui.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
 public class MainController {
 
     @FXML
-    private Label welcomeLabel;
+    private StackPane mainRoot;
 
     public void setUsername(String name) {
-        welcomeLabel.setText("Привет, " + name + "!");
+        System.out.println("pop");
     }
 
     @FXML
@@ -22,7 +21,7 @@ public class MainController {
             );
             StackPane loginRoot = loader.load();
 
-            StackPane root = (StackPane) welcomeLabel.getScene().getRoot();
+            StackPane root = (StackPane) mainRoot.getScene().getRoot();
             root.getChildren().clear();
             root.getChildren().add(loginRoot);
 

@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.layout.RowConstraints?>
-<StackPane style="-fx-background-color: #2b2b2b;" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.gui.controllers.MainController">
+<StackPane prefHeight="647.0" prefWidth="1029.0" style="-fx-background-color: #2b2b2b;" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.gui.controllers.MainController">
     <VBox prefHeight="500.0" prefWidth="800.0">
         <children>
             <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
@@ -21,17 +21,20 @@
                                 <children>
                                     <VBox spacing="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
                                         <children>
+                                            <!-- 16 кнопок в 2 ряда по 8 -->
                                             <GridPane alignment="CENTER" hgap="10" style="-fx-padding: 20;" vgap="10">
                                                 <children>
+                                                    <!-- Ряд 1 -->
                                                     <Button maxWidth="Infinity" text="ADD" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
                                                     <Button maxWidth="Infinity" text="ADD IF MAX" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
-                                                    <Button maxWidth="Infinity" text=" AVG DIST" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
+                                                    <Button maxWidth="Infinity" text=" AVERAGE OF DISTANCE" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
                                                     <Button maxWidth="Infinity" text="CLEAR" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
                                                     <Button maxWidth="Infinity" text="EXECUTE SCRIPT" GridPane.columnIndex="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
-                                                    <Button maxWidth="Infinity" text="FILTER DIST" GridPane.columnIndex="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
+                                                    <Button maxWidth="Infinity" text="FILTER DISTINCE" GridPane.columnIndex="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
                                                     <Button maxWidth="Infinity" text="HELP" GridPane.columnIndex="6" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
                                                     <Button maxWidth="Infinity" text="INFO" GridPane.columnIndex="7" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
 
+                                                    <!-- Ряд 2 -->
                                                     <Button maxWidth="Infinity" text="REMOVE ID" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
                                                     <Button maxWidth="Infinity" text="REMOVE FIRST" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
                                                     <Button maxWidth="Infinity" text="Кнопка 11" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
@@ -65,6 +68,52 @@
                             </AnchorPane>
                         </content>
                     </Tab>
+               <Tab text="Вкладка 2">
+                  <content>
+                     <AnchorPane>
+                        <children>
+                           <VBox spacing="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+                              <children>
+                                 <GridPane alignment="CENTER" hgap="10" style="-fx-padding: 20;" vgap="10">
+                                    <children>
+                                       <Button maxWidth="Infinity" text="ADD" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
+                                       <Button maxWidth="Infinity" text="ADD IF MAX" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
+                                       <Button maxWidth="Infinity" text=" AVG DIST" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
+                                       <Button maxWidth="Infinity" text="CLEAR" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
+                                       <Button maxWidth="Infinity" text="EXECUTE SCRIPT" GridPane.columnIndex="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
+                                       <Button maxWidth="Infinity" text="FILTER DIST" GridPane.columnIndex="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
+                                       <Button maxWidth="Infinity" text="HELP" GridPane.columnIndex="6" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
+                                       <Button maxWidth="Infinity" text="INFO" GridPane.columnIndex="7" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
+                                       <Button maxWidth="Infinity" text="REMOVE ID" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                       <Button maxWidth="Infinity" text="REMOVE FIRST" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                       <Button maxWidth="Infinity" text="Кнопка 11" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                       <Button maxWidth="Infinity" text="Кнопка 12" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                       <Button maxWidth="Infinity" text="Кнопка 13" GridPane.columnIndex="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                       <Button maxWidth="Infinity" text="Кнопка 14" GridPane.columnIndex="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                       <Button maxWidth="Infinity" text="Кнопка 15" GridPane.columnIndex="6" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                       <Button maxWidth="Infinity" onAction="#onLogoutClick" style="-fx-background-color: #ff4444; -fx-text-fill: white;" text="Выйти" GridPane.columnIndex="7" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                    </children>
+                                    <columnConstraints>
+                                       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="12.5" />
+                                       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="12.5" />
+                                       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="12.5" />
+                                       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="12.5" />
+                                       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="12.5" />
+                                       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="12.5" />
+                                       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="12.5" />
+                                       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="12.5" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                       <RowConstraints percentHeight="50" vgrow="ALWAYS" />
+                                       <RowConstraints percentHeight="50" vgrow="ALWAYS" />
+                                    </rowConstraints>
+                                 </GridPane>
+                              </children>
+                           </VBox>
+                        </children>
+                     </AnchorPane>
+                  </content>
+               </Tab>
                 </tabs>
             </TabPane>
         </children>
