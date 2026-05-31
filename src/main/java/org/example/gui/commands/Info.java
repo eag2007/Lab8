@@ -4,7 +4,6 @@ import org.example.gui.managers.ManagerAuth;
 import org.example.packet.CommandPacket;
 
 import java.io.IOException;
-import java.nio.channels.SocketChannel;
 
 import static org.example.gui.Main.server;
 import static org.example.gui.Main.writeModule;

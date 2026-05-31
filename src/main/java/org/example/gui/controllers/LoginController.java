@@ -3,10 +3,12 @@ package org.example.gui.controllers;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.example.gui.Main;
 import org.example.gui.managers.ManagerAuth;
 import org.example.packet.CommandPacket;
@@ -20,11 +22,17 @@ public class LoginController {
     @FXML private TextField loginField;
     @FXML private PasswordField passwordField;
     @FXML private VBox loginBox;
+    @FXML private Label errorLabel;
 
     @FXML
     private void onLoginClick() {
         String login = loginField.getText();
         String password = passwordField.getText();
+
+        if (login.isBlank() || password.isBlank()) {
+            if (errorLabel != null) errorLabel.setText("Заполните все поля");
+            return;
+        }
 
         new Thread(() -> {
             try {
@@ -36,9 +44,17 @@ public class LoginController {
                     ManagerAuth.setPassword(password);
                     Main.startThreads();
                     Platform.runLater(this::showMainWindow);
+                } else {
+                    String msg = response != null ? response.getMessage() : "Нет ответа от сервера";
+                    Platform.runLater(() -> {
+                        if (errorLabel != null) errorLabel.setText("Ошибка: " + msg);
+                    });
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                Platform.runLater(() -> {
+                    if (errorLabel != null) errorLabel.setText("Ошибка соединения");
+                });
             }
         }).start();
     }
@@ -51,10 +67,10 @@ public class LoginController {
     private void showMainWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fxml/main.fxml"));
-            StackPane mainRoot = loader.load();
-            StackPane root = (StackPane) loginBox.getParent();
-            root.getChildren().clear();
-            root.getChildren().add(mainRoot);
+            Parent mainRoot = loader.load();
+            // Меняем корень сцены — надёжнее чем менять детей StackPane
+            Stage stage = (Stage) loginBox.getScene().getWindow();
+            stage.getScene().setRoot(mainRoot);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,10 +79,9 @@ public class LoginController {
     private void showRegisterWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fxml/register.fxml"));
-            StackPane registerRoot = loader.load();
-            StackPane root = (StackPane) loginBox.getParent();
-            root.getChildren().clear();
-            root.getChildren().add(registerRoot);
+            Parent registerRoot = loader.load();
+            Stage stage = (Stage) loginBox.getScene().getWindow();
+            stage.getScene().setRoot(registerRoot);
         } catch (Exception e) {
             e.printStackTrace();
         }

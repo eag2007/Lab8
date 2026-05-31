@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.example.gui.Main;
 import org.example.gui.controllers.InfoController;
 import org.example.packet.ResponsePacket;
@@ -82,11 +83,20 @@ public class GUIPrinter extends Thread {
             VBox root = loader.load();
             InfoController controller = loader.getController();
             controller.setInfo(text);
+
             Stage stage = new Stage();
             stage.setTitle(title);
             stage.initModality(Modality.APPLICATION_MODAL);
+            List<Window> windows = Stage.getWindows().stream()
+                    .filter(Window::isShowing)
+                    .toList();
+            if (!windows.isEmpty()) {
+                stage.initOwner(windows.get(0));
+            }
+
             stage.setScene(new Scene(root));
             stage.show();
+            stage.toFront();
         } catch (Exception e) {
             e.printStackTrace();
         }

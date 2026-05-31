@@ -4,10 +4,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import org.example.gui.Main;
 import org.example.gui.commands.Info;
 import org.example.gui.commands.Show;
@@ -79,10 +81,9 @@ public class MainController {
     private void onLogoutClick() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fxml/login.fxml"));
-            StackPane loginRoot = loader.load();
-            StackPane root = (StackPane) mainRoot.getScene().getRoot();
-            root.getChildren().clear();
-            root.getChildren().add(loginRoot);
+            Parent loginRoot = loader.load();
+            Stage stage = (Stage) mainRoot.getScene().getWindow();
+            stage.getScene().setRoot(loginRoot);
         } catch (Exception e) {
             e.printStackTrace();
         }
