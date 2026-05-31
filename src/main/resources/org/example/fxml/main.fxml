@@ -21,24 +21,21 @@
                                 <children>
                                     <VBox spacing="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
                                         <children>
-                                            <!-- 16 кнопок в 2 ряда по 8 -->
                                             <GridPane alignment="CENTER" hgap="10" style="-fx-padding: 20;" vgap="10">
                                                 <children>
-                                                    <!-- Ряд 1 -->
                                                     <Button maxWidth="Infinity" text="ADD" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
                                                     <Button maxWidth="Infinity" text="ADD IF MAX" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
-                                                    <Button maxWidth="Infinity" text=" AVERAGE OF DISTANCE" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
+                                                    <Button maxWidth="Infinity" text="AVERAGE OF DISTANCE" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
                                                     <Button maxWidth="Infinity" text="CLEAR" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
                                                     <Button maxWidth="Infinity" text="EXECUTE SCRIPT" GridPane.columnIndex="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
-                                                    <Button maxWidth="Infinity" text="FILTER DISTINCE" GridPane.columnIndex="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
+                                                    <Button maxWidth="Infinity" text="FILTER DISTANCE" GridPane.columnIndex="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
                                                     <Button maxWidth="Infinity" text="HELP" GridPane.columnIndex="6" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
-                                                    <Button maxWidth="Infinity" text="INFO" GridPane.columnIndex="7" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
+                                                    <Button maxWidth="Infinity" text="INFO" GridPane.columnIndex="7" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" onAction="onInfoClick" />
 
-                                                    <!-- Ряд 2 -->
                                                     <Button maxWidth="Infinity" text="REMOVE ID" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
                                                     <Button maxWidth="Infinity" text="REMOVE FIRST" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
-                                                    <Button maxWidth="Infinity" text="Кнопка 11" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
-                                                    <Button maxWidth="Infinity" text="Кнопка 12" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                                    <Button maxWidth="Infinity" text="UPDATE" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                                    <Button maxWidth="Infinity" text="REMOVE ALL BY DISTANCE" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
                                                     <Button maxWidth="Infinity" text="Кнопка 13" GridPane.columnIndex="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
                                                     <Button maxWidth="Infinity" text="Кнопка 14" GridPane.columnIndex="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
                                                     <Button maxWidth="Infinity" text="Кнопка 15" GridPane.columnIndex="6" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
@@ -78,7 +75,7 @@
                                     <children>
                                        <Button maxWidth="Infinity" text="ADD" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
                                        <Button maxWidth="Infinity" text="ADD IF MAX" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
-                                       <Button maxWidth="Infinity" text=" AVG DIST" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
+                                       <Button maxWidth="Infinity" text=" DIST" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
                                        <Button maxWidth="Infinity" text="CLEAR" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
                                        <Button maxWidth="Infinity" text="EXECUTE SCRIPT" GridPane.columnIndex="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
                                        <Button maxWidth="Infinity" text="FILTER DIST" GridPane.columnIndex="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />

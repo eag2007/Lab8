@@ -8,7 +8,7 @@
            fx:controller="org.example.gui.controllers.RegisterController"
            style="-fx-background-color: #2b2b2b;">
 
-    <VBox fx:id="registeBox" spacing="10" alignment="CENTER"
+    <VBox fx:id="registerBox" spacing="10" alignment="CENTER"
           prefWidth="300" prefHeight="350"
           maxWidth="300" maxHeight="350"
           style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 5; -fx-background-radius: 5;">
