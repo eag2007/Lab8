@@ -8,16 +8,16 @@ import java.io.IOException;
 import static org.example.gui.Main.server;
 import static org.example.gui.Main.writeModule;
 
-public class Show {
+public class RemoveFirst {
     public void executeCommand() {
         try {
             writeModule.writePacketForServer(server,
-                    new CommandPacket("show", new String[]{}, null, ManagerAuth.getLogin(), ManagerAuth.getPassword()));
+                    new CommandPacket("remove_first", new String[]{}, null, ManagerAuth.getLogin(), ManagerAuth.getPassword()));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public String toString() { return "show - выводит все элементы коллекции"; }
+    public String toString() { return "remove_first - удаляет первый элемент"; }
 }

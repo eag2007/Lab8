@@ -1,0 +1,103 @@
+.root {
+    -fx-dark-bg: #0d0d0d;
+    -fx-secondary-bg: #111111;
+    -fx-tertiary-bg: #161616;
+    -fx-accent: #5865f2;
+    -fx-border-color: #2a2a2a;
+    -fx-border-light: #1e1e1e;
+    -fx-text-primary: #f0f0f0;
+    -fx-text-secondary: #aaa;
+    -fx-text-muted: #555;
+    -fx-text-dark: #444;
+    -fx-error: #e05252;
+}
+
+.login-root {
+    -fx-background-color: #0d0d0d;
+}
+
+.login-accent-line {
+    -fx-fill: #5865f2;
+}
+
+.login-box {
+    -fx-background-color: #161616;
+    -fx-background-radius: 4;
+    -fx-border-color: #2a2a2a;
+    -fx-border-radius: 4;
+    -fx-border-width: 1;
+}
+
+.login-header {
+    -fx-padding: 40 40 28 40;
+    -fx-spacing: 6;
+}
+
+.login-label {
+    -fx-font-size: 13;
+    -fx-font-family: 'Courier New';
+    -fx-font-weight: bold;
+    -fx-text-fill: #5865f2;
+    -fx-letter-spacing: 4;
+}
+
+.login-title {
+    -fx-font-size: 30;
+    -fx-font-family: 'Georgia';
+    -fx-text-fill: #f0f0f0;
+    -fx-font-weight: bold;
+}
+
+.login-subtitle {
+    -fx-font-size: 15;
+    -fx-font-family: 'Courier New';
+    -fx-text-fill: #555;
+}
+
+.login-fields {
+    -fx-padding: 0 40 0 40;
+    -fx-spacing: 16;
+}
+
+.login-field {
+    -fx-background-color: #0d0d0d;
+    -fx-border-color: #2a2a2a;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+    -fx-border-width: 1;
+    -fx-text-fill: #f0f0f0;
+    -fx-prompt-text-fill: #444;
+    -fx-font-size: 15;
+    -fx-font-family: 'Courier New';
+    -fx-padding: 0 16 0 16;
+}
+
+.login-error {
+    -fx-text-fill: #e05252;
+    -fx-font-size: 13;
+    -fx-font-family: 'Courier New';
+    -fx-padding: 0 0 0 4;
+}
+
+.login-buttons {
+    -fx-padding: 20 40 32 40;
+    -fx-spacing: 16;
+}
+
+.login-btn {
+    -fx-background-color: #5865f2;
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+    -fx-font-family: 'Courier New';
+    -fx-font-weight: bold;
+    -fx-background-radius: 3;
+    -fx-cursor: hand;
+}
+
+.login-hyperlink {
+    -fx-text-fill: #5865f2;
+    -fx-font-size: 13;
+    -fx-font-family: 'Courier New';
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+}

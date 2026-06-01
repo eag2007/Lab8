@@ -10,7 +10,7 @@ import static org.example.gui.Main.writeModule;
 
 public class Info {
 
-    public void execute() {
+    public void executeCommand() {
         try {
             writeModule.writePacketForServer(server,
                     new CommandPacket("info", new String[]{}, null, ManagerAuth.getLogin(), ManagerAuth.getPassword()));
@@ -18,4 +18,7 @@ public class Info {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public String toString() { return "info - выводит информацию о коллекции"; }
 }

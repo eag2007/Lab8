@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 
-<StackPane xmlns="http://javafx.com/javafx"
-           xmlns:fx="http://javafx.com/fxml"
-           fx:controller="org.example.gui.controllers.RegisterController"
-           style="-fx-background-color: #2b2b2b;">
+<StackPane stylesheets="@../css/register.css" styleClass="register-root" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.gui.controllers.RegisterController">
 
-    <VBox fx:id="registerBox" spacing="10" alignment="CENTER"
-          prefWidth="300" prefHeight="350"
-          maxWidth="300" maxHeight="350"
-          style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 5; -fx-background-radius: 5;">
+    <Rectangle styleClass="register-accent-line" width="4" height="290" translateX="-232" translateY="0" arcWidth="4" arcHeight="4"/>
 
-        <Label text="Регистрация" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+    <VBox styleClass="register-box" fx:id="registerBox" alignment="CENTER" maxWidth="468" maxHeight="520" prefWidth="468" prefHeight="520" spacing="0">
 
-        <TextField fx:id="regLoginField" promptText="Логин" prefWidth="200"/>
-        <PasswordField fx:id="regPasswordField" promptText="Пароль" prefWidth="200"/>
-        <PasswordField fx:id="confirmPasswordField" promptText="Подтвердите пароль" prefWidth="200"/>
+        <VBox styleClass="register-header" alignment="CENTER">
+            <Label styleClass="register-label" text="ROUTE DB"/>
+            <Label styleClass="register-title" text="Регистрация"/>
+            <Label styleClass="register-subtitle" text="Создайте новый аккаунт"/>
+        </VBox>
 
-        <Button text="Зарегистрироваться" onAction="#onRegisterClick" prefWidth="200"/>
+        <VBox styleClass="register-fields">
+            <TextField styleClass="register-field" fx:id="regLoginField" promptText="Логин" prefHeight="48"/>
+            <PasswordField styleClass="register-field" fx:id="regPasswordField" promptText="Пароль" prefHeight="48"/>
+            <PasswordField styleClass="register-field" fx:id="confirmPasswordField" promptText="Подтвердите пароль" prefHeight="48"/>
+        </VBox>
 
-        <Hyperlink text="Уже есть аккаунт? Войти" onAction="#onLoginLinkClick"
-                   style="-fx-text-fill: #2b6f9e;"/>
-
+        <VBox styleClass="register-buttons" alignment="CENTER">
+            <Button styleClass="register-btn" onAction="#onRegisterClick" prefHeight="48" prefWidth="388" text="ЗАРЕГИСТРИРОВАТЬСЯ"/>
+            <Hyperlink styleClass="register-hyperlink" onAction="#onLoginLinkClick" text="Уже есть аккаунт? Войти"/>
+        </VBox>
     </VBox>
-
 </StackPane>

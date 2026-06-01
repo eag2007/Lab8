@@ -1,0 +1,95 @@
+.root {
+    -fx-dark-bg: #0d0d0d;
+    -fx-secondary-bg: #111111;
+    -fx-tertiary-bg: #161616;
+    -fx-accent: #5865f2;
+    -fx-border-color: #2a2a2a;
+    -fx-border-light: #1e1e1e;
+    -fx-text-primary: #f0f0f0;
+    -fx-text-secondary: #aaa;
+    -fx-text-muted: #555;
+    -fx-text-dark: #444;
+}
+
+.register-root {
+    -fx-background-color: #0d0d0d;
+}
+
+.register-accent-line {
+    -fx-fill: #5865f2;
+}
+
+.register-box {
+    -fx-background-color: #161616;
+    -fx-background-radius: 4;
+    -fx-border-color: #2a2a2a;
+    -fx-border-radius: 4;
+    -fx-border-width: 1;
+}
+
+.register-header {
+    -fx-padding: 40 40 28 40;
+    -fx-spacing: 6;
+}
+
+.register-label {
+    -fx-font-size: 13;
+    -fx-font-family: 'Courier New';
+    -fx-font-weight: bold;
+    -fx-text-fill: #5865f2;
+    -fx-letter-spacing: 4;
+}
+
+.register-title {
+    -fx-font-size: 30;
+    -fx-font-family: 'Georgia';
+    -fx-text-fill: #f0f0f0;
+    -fx-font-weight: bold;
+}
+
+.register-subtitle {
+    -fx-font-size: 15;
+    -fx-font-family: 'Courier New';
+    -fx-text-fill: #555;
+}
+
+.register-fields {
+    -fx-padding: 0 40 0 40;
+    -fx-spacing: 16;
+}
+
+.register-field {
+    -fx-background-color: #0d0d0d;
+    -fx-border-color: #2a2a2a;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+    -fx-border-width: 1;
+    -fx-text-fill: #f0f0f0;
+    -fx-prompt-text-fill: #444;
+    -fx-font-size: 15;
+    -fx-font-family: 'Courier New';
+    -fx-padding: 0 16 0 16;
+}
+
+.register-buttons {
+    -fx-padding: 20 40 32 40;
+    -fx-spacing: 16;
+}
+
+.register-btn {
+    -fx-background-color: #5865f2;
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+    -fx-font-family: 'Courier New';
+    -fx-font-weight: bold;
+    -fx-background-radius: 3;
+    -fx-cursor: hand;
+}
+
+.register-hyperlink {
+    -fx-text-fill: #5865f2;
+    -fx-font-size: 13;
+    -fx-font-family: 'Courier New';
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+}

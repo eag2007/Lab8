@@ -26,6 +26,10 @@ public class LoginController {
 
     @FXML
     private void onLoginClick() {
+        if (server == null || !server.isOpen()) {
+            reconnectServer();
+        }
+
         String login = loginField.getText();
         String password = passwordField.getText();
 
@@ -36,6 +40,11 @@ public class LoginController {
 
         new Thread(() -> {
             try {
+
+                if (Main.server == null || !Main.server.isOpen()) {
+                    Main.reconnectServer();
+                }
+
                 writeModule.writePacketForServer(server, new CommandPacket("login", null, null, login, password));
                 ResponsePacket response = readModule.readResponseForClient(server);
 
@@ -43,6 +52,7 @@ public class LoginController {
                     ManagerAuth.setLogin(login);
                     ManagerAuth.setPassword(password);
                     Main.startThreads();
+                    SubscribeController.onSubscribe();
                     Platform.runLater(this::showMainWindow);
                 } else {
                     String msg = response != null ? response.getMessage() : "Нет ответа от сервера";
@@ -68,7 +78,10 @@ public class LoginController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fxml/main.fxml"));
             Parent mainRoot = loader.load();
-            // Меняем корень сцены — надёжнее чем менять детей StackPane
+
+            MainController controller = loader.getController();
+            controller.setUserLogin();
+
             Stage stage = (Stage) loginBox.getScene().getWindow();
             stage.getScene().setRoot(mainRoot);
         } catch (Exception e) {

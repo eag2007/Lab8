@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.example.gui.Main;
 import org.example.gui.controllers.InfoController;
+import org.example.gui.controllers.SubscribeController;
 import org.example.packet.ResponsePacket;
 import org.example.packet.collection.Route;
 import org.example.packet.enums.Codes;
@@ -47,7 +48,13 @@ public class GUIPrinter extends Thread {
             handleInfo(packet);
         } else if (packet.getType() == ResponseType.SHOW) {
             handleShow(packet);
+        } else if (packet.getType() == ResponseType.PUSH) {
+            handlePush(packet);
         }
+    }
+
+    public void handlePush(ResponsePacket packet) {
+        SubscribeController.execute();
     }
 
     private void handleInfo(ResponsePacket packet) {
@@ -95,8 +102,8 @@ public class GUIPrinter extends Thread {
             }
 
             stage.setScene(new Scene(root));
-            stage.show();
-            stage.toFront();
+            stage.setResizable(false);
+            stage.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
         }

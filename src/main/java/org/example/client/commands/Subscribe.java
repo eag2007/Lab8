@@ -30,6 +30,6 @@ public class Subscribe implements Command {
 
     @Override
     public String toString() {
-        return "subscribe";
+        return "subscribe - устанавливает подписку на уведомления";
     }
 }
