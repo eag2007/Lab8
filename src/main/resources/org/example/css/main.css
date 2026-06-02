@@ -391,3 +391,17 @@
 .combo-box-popup .scroll-bar .decrement-arrow {
     -fx-background-color: #888888;
 }
+
+
+.table-view .virtual-flow .scroll-bar:vertical .corner {
+    -fx-background-color: #202020;
+}
+
+.table-view .scroll-bar:vertical .corner {
+    -fx-background-color: #202020;
+    -fx-background-radius: 0;
+}
+
+.table-view .filler {
+    -fx-background-color: #202020;
+}

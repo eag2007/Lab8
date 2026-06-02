@@ -32,6 +32,7 @@ import static org.example.gui.Main.server;
 
 public class MainController {
 
+    /// Колонки
     @FXML
     private StackPane mainRoot;
     @FXML
@@ -65,6 +66,7 @@ public class MainController {
     @FXML
     private TableColumn<Route, String> colDate;
 
+    /// Детали маршрута
     @FXML
     private Label routeIdLabel;
     @FXML
@@ -94,12 +96,14 @@ public class MainController {
     @FXML
     private Label routeDateLabel;
 
+    /// Визуализация
     @FXML
     private Label userLoginLabel;
     @FXML
     private Pane vizPane;
 
-    // Toolbar buttons
+
+    /// Кнопки
     @FXML
     private Label mainTitle;
     @FXML
