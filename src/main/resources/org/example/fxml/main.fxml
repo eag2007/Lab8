@@ -12,7 +12,8 @@
 <?import javafx.scene.shape.Rectangle?>
 
 <?import javafx.scene.control.TextField?>
-<StackPane stylesheets="@../css/main.css" styleClass="main-root" fx:id="mainRoot" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.gui.controllers.MainController">
+<StackPane stylesheets="@../css/main.css" styleClass="main-root" fx:id="mainRoot" xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.gui.controllers.MainController">
 
     <VBox prefHeight="800" prefWidth="1200">
 
@@ -28,24 +29,26 @@
             <Rectangle styleClass="toolbar-separator" width="1" height="24"/>
             <Button styleClass="btn-green" text="ADD" onAction="#onAddClick"/>
             <Button styleClass="btn-green" text="ADD IF MAX" onAction="#onAddIfMaxClick"/>
-            <Button styleClass="btn-green" text="UPDATE"/>
+            <Button styleClass="btn-green" text="UPDATE" onAction="#onUpdateClick"/>
             <Rectangle styleClass="toolbar-separator" width="1" height="24"/>
             <Button styleClass="btn-danger" text="REMOVE ID" onAction="#onRemoveByIdClick"/>
             <Button styleClass="btn-danger" text="REMOVE FIRST" onAction="#onRemoveFirstClick"/>
-            <Button styleClass="btn-danger" text="REMOVE ALL DIST"/>
+            <Button styleClass="btn-danger" text="REMOVE ALL DIST" onAction="#onRemoveAllDistClick"/>
             <Button styleClass="btn-danger" text="CLEAR" onAction="#onClearClick"/>
             <Rectangle styleClass="toolbar-separator" width="1" height="24"/>
-            <Button styleClass="btn-secondary" text="FILTER DIST"/>
-            <Button styleClass="btn-secondary" text="AVERAGE DIST"/>
+            <Button styleClass="btn-secondary" text="FILTER DIST" onAction="#onFilterDistClick"/>
+            <Button styleClass="btn-secondary" text="AVERAGE DIST" onAction="#onAverageDistanceClick"/>
             <Button styleClass="btn-secondary" text="EXECUTE SCRIPT"/>
             <Button styleClass="btn-secondary" text="HELP"/>
             <Button styleClass="btn-secondary" text="HISTORY"/>
-            <Label styleClass="btn-secondary" fx:id="userLoginLabel" text="не авторизован" style="-fx-padding: 8 15; -fx-background-radius: 4;"/>
+            <Label fx:id="userLoginLabel" text="не авторизован"
+                   style="-fx-padding: 8 15; -fx-background-radius: 20; -fx-background-color: #5865f2; -fx-text-fill: white; -fx-font-family: 'Courier New'; -fx-font-size: 13; -fx-font-weight: bold;"/>
             <HBox HBox.hgrow="ALWAYS"/>
             <Button styleClass="btn-secondary" onAction="#onLogoutClick" text="ВЫЙТИ"/>
         </HBox>
 
-        <TabPane VBox.vgrow="ALWAYS" style="-fx-background-color: #1a1a1a; -fx-tab-min-height: 40; -fx-tab-max-height: 40;">
+        <TabPane VBox.vgrow="ALWAYS"
+                 style="-fx-background-color: #1a1a1a; -fx-tab-min-height: 40; -fx-tab-max-height: 40;">
             <Tab text="ТАБЛИЦА" closable="false">
                 <HBox VBox.vgrow="ALWAYS" style="-fx-padding: 20 0 20 40; -fx-background-color: #1a1a1a;">
                     <TableView styleClass="main-table" fx:id="routeTable" HBox.hgrow="ALWAYS">
@@ -122,7 +125,8 @@
             </Tab>
             <Tab text="ВИЗУАЛИЗАЦИЯ" closable="false">
                 <HBox VBox.vgrow="ALWAYS" alignment="CENTER" style="-fx-background-color: #1a1a1a;">
-                    <Label text="Тут будет визуализация" style="-fx-text-fill: #888888; -fx-font-family: 'Courier New'; -fx-font-size: 16;"/>
+                    <Label text="Тут будет визуализация"
+                           style="-fx-text-fill: #888888; -fx-font-family: 'Courier New'; -fx-font-size: 16;"/>
                 </HBox>
             </Tab>
         </TabPane>

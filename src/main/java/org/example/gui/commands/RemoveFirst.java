@@ -1,18 +1,23 @@
 package org.example.gui.commands;
 
+import org.example.gui.interfaces.Command;
 import org.example.gui.managers.ManagerAuth;
 import org.example.packet.CommandPacket;
+import org.example.packet.collection.RouteClient;
 
 import java.io.IOException;
+import java.nio.channels.SocketChannel;
 
 import static org.example.gui.Main.server;
 import static org.example.gui.Main.writeModule;
 
-public class RemoveFirst {
-    public void executeCommand() {
+public class RemoveFirst implements Command {
+
+    @Override
+    public void executeCommand(String[] args, SocketChannel serverChannel, Object object) {
         try {
-            writeModule.writePacketForServer(server,
-                    new CommandPacket("remove_first", new String[]{}, null, ManagerAuth.getLogin(), ManagerAuth.getPassword()));
+            writeModule.writePacketForServer(serverChannel,
+                    new CommandPacket("remove_first", args, (RouteClient) object, ManagerAuth.getLogin(), ManagerAuth.getPassword()));
         } catch (IOException e) {
             e.printStackTrace();
         }

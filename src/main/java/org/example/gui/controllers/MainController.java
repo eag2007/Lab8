@@ -3,10 +3,7 @@ package org.example.gui.controllers;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -14,10 +11,15 @@ import org.example.gui.Main;
 import org.example.gui.commands.Info;
 import org.example.gui.commands.Logout;
 import org.example.gui.commands.Show;
+import org.example.gui.commands.Update;
 import org.example.gui.managers.ManagerAuth;
+import org.example.gui.managers.ManagerValidation;
 import org.example.packet.collection.Route;
+import org.example.packet.collection.RouteClient;
 
 import java.util.List;
+
+import static org.example.gui.Main.server;
 
 public class MainController {
 
@@ -55,6 +57,8 @@ public class MainController {
 
     @FXML private Label userLoginLabel;
 
+    private final ManagerValidation validator = new ManagerValidation();
+
     @FXML
     private void initialize() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -82,7 +86,7 @@ public class MainController {
         });
 
         Main.mainController = this;
-        new Show().executeCommand();
+        new Show().executeCommand(null, server, null);
     }
 
     public void fillTable(List<Route> routes) {
@@ -106,18 +110,18 @@ public class MainController {
         routeAuthorLabel.setText("");
         routeDateLabel.setText("");
 
-        new Show().executeCommand();
+        new Show().executeCommand(null, server, null);
     }
 
     @FXML
     private void onInfoClick() {
-        new Info().executeCommand();
+        new Info().executeCommand(null, server, null);
     }
 
     @FXML
     private void onLogoutClick() {
         Stage stage = (Stage) mainRoot.getScene().getWindow();
-        new Logout().executeCommand(stage);
+        new Logout().executeCommand(null, server, stage);
     }
 
     private void showRouteDetails(Route route) {
@@ -167,6 +171,69 @@ public class MainController {
             onShowClick();
             long id = selected.getId();
             RemoveByIdController.onRemoveByIdControllerClick(id);
+        }
+    }
+
+    @FXML
+    private void onRemoveAllDistClick() {
+        Stage stage = (Stage) mainRoot.getScene().getWindow();
+        RemoveAllByDistanceController.show(stage);
+    }
+
+    @FXML
+    private void onAverageDistanceClick() {
+        AverageOfDistanceController.onAverageDistanceClick();
+    }
+
+    @FXML
+    private void onFilterDistClick() {
+        Stage stage = (Stage) mainRoot.getScene().getWindow();
+        FilterLessThanDistanceController.show(stage);
+    }
+
+    @FXML
+    private void onUpdateClick() {
+        Route selected = routeTable.getSelectionModel().getSelectedItem();
+
+        if (selected == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText(null);
+            alert.setContentText("Выберите маршрут для обновления");
+            alert.showAndWait();
+            return;
+        }
+
+        long id = selected.getId();
+
+        new Update().executeCommand(new String[]{String.valueOf(id)}, server, null);
+
+        try {
+            String name = routeNameField.getText();
+            String coordX = routeCoordXField.getText();
+            String coordY = routeCoordYField.getText();
+            String fromX = routeFromXField.getText();
+            String fromY = routeFromYField.getText();
+            String fromZ = routeFromZField.getText();
+            String toX = routeToXField.getText();
+            String toY = routeToYField.getText();
+            String toZ = routeToZField.getText();
+            String distance = routeDistanceField.getText();
+            String price = routePriceField.getText();
+
+            RouteClient routeClient = validator.validateFromFields(
+                    name, coordX, coordY, fromX, fromY, fromZ, toX, toY, toZ, distance, price
+            );
+
+            new Update().executeCommand(new String[]{String.valueOf(id)}, server, routeClient);
+            onShowClick();
+        } catch (IllegalArgumentException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка валидации");
+            alert.setHeaderText(null);
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            onShowClick();
         }
     }
 

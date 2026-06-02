@@ -2,12 +2,15 @@ package org.example.gui.threads;
 
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.example.gui.Main;
+import org.example.gui.controllers.AverageOfDistanceController;
 import org.example.gui.controllers.InfoController;
 import org.example.gui.controllers.SubscribeController;
 import org.example.packet.ResponsePacket;
@@ -34,7 +37,9 @@ public class GUIPrinter extends Thread {
         while (running && !Thread.currentThread().isInterrupted()) {
             try {
                 ResponsePacket packet = managerResponseQueue.take();
-                if (packet == null) continue;
+                if (packet == null) {
+                    continue;
+                }
                 handle(packet);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -50,6 +55,65 @@ public class GUIPrinter extends Thread {
             handleShow(packet);
         } else if (packet.getType() == ResponseType.PUSH) {
             handlePush(packet);
+        } else if (packet.getType() == ResponseType.AVERAGE_OF_DISTANCE) {
+            handleAverage(packet);
+        } else if (packet.getType() == ResponseType.FILTER_LESS_THAN_DISTANCE) {
+            handleFilterLessThanDistance(packet);
+        } else {
+            return;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void handleFilterLessThanDistance(ResponsePacket packet) {
+        if (packet.getStatusCode() != Codes.OK) {
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Ошибка");
+                alert.setHeaderText(null);
+                alert.setContentText("Ошибка фильтрации: " + packet.getMessage());
+                alert.showAndWait();
+            });
+            return;
+        }
+        List<Route> routes = (List<Route>) packet.getData();
+        Platform.runLater(() -> {
+            if (Main.mainController != null) {
+                Main.mainController.fillTable(routes);
+            }
+        });
+    }
+
+    private void handleAverage(ResponsePacket packet) {
+        if (packet.getStatusCode() != Codes.OK) {
+            Platform.runLater(() -> showDialog("Ошибка", "Ошибка: " + packet.getMessage()));
+            return;
+        }
+        double average = (double) packet.getData();
+        Platform.runLater(() -> showAverageDialog(average));
+    }
+
+    private void showAverageDialog(double average) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fxml/average_of_distance.fxml"));
+            Parent root = loader.load();
+            AverageOfDistanceController controller = loader.getController();
+            controller.setAverage(average);
+
+            Stage stage = new Stage();
+            stage.setTitle("Среднее значение distance");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            List<Window> windows = Stage.getWindows().stream()
+                    .filter(Window::isShowing)
+                    .toList();
+            if (!windows.isEmpty()) {
+                stage.initOwner(windows.get(0));
+            }
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -65,7 +129,7 @@ public class GUIPrinter extends Thread {
         @SuppressWarnings("unchecked")
         Map<String, Object> map = (Map<String, Object>) packet.getData();
         String text = "Количество элементов: " + map.get("size") + "\n" +
-                "Время инициализации: "   + map.get("initTime") + "\n" +
+                "Время инициализации: " + map.get("initTime") + "\n" +
                 "Тип данных: Route";
         Platform.runLater(() -> showDialog("Информация о коллекции", text));
     }

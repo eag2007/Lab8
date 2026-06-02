@@ -13,6 +13,8 @@ import org.example.gui.commands.AddIfMax;
 import org.example.gui.managers.ManagerValidation;
 import org.example.packet.collection.RouteClient;
 
+import static org.example.gui.Main.server;
+
 public class AddIfMaxController {
 
     @FXML private TextField nameField;
@@ -63,7 +65,7 @@ public class AddIfMaxController {
                     priceField.getText()
             );
 
-            new AddIfMax().executeCommand(route);
+            new AddIfMax().executeCommand(null, server, route);
             closeWindow();
 
         } catch (IllegalArgumentException e) {

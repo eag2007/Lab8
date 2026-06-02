@@ -13,6 +13,8 @@ import org.example.gui.commands.Show;
 import org.example.gui.managers.ManagerValidation;
 import org.example.packet.collection.RouteClient;
 
+import static org.example.gui.Main.server;
+
 public class AddController {
 
     @FXML private TextField nameField;
@@ -63,7 +65,7 @@ public class AddController {
                     priceField.getText()
             );
 
-            new Add().executeCommand(route);
+            new Add().executeCommand(null, server, route);
             closeWindow();
 
         } catch (IllegalArgumentException e) {

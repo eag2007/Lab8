@@ -4,11 +4,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 import org.example.gui.Main;
+import org.example.gui.interfaces.Command;
 import org.example.gui.managers.ManagerAuth;
 
-public class Logout {
+import java.nio.channels.SocketChannel;
 
-    public void executeCommand(Stage stage) {
+public class Logout implements Command {
+
+    @Override
+    public void executeCommand(String[] args, SocketChannel serverChannel, Object stage) {
         if (Main.getGuiPrinter() != null) {
             Main.getGuiPrinter().stopPrinter();
             Main.setGUIPrinter(null);
@@ -26,7 +30,7 @@ public class Logout {
 
         try {
             Parent loginRoot = FXMLLoader.load(getClass().getResource("/org/example/fxml/login.fxml"));
-            stage.getScene().setRoot(loginRoot);
+            ((Stage) stage).getScene().setRoot(loginRoot);
         } catch (Exception e) {
             e.printStackTrace();
         }

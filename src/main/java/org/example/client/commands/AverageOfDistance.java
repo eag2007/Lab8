@@ -30,6 +30,6 @@ public class AverageOfDistance implements Command {
 
     @Override
     public String toString() {
-        return "average_of_distance";
+        return "average_of_distance - возвращает среднее арифметическое значение поля distance";
     }
 }
