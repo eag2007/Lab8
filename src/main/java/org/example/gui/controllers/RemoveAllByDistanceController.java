@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.gui.commands.RemoveAllByDistance;
+import org.example.gui.managers.ManagerLanguage;
 
 import static org.example.gui.Main.server;
 
@@ -20,9 +21,10 @@ public class RemoveAllByDistanceController {
     public static void show(Stage owner) {
         try {
             FXMLLoader loader = new FXMLLoader(RemoveAllByDistanceController.class.getResource("/org/example/fxml/remove_all_by_distance.fxml"));
+            loader.setResources(ManagerLanguage.getBundle());
             Parent root = loader.load();
             Stage stage = new Stage();
-            stage.setTitle("Удаление по distance");
+            stage.setTitle(ManagerLanguage.get("remove_all.title"));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(owner);
             stage.setScene(new Scene(root));
@@ -35,26 +37,23 @@ public class RemoveAllByDistanceController {
 
     @FXML
     private void onRemoveClick() {
+        String distanceText = distanceField.getText().trim();
+
+        if (distanceText.isEmpty()) {
+            errorLabel.setText(ManagerLanguage.get("error.distance.empty"));
+            return;
+        }
+
         try {
-            String distanceText = distanceField.getText().trim();
-
-            if (distanceText.isEmpty()) {
-                errorLabel.setText("Введите значение distance");
-                return;
-            }
-
             int distance = Integer.parseInt(distanceText);
-
             if (distance <= 1) {
-                errorLabel.setText("Distance должен быть больше 1 (минимальное значение 2)");
+                errorLabel.setText(ManagerLanguage.get("error.distance.invalid"));
                 return;
             }
-
             new RemoveAllByDistance().executeCommand(new String[]{distanceText}, server, null);
             closeWindow();
-
         } catch (NumberFormatException e) {
-            errorLabel.setText("Distance должен быть целым положительным числом");
+            errorLabel.setText(ManagerLanguage.get("error.distance.invalid"));
         }
     }
 

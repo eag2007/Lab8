@@ -14,22 +14,22 @@
 
     <VBox spacing="12" style="-fx-padding: 20;" prefWidth="410" prefHeight="300">
 
-        <Label text="УДАЛЕНИЕ ПО DISTANCE"
+        <Label text="%remove_all.title"
                style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #e0e0e0;"
                prefHeight="25"/>
 
-        <Label text="Введите значение distance для удаления всех маршрутов с таким расстоянием:"
+        <Label text="%remove_all.desc"
                style="-fx-font-size: 12; -fx-wrap-text: true; -fx-text-fill: #888888;"
                prefHeight="40"/>
 
-        <Label text="DISTANCE:" prefHeight="15" style="-fx-font-size: 12; -fx-text-fill: #888888;"/>
-        <TextField fx:id="distanceField" prefHeight="35" promptText="Целое число > 1"/>
+        <Label text="%remove_all.label" prefHeight="15" style="-fx-font-size: 12; -fx-text-fill: #888888;"/>
+        <TextField fx:id="distanceField" prefHeight="35"/>
 
         <Label fx:id="errorLabel" styleClass="error-label" prefHeight="35"/>
 
         <HBox spacing="10" alignment="CENTER" prefHeight="40">
-            <Button text="УДАЛИТЬ" onAction="#onRemoveClick" styleClass="btn-danger" prefWidth="120" prefHeight="35"/>
-            <Button text="ОТМЕНА" onAction="#onCancelClick" styleClass="btn-secondary" prefWidth="120" prefHeight="35"/>
+            <Button text="%remove_all.btn" onAction="#onRemoveClick" styleClass="btn-danger" prefWidth="120" prefHeight="35"/>
+            <Button text="%dialog.cancel" onAction="#onCancelClick" styleClass="btn-secondary" prefWidth="120" prefHeight="35"/>
         </HBox>
 
     </VBox>

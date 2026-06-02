@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -21,36 +22,38 @@
         <HBox styleClass="main-topbar" alignment="CENTER_LEFT" prefHeight="52">
             <Label styleClass="logo" text="ROUTE DB"/>
             <Rectangle styleClass="separator" width="1" height="20"/>
-            <Label styleClass="title" text="Управление коллекцией маршрутов"/>
+            <Label styleClass="title" fx:id="mainTitle" text="Управление коллекцией маршрутов"/>
         </HBox>
 
         <HBox styleClass="main-toolbar" alignment="CENTER_LEFT" prefHeight="52">
-            <Button styleClass="btn-primary" onAction="#onShowClick" text="↺  SHOW"/>
-            <Button styleClass="btn-secondary" onAction="#onInfoClick" text="INFO"/>
+            <Button styleClass="btn-primary" fx:id="showBtn" onAction="#onShowClick" text="↺  SHOW"/>
+            <Button styleClass="btn-secondary" fx:id="infoBtn" onAction="#onInfoClick" text="INFO"/>
             <Rectangle styleClass="toolbar-separator" width="1" height="24"/>
-            <Button styleClass="btn-green" text="ADD" onAction="#onAddClick"/>
-            <Button styleClass="btn-green" text="ADD IF MAX" onAction="#onAddIfMaxClick"/>
-            <Button styleClass="btn-green" text="UPDATE" onAction="#onUpdateClick"/>
+            <Button styleClass="btn-green" fx:id="addBtn" text="ADD" onAction="#onAddClick"/>
+            <Button styleClass="btn-green" fx:id="addIfMaxBtn" text="ADD IF MAX" onAction="#onAddIfMaxClick"/>
+            <Button styleClass="btn-green" fx:id="updateBtn" text="UPDATE" onAction="#onUpdateClick"/>
             <Rectangle styleClass="toolbar-separator" width="1" height="24"/>
-            <Button styleClass="btn-danger" text="REMOVE ID" onAction="#onRemoveByIdClick"/>
-            <Button styleClass="btn-danger" text="REMOVE FIRST" onAction="#onRemoveFirstClick"/>
-            <Button styleClass="btn-danger" text="REMOVE ALL DIST" onAction="#onRemoveAllDistClick"/>
-            <Button styleClass="btn-danger" text="CLEAR" onAction="#onClearClick"/>
+            <Button styleClass="btn-danger" fx:id="removeIdBtn" text="REMOVE ID" onAction="#onRemoveByIdClick"/>
+            <Button styleClass="btn-danger" fx:id="removeFirstBtn" text="REMOVE FIRST" onAction="#onRemoveFirstClick"/>
+            <Button styleClass="btn-danger" fx:id="removeAllDistBtn" text="REMOVE ALL DIST" onAction="#onRemoveAllDistClick"/>
+            <Button styleClass="btn-danger" fx:id="clearBtn" text="CLEAR" onAction="#onClearClick"/>
             <Rectangle styleClass="toolbar-separator" width="1" height="24"/>
-            <Button styleClass="btn-secondary" text="FILTER DIST" onAction="#onFilterDistClick"/>
-            <Button styleClass="btn-secondary" text="AVERAGE DIST" onAction="#onAverageDistanceClick"/>
-            <Button styleClass="btn-secondary" text="EXECUTE SCRIPT" onAction="#onExecuteScriptClick"/>
-            <Button styleClass="btn-secondary" text="HELP" onAction="#onHelpClick"/>
-            <Button styleClass="btn-secondary" text="HISTORY" onAction="#onHistoryClick"/>
+            <Button styleClass="btn-secondary" fx:id="filterDistBtn" text="FILTER DIST" onAction="#onFilterDistClick"/>
+            <Button styleClass="btn-secondary" fx:id="avgDistBtn" text="AVERAGE DIST" onAction="#onAverageDistanceClick"/>
+            <Button styleClass="btn-secondary" fx:id="execScriptBtn" text="EXECUTE SCRIPT" onAction="#onExecuteScriptClick"/>
+            <Button styleClass="btn-secondary" fx:id="helpBtn" text="HELP" onAction="#onHelpClick"/>
+            <Button styleClass="btn-secondary" fx:id="historyBtn" text="HISTORY" onAction="#onHistoryClick"/>
             <Label fx:id="userLoginLabel" text="не авторизован"
                    style="-fx-padding: 8 15; -fx-background-radius: 20; -fx-background-color: #5865f2; -fx-text-fill: white; -fx-font-family: 'Courier New'; -fx-font-size: 13; -fx-font-weight: bold;"/>
             <HBox HBox.hgrow="ALWAYS"/>
-            <Button styleClass="btn-secondary" onAction="#onLogoutClick" text="ВЫЙТИ"/>
+            <ComboBox fx:id="langCombo" onAction="#onLangChange" prefWidth="80"
+                      style="-fx-background-color: #111111; -fx-border-color: #2a2a2a; -fx-border-width: 1; -fx-font-family: 'Courier New'; -fx-font-size: 12;"/>
+            <Button styleClass="btn-secondary" fx:id="logoutBtn" onAction="#onLogoutClick" text="ВЫЙТИ"/>
         </HBox>
 
-        <TabPane VBox.vgrow="ALWAYS"
+        <TabPane fx:id="tabPane" VBox.vgrow="ALWAYS"
                  style="-fx-background-color: #1a1a1a; -fx-tab-min-height: 40; -fx-tab-max-height: 40;">
-            <Tab text="ТАБЛИЦА" closable="false">
+            <Tab fx:id="tableTab" text="ТАБЛИЦА" closable="false">
                 <HBox VBox.vgrow="ALWAYS" style="-fx-padding: 20 0 20 40; -fx-background-color: #1a1a1a;">
                     <TableView styleClass="main-table" fx:id="routeTable" HBox.hgrow="ALWAYS">
                         <columns>
@@ -73,13 +76,13 @@
                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                         </columnResizePolicy>
                         <placeholder>
-                            <Label styleClass="main-placeholder" text="Нет данных — нажмите SHOW для загрузки"/>
+                            <Label fx:id="tablePlaceholder" styleClass="main-placeholder" text="Нет данных — нажмите SHOW для загрузки"/>
                         </placeholder>
                     </TableView>
 
                     <HBox style="-fx-padding: 0 40 0 0;">
                         <VBox styleClass="info-panel" fx:id="infoPanel" prefWidth="300" minWidth="250" maxWidth="350">
-                            <Label styleClass="info-panel-title" text="ДЕТАЛИ МАРШРУТА"/>
+                            <Label styleClass="info-panel-title" fx:id="infoPanelTitle" text="ДЕТАЛИ МАРШРУТА"/>
                             <VBox styleClass="info-panel-content" fx:id="infoPanelContent" spacing="12">
 
                                 <Label text="ID:"/>
@@ -124,13 +127,13 @@
                     </HBox>
                 </HBox>
             </Tab>
-            <Tab text="ВИЗУАЛИЗАЦИЯ" closable="false">
+            <Tab fx:id="vizTab" text="ВИЗУАЛИЗАЦИЯ" closable="false">
                 <Pane fx:id="vizPane" style="-fx-background-color: #1a1a1a;"/>
             </Tab>
         </TabPane>
 
         <HBox styleClass="main-statusbar" alignment="CENTER_LEFT" prefHeight="28">
-            <Label styleClass="status-connected" text="●  Подключено"/>
+            <Label fx:id="statusLabel" styleClass="status-connected" text="●  Подключено"/>
             <Label styleClass="status-host" text="localhost:8080"/>
         </HBox>
     </VBox>

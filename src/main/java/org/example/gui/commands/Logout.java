@@ -40,7 +40,7 @@ public class Logout implements Command {
 
     @Override
     public String toString(){
-        return "logout - выходит из текущего юзера";
+        return "logout - выходит из текущего user";
     }
 }
 

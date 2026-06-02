@@ -313,6 +313,40 @@ public class GUIPrinter extends Thread {
 
 
     /**
+     * Показывает диалог с информацией о маршруте (вызывается с FX-потока при клике на точку)
+     * @param route - маршрут для отображения
+     */
+    public static void showRouteInfo(Route route) {
+        String text =
+                "ID: " + route.getId() + "\n" +
+                "Name: " + route.getName() + "\n" +
+                "Coordinates: (" + route.getCoordinates().getX() + ", " + route.getCoordinates().getY() + ")\n" +
+                "From: (" + route.getFrom().getX() + ", " + route.getFrom().getY() + ", " + route.getFrom().getZ() + ")\n" +
+                "To: (" + route.getTo().getX() + ", " + route.getTo().getY() + ", " + route.getTo().getZ() + ")\n" +
+                "Distance: " + route.getDistance() + "\n" +
+                "Price: " + route.getPrice() + "\n" +
+                "Author: " + route.getAuthor() + "\n" +
+                "Date: " + route.getCreationDate().toLocalDateTime();
+        try {
+            FXMLLoader loader = new FXMLLoader(GUIPrinter.class.getResource("/org/example/fxml/info.fxml"));
+            VBox root = loader.load();
+            InfoController controller = loader.getController();
+            controller.setInfo(text);
+            Stage stage = new Stage();
+            stage.setTitle("Маршрут: " + route.getName());
+            stage.initModality(Modality.APPLICATION_MODAL);
+            List<Window> windows = Stage.getWindows().stream().filter(Window::isShowing).toList();
+            if (!windows.isEmpty()) stage.initOwner(windows.get(0));
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
      * Остановка gui-printer потока отрисовки
      */
     public void stopPrinter() {

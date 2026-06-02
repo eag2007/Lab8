@@ -8,10 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.example.gui.commands.Add;
 import org.example.gui.commands.AddIfMax;
 import org.example.gui.managers.ManagerValidation;
 import org.example.packet.collection.RouteClient;
+
+import org.example.gui.managers.ManagerLanguage;
 
 import static org.example.gui.Main.server;
 
@@ -35,9 +36,10 @@ public class AddIfMaxController {
     public static void show(Stage owner) {
         try {
             FXMLLoader loader = new FXMLLoader(AddController.class.getResource("/org/example/fxml/add_if_max.fxml"));
+            loader.setResources(ManagerLanguage.getBundle());
             Parent root = loader.load();
             Stage stage = new Stage();
-            stage.setTitle("Добавление маршрута");
+            stage.setTitle(ManagerLanguage.get("add.title"));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(owner);
             stage.setScene(new Scene(root));

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -13,12 +15,16 @@
 
     <Rectangle styleClass="register-accent-line" width="4" height="290" translateX="-232" translateY="0" arcWidth="4" arcHeight="4"/>
 
+    <ComboBox fx:id="langCombo" onAction="#onLangChange" prefWidth="80"
+              StackPane.alignment="TOP_RIGHT" translateX="-20" translateY="20"
+              style="-fx-background-color: #161616; -fx-border-color: #2a2a2a; -fx-border-width: 1; -fx-font-family: 'Courier New'; -fx-font-size: 12;"/>
+
     <VBox styleClass="register-box" fx:id="registerBox" alignment="CENTER" maxWidth="468" maxHeight="520" prefWidth="468" prefHeight="520" spacing="0">
 
         <VBox styleClass="register-header" alignment="CENTER">
             <Label styleClass="register-label" text="ROUTE DB"/>
-            <Label styleClass="register-title" text="Регистрация"/>
-            <Label styleClass="register-subtitle" text="Создайте новый аккаунт"/>
+            <Label styleClass="register-title" fx:id="titleLabel" text="Регистрация"/>
+            <Label styleClass="register-subtitle" fx:id="subtitleLabel" text="Создайте новый аккаунт"/>
         </VBox>
 
         <VBox styleClass="register-fields">
@@ -28,8 +34,9 @@
         </VBox>
 
         <VBox styleClass="register-buttons" alignment="CENTER">
-            <Button styleClass="register-btn" onAction="#onRegisterClick" prefHeight="48" prefWidth="388" text="ЗАРЕГИСТРИРОВАТЬСЯ"/>
-            <Hyperlink styleClass="register-hyperlink" onAction="#onLoginLinkClick" text="Уже есть аккаунт? Войти"/>
+            <Button styleClass="register-btn" fx:id="registerBtn" onAction="#onRegisterClick" prefHeight="48" prefWidth="388" text="ЗАРЕГИСТРИРОВАТЬСЯ"/>
+            <Hyperlink styleClass="register-hyperlink" fx:id="loginLink" onAction="#onLoginLinkClick" text="Уже есть аккаунт? Войти"/>
+            <ProgressIndicator fx:id="loadingSpinner" visible="false" prefWidth="36" prefHeight="36" style="-fx-progress-color: #5865f2;"/>
         </VBox>
     </VBox>
 </StackPane>

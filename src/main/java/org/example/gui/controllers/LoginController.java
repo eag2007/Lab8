@@ -4,12 +4,11 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.gui.Main;
+import org.example.gui.managers.ManagerLanguage;
 import org.example.gui.managers.ManagerAuth;
 import org.example.packet.CommandPacket;
 import org.example.packet.ResponsePacket;
@@ -23,6 +22,50 @@ public class LoginController {
     @FXML private PasswordField passwordField;
     @FXML private VBox loginBox;
     @FXML private Label errorLabel;
+    @FXML private Label titleLabel;
+    @FXML private Label subtitleLabel;
+    @FXML private Button loginBtn;
+    @FXML private Hyperlink registerLink;
+    @FXML private ProgressIndicator loadingSpinner;
+    @FXML private ComboBox<String> langCombo;
+
+    @FXML
+    private void initialize() {
+        langCombo.getItems().addAll("RU", "EN", "IT", "SL");
+        langCombo.setValue(currentLangLabel());
+        updateTexts();
+        ManagerLanguage.setOnLangChange(this::updateTexts);
+    }
+
+    @FXML
+    private void onLangChange() {
+        String val = langCombo.getValue();
+        if (val == null) return;
+        switch (val) {
+            case "EN" -> ManagerLanguage.set(ManagerLanguage.EN);
+            case "IT" -> ManagerLanguage.set(ManagerLanguage.IT);
+            case "SL" -> ManagerLanguage.set(ManagerLanguage.SL);
+            default   -> ManagerLanguage.set(ManagerLanguage.RU);
+        }
+    }
+
+    private void updateTexts() {
+        titleLabel.setText(ManagerLanguage.get("login.title"));
+        subtitleLabel.setText(ManagerLanguage.get("login.subtitle"));
+        loginBtn.setText(ManagerLanguage.get("login.btn"));
+        registerLink.setText(ManagerLanguage.get("login.link"));
+        loginField.setPromptText(ManagerLanguage.get("login.field.login"));
+        passwordField.setPromptText(ManagerLanguage.get("login.field.password"));
+    }
+
+    private String currentLangLabel() {
+        return switch (ManagerLanguage.getCurrent()) {
+            case ManagerLanguage.EN -> "EN";
+            case ManagerLanguage.IT -> "IT";
+            case ManagerLanguage.SL -> "SL";
+            default      -> "RU";
+        };
+    }
 
     @FXML
     private void onLoginClick() {
@@ -30,13 +73,15 @@ public class LoginController {
         String password = passwordField.getText();
 
         if (login.isBlank() || password.isBlank()) {
-            setError("Заполните все поля");
+            setError(ManagerLanguage.get("login.error.empty"));
             return;
         }
 
+        setLoading(true);
+
         new Thread(() -> {
             if (!Main.connect()) {
-                setErrorLater("Сервер недоступен. Попробуйте позже.");
+                Platform.runLater(() -> { setLoading(false); setError("Сервер недоступен."); });
                 return;
             }
             try {
@@ -49,13 +94,13 @@ public class LoginController {
                     ManagerAuth.setPassword(password);
                     Main.startThreads();
                     SubscribeController.onSubscribe();
-                    Platform.runLater(this::showMainWindow);
+                    Platform.runLater(() -> { setLoading(false); showMainWindow(); });
                 } else {
                     String msg = response != null ? response.getMessage() : "Нет ответа от сервера";
-                    setErrorLater("Ошибка: " + msg);
+                    Platform.runLater(() -> { setLoading(false); setError("Ошибка: " + msg); });
                 }
             } catch (Exception e) {
-                setErrorLater("Сервер недоступен. Попробуйте позже.");
+                Platform.runLater(() -> { setLoading(false); setError("Сервер недоступен."); });
             }
         }).start();
     }
@@ -69,8 +114,9 @@ public class LoginController {
         if (errorLabel != null) errorLabel.setText(text);
     }
 
-    private void setErrorLater(String text) {
-        Platform.runLater(() -> setError(text));
+    private void setLoading(boolean loading) {
+        loadingSpinner.setVisible(loading);
+        loginBtn.setDisable(loading);
     }
 
     private void showMainWindow() {
