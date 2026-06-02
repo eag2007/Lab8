@@ -35,7 +35,6 @@ public class LoginController {
         }
 
         new Thread(() -> {
-            // сервер недоступен — внутрь не пускаем
             if (!Main.connect()) {
                 setErrorLater("Сервер недоступен. Попробуйте позже.");
                 return;

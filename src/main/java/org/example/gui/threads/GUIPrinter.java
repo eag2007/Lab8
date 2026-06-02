@@ -102,7 +102,7 @@ public class GUIPrinter extends Thread {
         List<Route> routes = (List<Route>) packet.getData();
         Platform.runLater(() -> {
             if (Main.mainController != null) {
-                Main.mainController.fillTable(routes);
+                Main.mainController.fillTableAndCanvas(routes);
             }
         });
     }
@@ -191,7 +191,7 @@ public class GUIPrinter extends Thread {
         List<Route> routes = (List<Route>) packet.getData();
         Platform.runLater(() -> {
             if (Main.mainController != null) {
-                Main.mainController.fillTable(routes);
+                Main.mainController.fillTableAndCanvas(routes);
             }
         });
     }

@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
@@ -124,10 +125,7 @@
                 </HBox>
             </Tab>
             <Tab text="ВИЗУАЛИЗАЦИЯ" closable="false">
-                <HBox VBox.vgrow="ALWAYS" alignment="CENTER" style="-fx-background-color: #1a1a1a;">
-                    <Label text="Тут будет визуализация"
-                           style="-fx-text-fill: #888888; -fx-font-family: 'Courier New'; -fx-font-size: 16;"/>
-                </HBox>
+                <Pane fx:id="vizPane" style="-fx-background-color: #1a1a1a;"/>
             </Tab>
         </TabPane>
 
