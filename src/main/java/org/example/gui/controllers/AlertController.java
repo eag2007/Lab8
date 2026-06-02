@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import org.example.gui.managers.ManagerLanguage;
 
 import java.util.List;
 
@@ -30,12 +31,12 @@ public class AlertController {
         stage.close();
     }
 
-    public static void show(String title, String message) {
+    public static void show(String titleKey, String message) {
         try {
             FXMLLoader loader = new FXMLLoader(AlertController.class.getResource("/org/example/fxml/alert.fxml"));
             Parent root = loader.load();
             AlertController controller = loader.getController();
-            controller.setTitle(title);
+            controller.setTitle(ManagerLanguage.get(titleKey));
             controller.setMessage(message);
 
             Stage stage = new Stage();

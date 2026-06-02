@@ -11,7 +11,7 @@
 
     <HBox styleClass="history-header" alignment="CENTER_LEFT" prefHeight="55">
         <Rectangle styleClass="history-header-rect" width="3" height="16" arcWidth="2" arcHeight="2"/>
-        <Label styleClass="history-header-title" text="ИСТОРИЯ КОМАНД"/>
+        <Label styleClass="history-header-title" fx:id="historyHeaderTitle" text="ИСТОРИЯ КОМАНД"/>
     </HBox>
 
     <TextArea styleClass="history-textarea" fx:id="historyText" editable="false" wrapText="true" VBox.vgrow="ALWAYS"/>

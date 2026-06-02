@@ -11,7 +11,8 @@
 
     <HBox styleClass="info-header" alignment="CENTER_LEFT" prefHeight="55">
         <Rectangle styleClass="info-header-rect" width="3" height="16" arcWidth="2" arcHeight="2"/>
-        <Label styleClass="info-header-title" text="Информация о коллекции"/>
+        <Label styleClass="info-header-title" fx:id="infoHeaderTitle" text="Информация о коллекции"/>
+
     </HBox>
 
     <TextArea styleClass="info-textarea" fx:id="infoText" editable="false" wrapText="true" VBox.vgrow="ALWAYS"/>

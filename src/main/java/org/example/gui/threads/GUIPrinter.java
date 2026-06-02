@@ -83,7 +83,7 @@ public class GUIPrinter extends Thread {
             if (packet.getStatusCode() != Codes.OK
                     && packet.getStatusCode() != Codes.PUSH
                     && packet.getStatusCode() != Codes.PUSH_ERROR) {
-                Platform.runLater(() -> AlertController.show("Ошибка", packet.getMessage()));
+                Platform.runLater(() -> AlertController.show("error.title", packet.getMessage()));
             }
         }
     }
@@ -96,7 +96,7 @@ public class GUIPrinter extends Thread {
     @SuppressWarnings("unchecked")
     private void handleFilterLessThanDistance(ResponsePacket packet) {
         if (packet.getStatusCode() != Codes.OK) {
-            Platform.runLater(() -> AlertController.show("Ошибка", "Ошибка фильтрации: " + packet.getMessage()));
+            Platform.runLater(() -> AlertController.show("error.title", "Ошибка фильтрации: " + packet.getMessage()));
             return;
         }
         List<Route> routes = (List<Route>) packet.getData();
@@ -114,7 +114,7 @@ public class GUIPrinter extends Thread {
      */
     private void handleAverage(ResponsePacket packet) {
         if (packet.getStatusCode() != Codes.OK) {
-            Platform.runLater(() -> showDialog("Ошибка", "Ошибка: " + packet.getMessage()));
+            Platform.runLater(() -> showDialog("error.title", "Ошибка: " + packet.getMessage()));
             return;
         }
         double average = (double) packet.getData();
@@ -217,6 +217,7 @@ public class GUIPrinter extends Thread {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fxml/help.fxml"));
             Parent root = loader.load();
             HelpController controller = loader.getController();
+            controller.setLocalizedTitle();
             controller.setHelpText(text);
 
             Stage stage = new Stage();
@@ -249,6 +250,7 @@ public class GUIPrinter extends Thread {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fxml/history.fxml"));
             Parent root = loader.load();
             HistoryController controller = loader.getController();
+            controller.setLocalizedTitle();
             controller.setHistoryText(text);
 
             Stage stage = new Stage();
@@ -291,6 +293,7 @@ public class GUIPrinter extends Thread {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fxml/info.fxml"));
             VBox root = loader.load();
             InfoController controller = loader.getController();
+            controller.setLocalizedTitle();
             controller.setInfo(text);
 
             Stage stage = new Stage();

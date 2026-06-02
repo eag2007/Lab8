@@ -32,64 +32,118 @@ import static org.example.gui.Main.server;
 
 public class MainController {
 
-    @FXML private StackPane mainRoot;
-    @FXML private TableView<Route> routeTable;
-    @FXML private TableColumn<Route, Long> colId;
-    @FXML private TableColumn<Route, String> colName;
-    @FXML private TableColumn<Route, String> colCoordX;
-    @FXML private TableColumn<Route, String> colCoordY;
-    @FXML private TableColumn<Route, String> colFromX;
-    @FXML private TableColumn<Route, String> colFromY;
-    @FXML private TableColumn<Route, String> colFromZ;
-    @FXML private TableColumn<Route, String> colToX;
-    @FXML private TableColumn<Route, String> colToY;
-    @FXML private TableColumn<Route, String> colToZ;
-    @FXML private TableColumn<Route, Integer> colDistance;
-    @FXML private TableColumn<Route, Integer> colPrice;
-    @FXML private TableColumn<Route, String> colAuthor;
-    @FXML private TableColumn<Route, String> colDate;
+    @FXML
+    private StackPane mainRoot;
+    @FXML
+    private TableView<Route> routeTable;
+    @FXML
+    private TableColumn<Route, Long> colId;
+    @FXML
+    private TableColumn<Route, String> colName;
+    @FXML
+    private TableColumn<Route, String> colCoordX;
+    @FXML
+    private TableColumn<Route, String> colCoordY;
+    @FXML
+    private TableColumn<Route, String> colFromX;
+    @FXML
+    private TableColumn<Route, String> colFromY;
+    @FXML
+    private TableColumn<Route, String> colFromZ;
+    @FXML
+    private TableColumn<Route, String> colToX;
+    @FXML
+    private TableColumn<Route, String> colToY;
+    @FXML
+    private TableColumn<Route, String> colToZ;
+    @FXML
+    private TableColumn<Route, Integer> colDistance;
+    @FXML
+    private TableColumn<Route, Integer> colPrice;
+    @FXML
+    private TableColumn<Route, String> colAuthor;
+    @FXML
+    private TableColumn<Route, String> colDate;
 
-    @FXML private Label routeIdLabel;
-    @FXML private TextField routeNameField;
-    @FXML private TextField routeCoordXField;
-    @FXML private TextField routeCoordYField;
-    @FXML private TextField routeFromXField;
-    @FXML private TextField routeFromYField;
-    @FXML private TextField routeFromZField;
-    @FXML private TextField routeToXField;
-    @FXML private TextField routeToYField;
-    @FXML private TextField routeToZField;
-    @FXML private TextField routeDistanceField;
-    @FXML private TextField routePriceField;
-    @FXML private Label routeAuthorLabel;
-    @FXML private Label routeDateLabel;
+    @FXML
+    private Label routeIdLabel;
+    @FXML
+    private TextField routeNameField;
+    @FXML
+    private TextField routeCoordXField;
+    @FXML
+    private TextField routeCoordYField;
+    @FXML
+    private TextField routeFromXField;
+    @FXML
+    private TextField routeFromYField;
+    @FXML
+    private TextField routeFromZField;
+    @FXML
+    private TextField routeToXField;
+    @FXML
+    private TextField routeToYField;
+    @FXML
+    private TextField routeToZField;
+    @FXML
+    private TextField routeDistanceField;
+    @FXML
+    private TextField routePriceField;
+    @FXML
+    private Label routeAuthorLabel;
+    @FXML
+    private Label routeDateLabel;
 
-    @FXML private Label userLoginLabel;
-    @FXML private Pane vizPane;
+    @FXML
+    private Label userLoginLabel;
+    @FXML
+    private Pane vizPane;
 
     // Toolbar buttons
-    @FXML private Label mainTitle;
-    @FXML private Button showBtn;
-    @FXML private Button infoBtn;
-    @FXML private Button addBtn;
-    @FXML private Button addIfMaxBtn;
-    @FXML private Button updateBtn;
-    @FXML private Button removeIdBtn;
-    @FXML private Button removeFirstBtn;
-    @FXML private Button removeAllDistBtn;
-    @FXML private Button clearBtn;
-    @FXML private Button filterDistBtn;
-    @FXML private Button avgDistBtn;
-    @FXML private Button execScriptBtn;
-    @FXML private Button helpBtn;
-    @FXML private Button historyBtn;
-    @FXML private Button logoutBtn;
-    @FXML private Tab tableTab;
-    @FXML private Tab vizTab;
-    @FXML private Label infoPanelTitle;
-    @FXML private Label statusLabel;
-    @FXML private Label tablePlaceholder;
-    @FXML private ComboBox<String> langCombo;
+    @FXML
+    private Label mainTitle;
+    @FXML
+    private Button showBtn;
+    @FXML
+    private Button infoBtn;
+    @FXML
+    private Button addBtn;
+    @FXML
+    private Button addIfMaxBtn;
+    @FXML
+    private Button updateBtn;
+    @FXML
+    private Button removeIdBtn;
+    @FXML
+    private Button removeFirstBtn;
+    @FXML
+    private Button removeAllDistBtn;
+    @FXML
+    private Button clearBtn;
+    @FXML
+    private Button filterDistBtn;
+    @FXML
+    private Button avgDistBtn;
+    @FXML
+    private Button execScriptBtn;
+    @FXML
+    private Button helpBtn;
+    @FXML
+    private Button historyBtn;
+    @FXML
+    private Button logoutBtn;
+    @FXML
+    private Tab tableTab;
+    @FXML
+    private Tab vizTab;
+    @FXML
+    private Label infoPanelTitle;
+    @FXML
+    private Label statusLabel;
+    @FXML
+    private Label tablePlaceholder;
+    @FXML
+    private ComboBox<String> langCombo;
 
     private final Canvas vizCanvas = new Canvas();
     private List<Route> vizRoutes = new ArrayList<>();
@@ -110,7 +164,11 @@ public class MainController {
         vizCanvas.heightProperty().addListener(obs -> redrawViz());
         vizCanvas.setOnMouseClicked(event -> onVizClick(event.getX(), event.getY()));
         vizCanvas.setOnMouseMoved(event -> onVizHover(event.getX(), event.getY()));
-        vizCanvas.setOnMouseExited(event -> { stopPulse(); hoveredRouteIndex = -1; redrawViz(); });
+        vizCanvas.setOnMouseExited(event -> {
+            stopPulse();
+            hoveredRouteIndex = -1;
+            redrawViz();
+        });
 
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -139,6 +197,15 @@ public class MainController {
         ManagerLanguage.setOnLangChange(this::updateTexts);
 
         Main.mainController = this;
+
+        colAuthor.setCellFactory(column -> new TableCell<Route, String>() {
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : item);
+                setStyle(empty || item == null ? "" : "-fx-text-fill: " + getAuthorColor(item) + ";");
+            }
+        });
+
         new Show().executeCommand(null, server, null);
     }
 
@@ -150,7 +217,7 @@ public class MainController {
             case "EN" -> ManagerLanguage.set(ManagerLanguage.EN);
             case "IT" -> ManagerLanguage.set(ManagerLanguage.IT);
             case "SL" -> ManagerLanguage.set(ManagerLanguage.SL);
-            default   -> ManagerLanguage.set(ManagerLanguage.RU);
+            default -> ManagerLanguage.set(ManagerLanguage.RU);
         }
         updateTexts();
         refreshDateColumn();
@@ -185,7 +252,7 @@ public class MainController {
             case ManagerLanguage.EN -> "EN";
             case ManagerLanguage.IT -> "IT";
             case ManagerLanguage.SL -> "SL";
-            default      -> "RU";
+            default -> "RU";
         };
     }
 
@@ -221,8 +288,14 @@ public class MainController {
         long minY = vizRoutes.stream().mapToLong(r -> r.getCoordinates().getY()).min().orElse(0);
         long maxY = vizRoutes.stream().mapToLong(r -> r.getCoordinates().getY()).max().orElse(1);
 
-        if (minX == maxX) { minX -= 1; maxX += 1; }
-        if (minY == maxY) { minY -= 1; maxY += 1; }
+        if (minX == maxX) {
+            minX -= 1;
+            maxX += 1;
+        }
+        if (minY == maxY) {
+            minY -= 1;
+            maxY += 1;
+        }
 
         double rangeX = maxX - minX;
         double rangeY = maxY - minY;
@@ -278,9 +351,13 @@ public class MainController {
                 gc.fillOval(px - drawRadius * 1.5, py - drawRadius * 1.5, drawRadius * 3.0, drawRadius * 3.0);
             }
 
-            gc.setFill(hovered ? Color.web("#7c87f5", 0.95) : Color.web("#5865f2", 0.85));
+            String authorHex = getAuthorColor(route.getAuthor());
+            Color authorColor = Color.web(authorHex, 0.85);
+            Color hoverColor = Color.web(authorHex, 1.0);
+            gc.setFill(hovered ? hoverColor : authorColor);
             gc.fillOval(px - drawRadius, py - drawRadius, drawRadius * 2, drawRadius * 2);
-            gc.setStroke(hovered ? Color.web("#a0aaff") : Color.web("#7c87f5"));
+            gc.setStroke(hovered ? hoverColor : authorColor);
+            gc.setLineWidth(hovered ? 2.5 : 1.5);
             gc.setLineWidth(hovered ? 2.5 : 1.5);
             gc.strokeOval(px - drawRadius, py - drawRadius, drawRadius * 2, drawRadius * 2);
 
@@ -461,7 +538,7 @@ public class MainController {
         Route selected = routeTable.getSelectionModel().getSelectedItem();
 
         if (selected == null) {
-            AlertController.show("Предупреждение", "Выберите маршрут для обновления");
+            AlertController.show("warning.title", "Выберите маршрут для обновления");
             return;
         }
 
@@ -485,7 +562,7 @@ public class MainController {
             new Update().executeCommand(new String[]{String.valueOf(id)}, server, routeClient);
             onShowClick();
         } catch (IllegalArgumentException e) {
-            AlertController.show("Ошибка валидации", e.getMessage());
+            AlertController.show("error.title", e.getMessage());
         }
     }
 
@@ -519,5 +596,13 @@ public class MainController {
             pattern = "yyyy-MM-dd HH:mm";
         }
         return dateTime.format(DateTimeFormatter.ofPattern(pattern));
+    }
+
+    private String getAuthorColor(String author) {
+        int hash = Math.abs(author.hashCode());
+        int r = 100 + (hash % 156);
+        int g = 100 + ((hash / 100) % 156);
+        int b = 100 + ((hash / 10000) % 156);
+        return String.format("#%02X%02X%02X", r, g, b);
     }
 }

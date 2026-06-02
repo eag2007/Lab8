@@ -11,7 +11,7 @@
 
     <HBox styleClass="help-header" alignment="CENTER_LEFT" prefHeight="55">
         <Rectangle styleClass="help-header-rect" width="3" height="16" arcWidth="2" arcHeight="2"/>
-        <Label styleClass="help-header-title" text="СПРАВКА ПО КОМАНДАМ"/>
+        <Label styleClass="help-header-title" fx:id="helpHeaderTitle" text="СПРАВКА ПО КОМАНДАМ"/>
     </HBox>
 
     <TextArea styleClass="help-textarea" fx:id="helpText" editable="false" wrapText="true" VBox.vgrow="ALWAYS"/>
