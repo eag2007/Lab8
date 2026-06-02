@@ -4,15 +4,18 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import org.example.gui.controllers.AlertController;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.example.gui.Main;
+import org.example.gui.commands.Show;
 import org.example.gui.controllers.AverageOfDistanceController;
+import org.example.gui.controllers.HelpController;
+import org.example.gui.controllers.HistoryController;
 import org.example.gui.controllers.InfoController;
-import org.example.gui.controllers.SubscribeController;
+import org.example.gui.managers.ManagerCommands;
 import org.example.packet.ResponsePacket;
 import org.example.packet.collection.Route;
 import org.example.packet.enums.Codes;
@@ -27,11 +30,19 @@ public class GUIPrinter extends Thread {
 
     private volatile boolean running = true;
 
+
+    /**
+     * Инициализация gui-printer - потока отрисовки
+     */
     public GUIPrinter() {
         super("gui-printer-thread");
         setDaemon(true);
     }
 
+
+    /**
+     * Запуск gui-printer - потока отрисовки
+     */
     @Override
     public void run() {
         while (running && !Thread.currentThread().isInterrupted()) {
@@ -48,6 +59,11 @@ public class GUIPrinter extends Thread {
         }
     }
 
+
+    /**
+     * Метод распределения ответов от сервера
+     * @param packet - ответ с сервера
+     */
     private void handle(ResponsePacket packet) {
         if (packet.getType() == ResponseType.INFO) {
             handleInfo(packet);
@@ -59,21 +75,28 @@ public class GUIPrinter extends Thread {
             handleAverage(packet);
         } else if (packet.getType() == ResponseType.FILTER_LESS_THAN_DISTANCE) {
             handleFilterLessThanDistance(packet);
+        } else  if (packet.getType() == ResponseType.HELP) {
+            handleHelp(packet);
+        } else if (packet.getType() == ResponseType.HISTORY) {
+            handleHistory(packet);
         } else {
-            return;
+            if (packet.getStatusCode() != Codes.OK
+                    && packet.getStatusCode() != Codes.PUSH
+                    && packet.getStatusCode() != Codes.PUSH_ERROR) {
+                Platform.runLater(() -> AlertController.show("Ошибка", packet.getMessage()));
+            }
         }
     }
 
+
+    /**
+     * Отрисовка команды filter_less_than_distance
+     * @param packet - ответ с сервера
+     */
     @SuppressWarnings("unchecked")
     private void handleFilterLessThanDistance(ResponsePacket packet) {
         if (packet.getStatusCode() != Codes.OK) {
-            Platform.runLater(() -> {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Ошибка");
-                alert.setHeaderText(null);
-                alert.setContentText("Ошибка фильтрации: " + packet.getMessage());
-                alert.showAndWait();
-            });
+            Platform.runLater(() -> AlertController.show("Ошибка", "Ошибка фильтрации: " + packet.getMessage()));
             return;
         }
         List<Route> routes = (List<Route>) packet.getData();
@@ -84,6 +107,11 @@ public class GUIPrinter extends Thread {
         });
     }
 
+
+    /**
+     * Отрисовка команды average_of_distance
+     * @param packet - ответ с сервера
+     */
     private void handleAverage(ResponsePacket packet) {
         if (packet.getStatusCode() != Codes.OK) {
             Platform.runLater(() -> showDialog("Ошибка", "Ошибка: " + packet.getMessage()));
@@ -93,6 +121,11 @@ public class GUIPrinter extends Thread {
         Platform.runLater(() -> showAverageDialog(average));
     }
 
+
+    /**
+     * Отрисовка окна average_of_distance
+     * @param average - среднее арифмитическое distance
+     */
     private void showAverageDialog(double average) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fxml/average_of_distance.fxml"));
@@ -117,10 +150,20 @@ public class GUIPrinter extends Thread {
         }
     }
 
+
+    /**
+     * Обработчик push уведомлений, при push обновляет таблицу
+     * @param packet - ответ с сервера
+     */
     public void handlePush(ResponsePacket packet) {
-        SubscribeController.execute();
+        new Show().executeCommand(null, Main.server, null);
     }
 
+
+    /**
+     * Обработчик info
+     * @param packet - ответ с сервера
+     */
     private void handleInfo(ResponsePacket packet) {
         if (packet.getStatusCode() != Codes.OK) {
             Platform.runLater(() -> showDialog("Ошибка", "Ошибка команды info: " + packet.getMessage()));
@@ -134,6 +177,11 @@ public class GUIPrinter extends Thread {
         Platform.runLater(() -> showDialog("Информация о коллекции", text));
     }
 
+
+    /**
+     * Обработчик show
+     * @param packet - ответ с сервера
+     */
     @SuppressWarnings("unchecked")
     private void handleShow(ResponsePacket packet) {
         if (packet.getStatusCode() != Codes.OK) {
@@ -148,6 +196,96 @@ public class GUIPrinter extends Thread {
         });
     }
 
+
+    /**
+     * Обработчик help команды
+     * @param packet - заглушка
+     */
+    public void handleHelp(ResponsePacket packet) {
+        String helpText = ManagerCommands.getHelp();
+        Platform.runLater(() -> showHelpDialog("Справка по командам", helpText));
+    }
+
+
+    /**
+     * Отрисовщик диалогового окна команды help
+     * @param title - название окна
+     * @param text - текст в окне
+     */
+    private void showHelpDialog(String title, String text) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fxml/help.fxml"));
+            Parent root = loader.load();
+            HelpController controller = loader.getController();
+            controller.setHelpText(text);
+
+            Stage stage = new Stage();
+            stage.setTitle(title);
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            List<Window> windows = Stage.getWindows().stream()
+                    .filter(Window::isShowing)
+                    .toList();
+            if (!windows.isEmpty()) {
+                stage.initOwner(windows.get(0));
+            }
+
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Отрисовщик диалогового окна команды history
+     * @param title - название окна
+     * @param text - текст в окне
+     */
+    private void showHistoryDialog(String title, String text) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fxml/history.fxml"));
+            Parent root = loader.load();
+            HistoryController controller = loader.getController();
+            controller.setHistoryText(text);
+
+            Stage stage = new Stage();
+            stage.setTitle(title);
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            List<Window> windows = Stage.getWindows().stream()
+                    .filter(Window::isShowing)
+                    .toList();
+            if (!windows.isEmpty()) {
+                stage.initOwner(windows.get(0));
+            }
+
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Обработчик команды history
+     * @param packet - ответ с сервера
+     */
+    public void handleHistory(ResponsePacket packet) {
+        String historyText = ManagerCommands.getHistory();
+        Platform.runLater(() -> showHistoryDialog("История команд", historyText));
+    }
+
+
+    /**
+     * Отрисовщик диалогового окна команды info
+     * @param title - название окна
+     * @param text - текст в окне
+     */
     private void showDialog(String title, String text) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fxml/info.fxml"));
@@ -173,6 +311,10 @@ public class GUIPrinter extends Thread {
         }
     }
 
+
+    /**
+     * Остановка gui-printer потока отрисовки
+     */
     public void stopPrinter() {
         running = false;
         interrupt();

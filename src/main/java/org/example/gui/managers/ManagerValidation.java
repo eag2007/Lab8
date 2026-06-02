@@ -5,8 +5,57 @@ import org.example.packet.collection.Location;
 import org.example.packet.collection.RouteClient;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class ManagerValidation {
+
+    /**
+     * Валидация данных из скрипта
+     * @param values - Список строк
+     * @return - объект RouteClient
+     */
+    public RouteClient validateFromScript(List<String> values) {
+        String[] labels = {
+                "name", "X", "Y",
+                "From X", "From Y", "From Z",
+                "To X", "To Y", "To Z",
+                "distance", "price"
+        };
+
+        if (values == null) {
+            throw new IllegalArgumentException("В скрипте отсутствуют данные для маршрута");
+        }
+
+        String[] v = new String[11];
+        for (int i = 0; i < 11; i++) {
+            String line = i < values.size() ? values.get(i) : null;
+            if (line == null) {
+                throw new IllegalArgumentException(
+                        "В скрипте не хватает данных для маршрута: отсутствует поле '" + labels[i] + "'");
+            }
+            v[i] = line;
+        }
+
+        return validateFromFields(v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8], v[9], v[10]);
+    }
+
+
+    /**
+     * Считывание данных с полей TextField
+     * Параметры являются характеристиками класса RouteClient
+     * @param name
+     * @param coordX
+     * @param coordY
+     * @param fromX
+     * @param fromY
+     * @param fromZ
+     * @param toX
+     * @param toY
+     * @param toZ
+     * @param distance
+     * @param price
+     * @return
+     */
     public RouteClient validateFromFields(String name, String coordX, String coordY,
                                           String fromX, String fromY, String fromZ,
                                           String toX, String toY, String toZ,

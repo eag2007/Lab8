@@ -8,10 +8,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.example.gui.Main;
-import org.example.gui.commands.Info;
-import org.example.gui.commands.Logout;
-import org.example.gui.commands.Show;
-import org.example.gui.commands.Update;
+import org.example.gui.commands.*;
 import org.example.gui.managers.ManagerAuth;
 import org.example.gui.managers.ManagerValidation;
 import org.example.packet.collection.Route;
@@ -162,15 +159,16 @@ public class MainController {
     @FXML
     private void onRemoveFirstClick() {
         RemoveFirstController.onRemoveFirstClick();
+        onShowClick();
     }
 
     @FXML
     private void onRemoveByIdClick() {
         Route selected = routeTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            onShowClick();
             long id = selected.getId();
             RemoveByIdController.onRemoveByIdControllerClick(id);
+            onShowClick();
         }
     }
 
@@ -178,6 +176,7 @@ public class MainController {
     private void onRemoveAllDistClick() {
         Stage stage = (Stage) mainRoot.getScene().getWindow();
         RemoveAllByDistanceController.show(stage);
+        onShowClick();
     }
 
     @FXML
@@ -192,49 +191,52 @@ public class MainController {
     }
 
     @FXML
+    private void onExecuteScriptClick() {
+        Stage stage = (Stage) mainRoot.getScene().getWindow();
+        ExecuteScriptController.execute(stage);
+    }
+
+    @FXML
     private void onUpdateClick() {
         Route selected = routeTable.getSelectionModel().getSelectedItem();
 
         if (selected == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Ошибка");
-            alert.setHeaderText(null);
-            alert.setContentText("Выберите маршрут для обновления");
-            alert.showAndWait();
+            AlertController.show("Предупреждение", "Выберите маршрут для обновления");
             return;
         }
 
         long id = selected.getId();
 
-        new Update().executeCommand(new String[]{String.valueOf(id)}, server, null);
-
         try {
-            String name = routeNameField.getText();
-            String coordX = routeCoordXField.getText();
-            String coordY = routeCoordYField.getText();
-            String fromX = routeFromXField.getText();
-            String fromY = routeFromYField.getText();
-            String fromZ = routeFromZField.getText();
-            String toX = routeToXField.getText();
-            String toY = routeToYField.getText();
-            String toZ = routeToZField.getText();
-            String distance = routeDistanceField.getText();
-            String price = routePriceField.getText();
-
             RouteClient routeClient = validator.validateFromFields(
-                    name, coordX, coordY, fromX, fromY, fromZ, toX, toY, toZ, distance, price
+                    routeNameField.getText(),
+                    routeCoordXField.getText(),
+                    routeCoordYField.getText(),
+                    routeFromXField.getText(),
+                    routeFromYField.getText(),
+                    routeFromZField.getText(),
+                    routeToXField.getText(),
+                    routeToYField.getText(),
+                    routeToZField.getText(),
+                    routeDistanceField.getText(),
+                    routePriceField.getText()
             );
 
             new Update().executeCommand(new String[]{String.valueOf(id)}, server, routeClient);
             onShowClick();
         } catch (IllegalArgumentException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Ошибка валидации");
-            alert.setHeaderText(null);
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-            onShowClick();
+            AlertController.show("Ошибка валидации", e.getMessage());
         }
+    }
+
+    @FXML
+    private void onHelpClick() {
+        new Help().executeCommand(null, server, null);
+    }
+
+    @FXML
+    private void onHistoryClick() {
+        new History().executeCommand(null, server, null);
     }
 
     public void setUserLogin() {

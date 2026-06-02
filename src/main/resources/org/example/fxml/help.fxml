@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<VBox stylesheets="@../css/help.css" styleClass="help-root" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.gui.controllers.HelpController" spacing="0" prefWidth="700" prefHeight="500">
+
+    <HBox styleClass="help-header" alignment="CENTER_LEFT" prefHeight="55">
+        <Rectangle styleClass="help-header-rect" width="3" height="16" arcWidth="2" arcHeight="2"/>
+        <Label styleClass="help-header-title" text="СПРАВКА ПО КОМАНДАМ"/>
+    </HBox>
+
+    <TextArea styleClass="help-textarea" fx:id="helpText" editable="false" wrapText="true" VBox.vgrow="ALWAYS"/>
+
+    <HBox styleClass="help-footer" alignment="CENTER_RIGHT" prefHeight="55">
+        <Button styleClass="help-close-btn" onAction="#onCloseClick" text="ЗАКРЫТЬ"/>
+    </HBox>
+</VBox>

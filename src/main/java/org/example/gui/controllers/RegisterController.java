@@ -25,35 +25,41 @@ public class RegisterController {
 
     @FXML
     private void onRegisterClick() {
-        if (server == null || !server.isOpen()) {
-            reconnectServer();
-        }
-
         String login = regLoginField.getText();
         String password = regPasswordField.getText();
         String confirmPassword = confirmPasswordField.getText();
 
-        if (!password.equals(confirmPassword)) return;
+        if (login.isBlank() || password.isBlank()) {
+            alert("Заполните все поля");
+            return;
+        }
+        if (!password.equals(confirmPassword)) {
+            alert("Пароли не совпадают");
+            return;
+        }
 
         new Thread(() -> {
-
-            if (Main.server == null || !Main.server.isOpen()) {
-                Main.reconnectServer();
+            if (!Main.connect()) {
+                alertLater("Сервер недоступен. Попробуйте позже.");
+                return;
             }
-
             try {
-                writeModule.writePacketForServer(server, new CommandPacket("register", null, null, login, password));
+                writeModule.writePacketForServer(server,
+                        new CommandPacket("register", null, null, login, password));
                 ResponsePacket response = readModule.readResponseForClient(server);
 
-                if (response != null && response.getStatusCode().equals(Codes.OK)) {
+                if (response != null && response.getStatusCode() == Codes.OK) {
                     ManagerAuth.setLogin(login);
                     ManagerAuth.setPassword(password);
                     Main.startThreads();
                     SubscribeController.onSubscribe();
                     Platform.runLater(this::showMainWindow);
+                } else {
+                    String msg = response != null ? response.getMessage() : "Нет ответа от сервера";
+                    alertLater("Ошибка регистрации: " + msg);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                alertLater("Сервер недоступен. Попробуйте позже.");
             }
         }).start();
     }
@@ -63,14 +69,20 @@ public class RegisterController {
         showLoginWindow();
     }
 
+    private void alert(String msg) {
+        AlertController.show("Регистрация", msg);
+    }
+
+    private void alertLater(String msg) {
+        Platform.runLater(() -> alert(msg));
+    }
+
     private void showMainWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fxml/main.fxml"));
             Parent mainRoot = loader.load();
-
             MainController controller = loader.getController();
             controller.setUserLogin();
-
             Stage stage = (Stage) registerBox.getScene().getWindow();
             stage.getScene().setRoot(mainRoot);
         } catch (Exception e) {

@@ -13,10 +13,15 @@ import java.util.zip.GZIPInputStream;
 public class ReadModule {
     private static final int BUFFER_SIZE = 8192;
 
+    /**
+     * Считывает данные сервера, читает с SocketChannel
+     * @param serverChannel - канал SocketChannel
+     * @return десериализованный объект ResponsePacket
+     * @throws IOException - ошибка которая может возникнуть при чтении
+     * @throws ClassNotFoundException - ошибка которая может возникнуть при десериализации
+     */
     public ResponsePacket readResponseForClient(SocketChannel serverChannel) throws IOException, ClassNotFoundException {
-        /**
-         * Считываем размер сообщения размер не больше чем long
-         **/
+        /// Считываем размер сообщения размер не больше чем long
         ByteBuffer sizeBuffer = ByteBuffer.allocate(8);
         while (sizeBuffer.hasRemaining()) {
             int r = serverChannel.read(sizeBuffer);
@@ -30,10 +35,7 @@ public class ReadModule {
             throw new IOException("Слишком большой ответ: " + compressedSize + " байт");
         }
 
-        /**
-         * Считыванием сжатое сообщение частями
-         */
-
+        /// Считыванием сжатое сообщение частями
         ByteArrayOutputStream compressedBaos = new ByteArrayOutputStream();
         ByteBuffer dataBuffer = ByteBuffer.allocate(BUFFER_SIZE);
 
@@ -56,9 +58,7 @@ public class ReadModule {
             remaining -= bytesRead;
         }
 
-        /**
-         * Разжимаем данные
-         */
+        /// Разжимаем данные
 
         byte[] compressedData = compressedBaos.toByteArray();
         ByteArrayInputStream bais = new ByteArrayInputStream(compressedData);

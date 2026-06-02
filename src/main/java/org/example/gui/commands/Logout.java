@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import org.example.gui.Main;
 import org.example.gui.interfaces.Command;
 import org.example.gui.managers.ManagerAuth;
+import org.example.gui.managers.ManagerCommands;
 
 import java.nio.channels.SocketChannel;
 
@@ -13,6 +14,7 @@ public class Logout implements Command {
 
     @Override
     public void executeCommand(String[] args, SocketChannel serverChannel, Object stage) {
+        ManagerCommands.addToHistory("logout");
         if (Main.getGuiPrinter() != null) {
             Main.getGuiPrinter().stopPrinter();
             Main.setGUIPrinter(null);

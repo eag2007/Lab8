@@ -26,29 +26,26 @@ public class LoginController {
 
     @FXML
     private void onLoginClick() {
-        if (server == null || !server.isOpen()) {
-            reconnectServer();
-        }
-
         String login = loginField.getText();
         String password = passwordField.getText();
 
         if (login.isBlank() || password.isBlank()) {
-            if (errorLabel != null) errorLabel.setText("Заполните все поля");
+            setError("Заполните все поля");
             return;
         }
 
         new Thread(() -> {
+            // сервер недоступен — внутрь не пускаем
+            if (!Main.connect()) {
+                setErrorLater("Сервер недоступен. Попробуйте позже.");
+                return;
+            }
             try {
-
-                if (Main.server == null || !Main.server.isOpen()) {
-                    Main.reconnectServer();
-                }
-
-                writeModule.writePacketForServer(server, new CommandPacket("login", null, null, login, password));
+                writeModule.writePacketForServer(server,
+                        new CommandPacket("login", null, null, login, password));
                 ResponsePacket response = readModule.readResponseForClient(server);
 
-                if (response != null && response.getStatusCode().equals(Codes.OK)) {
+                if (response != null && response.getStatusCode() == Codes.OK) {
                     ManagerAuth.setLogin(login);
                     ManagerAuth.setPassword(password);
                     Main.startThreads();
@@ -56,15 +53,10 @@ public class LoginController {
                     Platform.runLater(this::showMainWindow);
                 } else {
                     String msg = response != null ? response.getMessage() : "Нет ответа от сервера";
-                    Platform.runLater(() -> {
-                        if (errorLabel != null) errorLabel.setText("Ошибка: " + msg);
-                    });
+                    setErrorLater("Ошибка: " + msg);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                Platform.runLater(() -> {
-                    if (errorLabel != null) errorLabel.setText("Ошибка соединения");
-                });
+                setErrorLater("Сервер недоступен. Попробуйте позже.");
             }
         }).start();
     }
@@ -74,14 +66,20 @@ public class LoginController {
         showRegisterWindow();
     }
 
+    private void setError(String text) {
+        if (errorLabel != null) errorLabel.setText(text);
+    }
+
+    private void setErrorLater(String text) {
+        Platform.runLater(() -> setError(text));
+    }
+
     private void showMainWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fxml/main.fxml"));
             Parent mainRoot = loader.load();
-
             MainController controller = loader.getController();
             controller.setUserLogin();
-
             Stage stage = (Stage) loginBox.getScene().getWindow();
             stage.getScene().setRoot(mainRoot);
         } catch (Exception e) {

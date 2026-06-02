@@ -19,6 +19,12 @@ public class ReaderThread extends Thread {
 
     private volatile boolean running = true;
 
+
+    /**
+     * Инициализация reader - потока чтения
+     * @param serverChannel - адрес сервера, к которому будем подключаться
+     * @param readModule - модуль для чтения
+     */
     public ReaderThread(SocketChannel serverChannel, ReadModule readModule) {
         super("reader-thread");
         this.serverChannel = serverChannel;
@@ -26,6 +32,10 @@ public class ReaderThread extends Thread {
         setDaemon(true);
     }
 
+
+    /**
+     * Основное действие постоянного чтения
+     */
     @Override
     public void run() {
         while (running && !Thread.currentThread().isInterrupted()) {
@@ -73,6 +83,10 @@ public class ReaderThread extends Thread {
         }
     }
 
+
+    /**
+     * Остановка reader - потока чтения
+     */
     public void stopReader() {
         running = false;
         interrupt();

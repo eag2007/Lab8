@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<VBox stylesheets="@../css/alert.css" styleClass="alert-root" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.gui.controllers.AlertController" spacing="0" prefWidth="480">
+
+    <HBox styleClass="alert-header" alignment="CENTER_LEFT" prefHeight="55">
+        <Rectangle styleClass="alert-header-rect" width="3" height="16" arcWidth="2" arcHeight="2"/>
+        <Label styleClass="alert-header-title" fx:id="titleLabel" text="Ошибка"/>
+    </HBox>
+
+    <Label styleClass="alert-message" fx:id="messageLabel" wrapText="true" prefWidth="480"/>
+
+    <HBox styleClass="alert-footer" alignment="CENTER_RIGHT" prefHeight="55">
+        <Button styleClass="alert-ok-btn" onAction="#onOkClick" text="OK"/>
+    </HBox>
+
+</VBox>
