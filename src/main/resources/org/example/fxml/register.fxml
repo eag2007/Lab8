@@ -7,19 +7,17 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 
 <StackPane stylesheets="@../css/register.css" styleClass="register-root" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.gui.controllers.RegisterController">
 
-    <Rectangle styleClass="register-accent-line" width="4" height="290" translateX="-232" translateY="0" arcWidth="4" arcHeight="4"/>
+    <VBox styleClass="register-box" fx:id="registerBox" maxWidth="500" maxHeight="650" prefWidth="500" prefHeight="650" alignment="CENTER" spacing="0">
 
-    <ComboBox fx:id="langCombo" onAction="#onLangChange" prefWidth="80"
-              StackPane.alignment="TOP_RIGHT" translateX="-20" translateY="20"
-              style="-fx-background-color: #161616; -fx-border-color: #2a2a2a; -fx-border-width: 1; -fx-font-family: 'Courier New'; -fx-font-size: 12;"/>
-
-    <VBox styleClass="register-box" fx:id="registerBox" alignment="CENTER" maxWidth="468" maxHeight="520" prefWidth="468" prefHeight="520" spacing="0">
+        <HBox style="-fx-padding: 12 12 0 0;" alignment="TOP_RIGHT">
+            <ComboBox fx:id="langCombo" onAction="#onLangChange" prefWidth="80"/>
+        </HBox>
 
         <VBox styleClass="register-header" alignment="CENTER">
             <Label styleClass="register-label" text="ROUTE DB"/>
@@ -28,15 +26,16 @@
         </VBox>
 
         <VBox styleClass="register-fields">
-            <TextField styleClass="register-field" fx:id="regLoginField" promptText="Логин" prefHeight="48"/>
-            <PasswordField styleClass="register-field" fx:id="regPasswordField" promptText="Пароль" prefHeight="48"/>
-            <PasswordField styleClass="register-field" fx:id="confirmPasswordField" promptText="Подтвердите пароль" prefHeight="48"/>
+            <TextField styleClass="register-field" fx:id="regLoginField" promptText="Логин" prefHeight="72"/>
+            <PasswordField styleClass="register-field" fx:id="regPasswordField" promptText="Пароль" prefHeight="72"/>
+            <PasswordField styleClass="register-field" fx:id="confirmPasswordField" promptText="Подтвердите пароль" prefHeight="72"/>
+            <Label styleClass="register-error" fx:id="errorLabel" text=""/>
         </VBox>
 
         <VBox styleClass="register-buttons" alignment="CENTER">
-            <Button styleClass="register-btn" fx:id="registerBtn" onAction="#onRegisterClick" prefHeight="48" prefWidth="388" text="ЗАРЕГИСТРИРОВАТЬСЯ"/>
+            <Button styleClass="register-btn" fx:id="registerBtn" onAction="#onRegisterClick" prefHeight="72" prefWidth="320" text="ЗАРЕГИСТРИРОВАТЬСЯ"/>
             <Hyperlink styleClass="register-hyperlink" fx:id="loginLink" onAction="#onLoginLinkClick" text="Уже есть аккаунт? Войти"/>
-            <ProgressIndicator fx:id="loadingSpinner" visible="false" prefWidth="36" prefHeight="36" style="-fx-progress-color: #5865f2;"/>
+            <ProgressIndicator fx:id="loadingSpinner" visible="false" prefWidth="40" prefHeight="40" style="-fx-progress-color: #5865f2;"/>
         </VBox>
     </VBox>
 </StackPane>

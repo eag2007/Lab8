@@ -23,6 +23,8 @@ import org.example.gui.threads.GUIPrinter;
 import org.example.packet.collection.Route;
 import org.example.packet.collection.RouteClient;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,8 +126,8 @@ public class MainController {
         colToX.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getTo().getX())));
         colToY.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getTo().getY())));
         colToZ.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getTo().getZ())));
-        colDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCreationDate().toLocalDateTime().toString()));
-
+        colDate.setCellValueFactory(cellData -> new SimpleStringProperty(
+                formatDate(cellData.getValue().getCreationDate().toLocalDateTime())));
         routeTable.setOnMouseClicked(event -> {
             Route selected = routeTable.getSelectionModel().getSelectedItem();
             if (selected != null) showRouteDetails(selected);
@@ -150,6 +152,8 @@ public class MainController {
             case "SL" -> ManagerLanguage.set(ManagerLanguage.SL);
             default   -> ManagerLanguage.set(ManagerLanguage.RU);
         }
+        updateTexts();
+        refreshDateColumn();
     }
 
     private void updateTexts() {
@@ -184,8 +188,6 @@ public class MainController {
             default      -> "RU";
         };
     }
-
-    // ---- Visualization ----
 
     public void fillTableAndCanvas(List<Route> routes) {
         routeTable.setItems(FXCollections.observableArrayList(routes));
@@ -345,8 +347,6 @@ public class MainController {
         pulsePhase = 0;
     }
 
-    // ---- FXML actions ----
-
     @FXML
     private void onShowClick() {
         clearDetails();
@@ -378,7 +378,7 @@ public class MainController {
         routeDistanceField.setText(String.valueOf(route.getDistance()));
         routePriceField.setText(String.valueOf(route.getPrice()));
         routeAuthorLabel.setText(route.getAuthor());
-        routeDateLabel.setText(route.getCreationDate().toLocalDateTime().toString());
+        routeDateLabel.setText(formatDate(route.getCreationDate().toLocalDateTime()));
     }
 
     private void clearDetails() {
@@ -499,7 +499,25 @@ public class MainController {
         new History().executeCommand(null, server, null);
     }
 
+    private void refreshDateColumn() {
+        colDate.setCellValueFactory(cellData -> new SimpleStringProperty(
+                formatDate(cellData.getValue().getCreationDate().toLocalDateTime())
+        ));
+        routeTable.refresh();
+    }
+
     public void setUserLogin() {
         userLoginLabel.setText(ManagerAuth.getLogin());
+    }
+
+    public String formatDate(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return "";
+        }
+        String pattern = ManagerLanguage.get("date.format");
+        if (pattern == null || pattern.isEmpty()) {
+            pattern = "yyyy-MM-dd HH:mm";
+        }
+        return dateTime.format(DateTimeFormatter.ofPattern(pattern));
     }
 }

@@ -32,8 +32,8 @@
     -fx-background-color: #242424;
     -fx-border-color: #333333;
     -fx-border-width: 0 0 1 0;
-    -fx-padding: 10 40 10 40;
-    -fx-spacing: 10;
+    -fx-padding: 8 40 8 40;
+    -fx-spacing: 8;
 }
 
 .main-toolbar .toolbar-separator {
@@ -44,12 +44,12 @@
     -fx-background-color: #5865f2;
     -fx-text-fill: white;
     -fx-font-family: 'Courier New';
-    -fx-font-size: 13;
+    -fx-font-size: 13.5;
     -fx-font-weight: bold;
-    -fx-background-radius: 8;
+    -fx-background-radius: 6;
     -fx-cursor: hand;
-    -fx-padding: 8 16 8 16;
-    -fx-min-width: 80;
+    -fx-padding: 6 12 6 12;
+    -fx-min-width: 70;
 }
 
 .btn-primary:hover {
@@ -60,14 +60,14 @@
     -fx-background-color: #2a2a2a;
     -fx-text-fill: #cccccc;
     -fx-font-family: 'Courier New';
-    -fx-font-size: 13;
+    -fx-font-size: 13.5;
     -fx-border-color: #444444;
     -fx-border-width: 1;
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
     -fx-cursor: hand;
-    -fx-padding: 8 16 8 16;
-    -fx-min-width: 80;
+    -fx-padding: 6 12 6 12;
+    -fx-min-width: 70;
 }
 
 .btn-secondary:hover {
@@ -79,19 +79,38 @@
     -fx-background-color: #2a2a2a;
     -fx-text-fill: #f09595;
     -fx-font-family: 'Courier New';
-    -fx-font-size: 13;
+    -fx-font-size: 13.5;
     -fx-border-color: #444444;
     -fx-border-width: 1;
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
     -fx-cursor: hand;
-    -fx-padding: 8 16 8 16;
-    -fx-min-width: 80;
+    -fx-padding: 6 12 6 12;
+    -fx-min-width: 70;
 }
 
 .btn-danger:hover {
     -fx-background-color: #3a2a2a;
     -fx-text-fill: #ffaaaa;
+}
+
+.btn-green {
+    -fx-background-color: #2a2a2a;
+    -fx-text-fill: #23a55a;
+    -fx-font-family: 'Courier New';
+    -fx-font-size: 13.5;
+    -fx-border-color: #444444;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-padding: 6 12 6 12;
+    -fx-min-width: 70;
+}
+
+.btn-green:hover {
+    -fx-background-color: #2a3a2a;
+    -fx-text-fill: #2cbb6e;
 }
 
 .tab-pane {
@@ -119,7 +138,7 @@
 .tab-pane .tab .tab-label {
     -fx-text-fill: #cccccc;
     -fx-font-family: 'Courier New';
-    -fx-font-size: 13;
+    -fx-font-size: 12;
     -fx-font-weight: bold;
 }
 
@@ -147,9 +166,9 @@
 .main-table .column-header .label {
     -fx-text-fill: #cccccc;
     -fx-font-family: 'Courier New';
-    -fx-font-size: 12;
+    -fx-font-size: 13;
     -fx-font-weight: bold;
-    -fx-padding: 10 6 10 6;
+    -fx-padding: 8 6 8 6;
 }
 
 .main-table .table-row-cell {
@@ -181,10 +200,10 @@
 .main-table .table-cell {
     -fx-text-fill: #d0d0d0;
     -fx-font-family: 'Courier New';
-    -fx-font-size: 11;
+    -fx-font-size: 13;
     -fx-border-color: #2a2a2a;
     -fx-border-width: 0 1 0 0;
-    -fx-padding: 8 6 8 6;
+    -fx-padding: 6 4 6 4;
 }
 
 .main-table .table-cell:last {
@@ -216,65 +235,39 @@
     -fx-font-family: 'Courier New';
     -fx-font-weight: bold;
     -fx-text-fill: #e0e0e0;
-    -fx-padding: 14 16 10 16;
+    -fx-padding: 12 14 8 14;
     -fx-border-color: #333333;
     -fx-border-width: 0 0 1 0;
 }
 
 .info-panel-content {
-    -fx-padding: 14;
-    -fx-spacing: 10;
+    -fx-padding: 12;
+    -fx-spacing: 8;
 }
 
 .info-label {
     -fx-text-fill: #888888;
     -fx-font-family: 'Courier New';
-    -fx-font-size: 11;
+    -fx-font-size: 12;
     -fx-font-weight: bold;
 }
 
 .info-value {
     -fx-text-fill: #e0e0e0;
     -fx-font-family: 'Courier New';
-    -fx-font-size: 12;
-}
-
-.main-statusbar {
-    -fx-background-color: #202020;
-    -fx-border-color: #333333;
-    -fx-border-width: 1 0 0 0;
-    -fx-padding: 8 40 8 40;
-    -fx-spacing: 20;
-}
-
-.main-statusbar .status-connected {
-    -fx-text-fill: #4caf50;
-    -fx-font-family: 'Courier New';
-    -fx-font-size: 12;
-}
-
-.main-statusbar .status-host {
-    -fx-text-fill: #666666;
-    -fx-font-family: 'Courier New';
-    -fx-font-size: 12;
-}
-
-.main-placeholder {
-    -fx-text-fill: #555555;
-    -fx-font-family: 'Courier New';
-    -fx-font-size: 14;
+    -fx-font-size: 13;
 }
 
 .info-panel-content .text-field {
     -fx-background-color: #2a2a2a;
     -fx-text-fill: #e0e0e0;
     -fx-font-family: 'Courier New';
-    -fx-font-size: 12;
+    -fx-font-size: 13;
     -fx-border-color: #3a3a3a;
     -fx-border-width: 1;
     -fx-border-radius: 4;
     -fx-background-radius: 4;
-    -fx-padding: 6 8 6 8;
+    -fx-padding: 4 6 4 6;
 }
 
 .info-panel-content .text-field:focused {
@@ -284,25 +277,117 @@
 .info-panel-content .label {
     -fx-text-fill: #888888;
     -fx-font-family: 'Courier New';
-    -fx-font-size: 11;
+    -fx-font-size: 13;
     -fx-font-weight: bold;
 }
 
-.btn-green {
-    -fx-background-color: #2a2a2a;
-    -fx-text-fill: #23a55a;
-    -fx-font-family: 'Courier New';
-    -fx-font-size: 13;
-    -fx-border-color: #444444;
-    -fx-border-width: 1;
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
-    -fx-cursor: hand;
-    -fx-padding: 8 16 8 16;
-    -fx-min-width: 80;
+.main-statusbar {
+    -fx-background-color: #202020;
+    -fx-border-color: #333333;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 6 40 6 40;
+    -fx-spacing: 20;
 }
 
-.btn-green:hover {
-    -fx-background-color: #2a3a2a;
-    -fx-text-fill: #2cbb6e;
+.main-statusbar .status-connected {
+    -fx-text-fill: #4caf50;
+    -fx-font-family: 'Courier New';
+    -fx-font-size: 11;
+}
+
+.main-statusbar .status-host {
+    -fx-text-fill: #666666;
+    -fx-font-family: 'Courier New';
+    -fx-font-size: 11;
+}
+
+.main-placeholder {
+    -fx-text-fill: #555555;
+    -fx-font-family: 'Courier New';
+    -fx-font-size: 12;
+}
+
+.combo-box {
+    -fx-background-color: #2a2a2a;
+    -fx-border-color: #3a3a3a;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-family: 'Courier New';
+    -fx-font-size: 11;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #e0e0e0;
+    -fx-background-color: #2a2a2a;
+    -fx-padding: 4 6 4 6;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: #2a2a2a;
+    -fx-background-radius: 0 5 5 0;
+}
+
+.combo-box .arrow {
+    -fx-background-color: #888888;
+}
+
+.combo-box .arrow-button:hover {
+    -fx-background-color: #353535;
+}
+
+.combo-box .arrow-button:hover .arrow {
+    -fx-background-color: #cccccc;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #242424;
+    -fx-border-color: #3a3a3a;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-text-fill: #e0e0e0;
+    -fx-background-color: #242424;
+    -fx-padding: 6 10;
+    -fx-font-size: 11;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: #353535;
+}
+
+.combo-box-popup .list-view .list-cell:selected {
+    -fx-background-color: #5865f2;
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-view .list-cell:focused {
+    -fx-background-color: #5865f2;
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .scroll-bar {
+    -fx-background-color: #1a1a1a;
+}
+
+.combo-box-popup .scroll-bar .thumb {
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius: 5;
+}
+
+.combo-box-popup .scroll-bar .thumb:hover {
+    -fx-background-color: #4a4a4a;
+}
+
+.combo-box-popup .scroll-bar .increment-button,
+.combo-box-popup .scroll-bar .decrement-button {
+    -fx-background-color: #1a1a1a;
+}
+
+.combo-box-popup .scroll-bar .increment-arrow,
+.combo-box-popup .scroll-bar .decrement-arrow {
+    -fx-background-color: #888888;
 }

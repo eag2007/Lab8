@@ -12,8 +12,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
-
 <?import javafx.scene.control.TextField?>
+
 <StackPane stylesheets="@../css/main.css" styleClass="main-root" fx:id="mainRoot" xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.gui.controllers.MainController">
 
@@ -46,8 +46,6 @@
             <Label fx:id="userLoginLabel" text="не авторизован"
                    style="-fx-padding: 8 15; -fx-background-radius: 20; -fx-background-color: #5865f2; -fx-text-fill: white; -fx-font-family: 'Courier New'; -fx-font-size: 13; -fx-font-weight: bold;"/>
             <HBox HBox.hgrow="ALWAYS"/>
-            <ComboBox fx:id="langCombo" onAction="#onLangChange" prefWidth="80"
-                      style="-fx-background-color: #111111; -fx-border-color: #2a2a2a; -fx-border-width: 1; -fx-font-family: 'Courier New'; -fx-font-size: 12;"/>
             <Button styleClass="btn-secondary" fx:id="logoutBtn" onAction="#onLogoutClick" text="ВЫЙТИ"/>
         </HBox>
 
@@ -58,7 +56,7 @@
                     <TableView styleClass="main-table" fx:id="routeTable" HBox.hgrow="ALWAYS">
                         <columns>
                             <TableColumn fx:id="colId" text="ID" prefWidth="60" minWidth="50"/>
-                            <TableColumn fx:id="colName" text="Имя" prefWidth="140" minWidth="100"/>
+                            <TableColumn fx:id="colName" text="Name" prefWidth="140" minWidth="100"/>
                             <TableColumn fx:id="colCoordX" text="Coord X" prefWidth="80" minWidth="60"/>
                             <TableColumn fx:id="colCoordY" text="Coord Y" prefWidth="80" minWidth="60"/>
                             <TableColumn fx:id="colFromX" text="From X" prefWidth="80" minWidth="60"/>
@@ -67,10 +65,10 @@
                             <TableColumn fx:id="colToX" text="To X" prefWidth="80" minWidth="60"/>
                             <TableColumn fx:id="colToY" text="To Y" prefWidth="80" minWidth="60"/>
                             <TableColumn fx:id="colToZ" text="To Z" prefWidth="80" minWidth="60"/>
-                            <TableColumn fx:id="colDistance" text="Дист." prefWidth="80" minWidth="60"/>
-                            <TableColumn fx:id="colPrice" text="Цена" prefWidth="80" minWidth="60"/>
-                            <TableColumn fx:id="colAuthor" text="Автор" prefWidth="120" minWidth="80"/>
-                            <TableColumn fx:id="colDate" text="Дата" prefWidth="160" minWidth="120"/>
+                            <TableColumn fx:id="colDistance" text="Distance" prefWidth="80" minWidth="60"/>
+                            <TableColumn fx:id="colPrice" text="Price" prefWidth="80" minWidth="60"/>
+                            <TableColumn fx:id="colAuthor" text="Author" prefWidth="120" minWidth="80"/>
+                            <TableColumn fx:id="colDate" text="Date" prefWidth="160" minWidth="120"/>
                         </columns>
                         <columnResizePolicy>
                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
@@ -135,6 +133,9 @@
         <HBox styleClass="main-statusbar" alignment="CENTER_LEFT" prefHeight="28">
             <Label fx:id="statusLabel" styleClass="status-connected" text="●  Подключено"/>
             <Label styleClass="status-host" text="localhost:8080"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <ComboBox fx:id="langCombo" onAction="#onLangChange" prefWidth="80"
+                      style="-fx-background-color: #111111; -fx-border-color: #2a2a2a; -fx-border-width: 1; -fx-font-family: 'Courier New'; -fx-font-size: 12;"/>
         </HBox>
     </VBox>
 </StackPane>

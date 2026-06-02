@@ -7,19 +7,17 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 
 <StackPane stylesheets="@../css/login.css" styleClass="login-root" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.gui.controllers.LoginController">
 
-    <Rectangle styleClass="login-accent-line" width="4" height="260" translateX="-232" translateY="0" arcWidth="4" arcHeight="4"/>
+    <VBox styleClass="login-box" fx:id="loginBox" maxWidth="500" maxHeight="550" prefWidth="500" prefHeight="550" alignment="CENTER" spacing="0">
 
-    <ComboBox fx:id="langCombo" onAction="#onLangChange" prefWidth="80"
-              StackPane.alignment="TOP_RIGHT" translateX="-20" translateY="20"
-              style="-fx-background-color: #161616; -fx-border-color: #2a2a2a; -fx-border-width: 1; -fx-font-family: 'Courier New'; -fx-font-size: 12;"/>
-
-    <VBox styleClass="login-box" fx:id="loginBox" maxWidth="468" maxHeight="460" prefWidth="468" prefHeight="460" alignment="CENTER" spacing="0">
+        <HBox style="-fx-padding: 12 12 0 0;" alignment="TOP_RIGHT">
+            <ComboBox fx:id="langCombo" onAction="#onLangChange" prefWidth="80"/>
+        </HBox>
 
         <VBox styleClass="login-header" alignment="CENTER">
             <Label styleClass="login-label" text="ROUTE DB"/>
@@ -28,15 +26,15 @@
         </VBox>
 
         <VBox styleClass="login-fields">
-            <TextField styleClass="login-field" fx:id="loginField" promptText="Логин" prefHeight="48"/>
-            <PasswordField styleClass="login-field" fx:id="passwordField" promptText="Пароль" prefHeight="48"/>
+            <TextField styleClass="login-field" fx:id="loginField" promptText="Логин" prefHeight="72"/>
+            <PasswordField styleClass="login-field" fx:id="passwordField" promptText="Пароль" prefHeight="72"/>
             <Label styleClass="login-error" fx:id="errorLabel" text=""/>
         </VBox>
 
         <VBox styleClass="login-buttons" alignment="CENTER">
-            <Button styleClass="login-btn" fx:id="loginBtn" onAction="#onLoginClick" prefHeight="48" prefWidth="388" text="ВОЙТИ"/>
+            <Button styleClass="login-btn" fx:id="loginBtn" onAction="#onLoginClick" prefHeight="72" prefWidth="320" text="ВОЙТИ"/>
             <Hyperlink styleClass="login-hyperlink" fx:id="registerLink" onAction="#onRegisterLinkClick" text="Нет аккаунта? Зарегистрироваться"/>
-            <ProgressIndicator fx:id="loadingSpinner" visible="false" prefWidth="36" prefHeight="36" style="-fx-progress-color: #5865f2;"/>
+            <ProgressIndicator fx:id="loadingSpinner" visible="false" prefWidth="40" prefHeight="40" style="-fx-progress-color: #5865f2;"/>
         </VBox>
     </VBox>
 </StackPane>
