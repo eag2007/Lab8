@@ -4,6 +4,7 @@ import org.example.gui.Main;
 import org.example.gui.interfaces.Command;
 import org.example.gui.managers.ManagerAuth;
 import org.example.gui.managers.ManagerCommands;
+import org.example.gui.managers.ManagerLanguage;
 import org.example.packet.CommandPacket;
 import org.example.packet.collection.RouteClient;
 
@@ -13,7 +14,7 @@ public class AddIfMax implements Command {
 
     @Override
     public String toString() {
-        return "add_if_max - добавляет новый элемент в коллекцию если он больше наибольшего";
+        return ManagerLanguage.get("command.add_if_max");
     }
 
     @Override

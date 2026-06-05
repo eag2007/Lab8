@@ -3,6 +3,7 @@ package org.example.gui.controllers;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
@@ -11,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -26,7 +28,11 @@ import org.example.packet.collection.RouteClient;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 
 import static org.example.gui.Main.server;
 
@@ -150,8 +156,10 @@ public class MainController {
     private ComboBox<String> langCombo;
 
     private final Canvas vizCanvas = new Canvas();
+    private List<Route> allRoutes = new ArrayList<>();
     private List<Route> vizRoutes = new ArrayList<>();
     private final List<double[]> vizPoints = new ArrayList<>();
+    private final Map<String, TextField> columnFilters = new LinkedHashMap<>();
 
     private int hoveredRouteIndex = -1;
     private double pulsePhase = 0;
@@ -193,6 +201,7 @@ public class MainController {
         colToZ.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getTo().getZ())));
         colDate.setCellValueFactory(cellData -> new SimpleStringProperty(
                 formatDate(cellData.getValue().getCreationDate().toLocalDateTime())));
+        initColumnFilters();
         routeTable.setOnMouseClicked(event -> {
             Route selected = routeTable.getSelectionModel().getSelectedItem();
             if (selected != null) showRouteDetails(selected);
@@ -260,6 +269,7 @@ public class MainController {
         infoPanelTitle.setText(ManagerLanguage.get("main.panel.title"));
         statusLabel.setText(ManagerLanguage.get("main.status.connected"));
         tablePlaceholder.setText(ManagerLanguage.get("main.placeholder"));
+        updateColumnFilterTexts();
     }
 
     /**
@@ -282,9 +292,130 @@ public class MainController {
      * @param routes - список маршрутов
      */
     public void fillTableAndCanvas(List<Route> routes) {
-        routeTable.setItems(FXCollections.observableArrayList(routes));
-        vizRoutes = routes;
+        allRoutes = new ArrayList<>(routes);
+        applyTableFilters();
+    }
+
+    /**
+     * Инициализирует фильтры над каждой колонкой таблицы.
+     */
+    private void initColumnFilters() {
+        addColumnFilter("id", colId);
+        addColumnFilter("name", colName);
+        addColumnFilter("coord_x", colCoordX);
+        addColumnFilter("coord_y", colCoordY);
+        addColumnFilter("from_x", colFromX);
+        addColumnFilter("from_y", colFromY);
+        addColumnFilter("from_z", colFromZ);
+        addColumnFilter("to_x", colToX);
+        addColumnFilter("to_y", colToY);
+        addColumnFilter("to_z", colToZ);
+        addColumnFilter("distance", colDistance);
+        addColumnFilter("price", colPrice);
+        addColumnFilter("author", colAuthor);
+        addColumnFilter("date", colDate);
+        updateColumnFilterTexts();
+    }
+
+    /**
+     * Добавляет фильтр к колонке.
+     *
+     * @param key    - ключ колонки
+     * @param column - колонка таблицы
+     */
+    private void addColumnFilter(String key, TableColumn<Route, ?> column) {
+        Label title = new Label();
+        title.getStyleClass().add("table-filter-title");
+
+        TextField filter = new TextField();
+        filter.getStyleClass().add("table-filter-field");
+        filter.setMinWidth(45);
+        filter.setPrefWidth(column.getPrefWidth() - 10);
+        filter.textProperty().addListener((obs, oldValue, newValue) -> applyTableFilters());
+        filter.setOnMouseClicked(Event::consume);
+
+        VBox header = new VBox(4, title, filter);
+        header.getStyleClass().add("table-filter-header");
+        column.setGraphic(header);
+        column.setText(null);
+        columnFilters.put(key, filter);
+    }
+
+    /**
+     * Обновляет локализацию заголовков и подсказок фильтров.
+     */
+    private void updateColumnFilterTexts() {
+        for (Map.Entry<String, TextField> entry : columnFilters.entrySet()) {
+            VBox header = (VBox) entry.getValue().getParent();
+            Label title = (Label) header.getChildren().get(0);
+            title.setText(ManagerLanguage.get("table.column." + entry.getKey()));
+            entry.getValue().setPromptText(ManagerLanguage.get("table.filter.prompt"));
+        }
+    }
+
+    /**
+     * Фильтрует таблицу через Stream API.
+     */
+    private void applyTableFilters() {
+        /// фильтруем по соответсвующим фильтрам
+        List<Route> filteredRoutes = allRoutes.stream()
+                .filter(route -> columnFilters.entrySet().stream()
+                        .allMatch(filter -> matchesColumnFilter(route, filter.getKey(), filter.getValue().getText())))
+                .toList();
+
+        /// устанавливаем в таблицу и обновляет детали маршрута
+        routeTable.setItems(FXCollections.observableArrayList(filteredRoutes));
+        vizRoutes = filteredRoutes;
+        Route selected = routeTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            clearDetails();
+        }
+        /// перерисовываем визуалицию
         redrawViz();
+    }
+
+    /**
+     * Проверяет совпадение значения колонки с фильтром.
+     *
+     * @param route  - маршрут
+     * @param column - ключ колонки
+     * @param filter - значение фильтра
+     * @return true если строка подходит
+     */
+    private boolean matchesColumnFilter(Route route, String column, String filter) {
+        if (filter == null || filter.isBlank()) {
+            return true;
+        }
+        String value = getColumnValue(route, column).toLowerCase(Locale.ROOT);
+        String needle = filter.trim().toLowerCase(Locale.ROOT);
+        return value.contains(needle);
+    }
+
+    /**
+     * Достаёт строковое значение колонки.
+     *
+     * @param route  - маршрут
+     * @param column - ключ колонки
+     * @return значение колонки
+     */
+    private String getColumnValue(Route route, String column) {
+        return switch (column) {
+            case "id" -> String.valueOf(route.getId());
+            case "name" -> Objects.toString(route.getName(), "");
+            case "coord_x" -> String.valueOf(route.getCoordinates().getX());
+            case "coord_y" -> String.valueOf(route.getCoordinates().getY());
+            case "from_x" -> String.valueOf(route.getFrom().getX());
+            case "from_y" -> String.valueOf(route.getFrom().getY());
+            case "from_z" -> String.valueOf(route.getFrom().getZ());
+            case "to_x" -> String.valueOf(route.getTo().getX());
+            case "to_y" -> String.valueOf(route.getTo().getY());
+            case "to_z" -> String.valueOf(route.getTo().getZ());
+            case "distance" -> Objects.toString(route.getDistance(), "");
+            case "price" -> Objects.toString(route.getPrice(), "");
+            case "author" -> Objects.toString(route.getAuthor(), "");
+            case "date" -> formatDate(route.getCreationDate().toLocalDateTime());
+            default -> "";
+        };
     }
 
     /**
@@ -570,6 +701,15 @@ public class MainController {
      */
     @FXML
     private void onRemoveFirstClick() {
+        if (allRoutes.isEmpty()) {
+            AlertController.show("warning.title", ManagerLanguage.get("error.collection.empty"));
+            return;
+        }
+        Route firstRoute = allRoutes.get(0);
+        if (!isRouteUser(firstRoute)) {
+            AlertController.show("error.title", ManagerLanguage.get("error.route.not_owner"));
+            return;
+        }
         RemoveFirstController.onRemoveFirstClick();
         onShowClick();
     }
@@ -581,9 +721,15 @@ public class MainController {
     private void onRemoveByIdClick() {
         Route selected = routeTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
+            if (!isRouteUser(selected)) {
+                AlertController.show("error.title", ManagerLanguage.get("error.route.not_owner"));
+                return;
+            }
             long id = selected.getId();
             RemoveByIdController.onRemoveByIdControllerClick(id);
             onShowClick();
+        } else {
+            AlertController.show("warning.title", ManagerLanguage.get("error.route.not_selected.remove"));
         }
     }
 
@@ -631,7 +777,12 @@ public class MainController {
         Route selected = routeTable.getSelectionModel().getSelectedItem();
 
         if (selected == null) {
-            AlertController.show("warning.title", "Выберите маршрут для обновления");
+            AlertController.show("warning.title", ManagerLanguage.get("error.route.not_selected.update"));
+            return;
+        }
+
+        if (!isRouteUser(selected)) {
+            AlertController.show("error.title", ManagerLanguage.get("error.route.not_owner"));
             return;
         }
 
@@ -679,7 +830,7 @@ public class MainController {
         colDate.setCellValueFactory(cellData -> new SimpleStringProperty(
                 formatDate(cellData.getValue().getCreationDate().toLocalDateTime())
         ));
-        routeTable.refresh();
+        applyTableFilters();
     }
 
     /**
@@ -718,5 +869,15 @@ public class MainController {
         int g = 100 + ((hash / 100) % 156);
         int b = 100 + ((hash / 10000) % 156);
         return String.format("#%02X%02X%02X", r, g, b);
+    }
+
+    /**
+     * Проверяет, принадлежит ли маршрут текущему пользователю.
+     *
+     * @param route - маршрут
+     * @return true если текущий пользователь владелец маршрута
+     */
+    private boolean isRouteUser(Route route) {
+        return route == null || ManagerAuth.getLogin().equals(route.getAuthor());
     }
 }

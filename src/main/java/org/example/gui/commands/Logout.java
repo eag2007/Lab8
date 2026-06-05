@@ -7,6 +7,7 @@ import org.example.gui.Main;
 import org.example.gui.interfaces.Command;
 import org.example.gui.managers.ManagerAuth;
 import org.example.gui.managers.ManagerCommands;
+import org.example.gui.managers.ManagerLanguage;
 
 import java.nio.channels.SocketChannel;
 
@@ -40,7 +41,7 @@ public class Logout implements Command {
 
     @Override
     public String toString(){
-        return "logout - выходит из текущего user";
+        return ManagerLanguage.get("command.logout");
     }
 }
 

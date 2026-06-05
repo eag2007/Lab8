@@ -4,6 +4,7 @@ import org.example.gui.Main;
 import org.example.gui.interfaces.Command;
 import org.example.gui.managers.ManagerAuth;
 import org.example.gui.managers.ManagerCommands;
+import org.example.gui.managers.ManagerLanguage;
 import org.example.packet.CommandPacket;
 import org.example.packet.collection.RouteClient;
 
@@ -13,7 +14,7 @@ public class RemoveFirst implements Command {
 
     @Override
     public String toString() {
-        return "remove_first - удаляет первый элемент";
+        return ManagerLanguage.get("command.remove_first");
     }
 
     @Override

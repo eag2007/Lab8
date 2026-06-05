@@ -3,6 +3,7 @@ package org.example.gui.commands;
 import org.example.gui.Main;
 import org.example.gui.interfaces.Command;
 import org.example.gui.managers.ManagerCommands;
+import org.example.gui.managers.ManagerLanguage;
 import org.example.packet.ResponsePacket;
 import org.example.packet.enums.Codes;
 import org.example.packet.enums.ResponseType;
@@ -12,7 +13,7 @@ import java.nio.channels.SocketChannel;
 public class Help implements Command {
     @Override
     public String toString() {
-        return "help - выводит список команд";
+        return ManagerLanguage.get("command.help");
     }
 
     @Override

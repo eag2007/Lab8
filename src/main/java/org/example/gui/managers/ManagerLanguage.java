@@ -30,7 +30,7 @@ public class ManagerLanguage {
      */
     private static ResourceBundle load(String lang) {
         String path = "/org/example/i18n/messages_" + lang + ".properties";
-        /// достоем
+        /// достоем из ресурсов локали
         try (InputStream is = ManagerLanguage.class.getResourceAsStream(path);
              InputStreamReader reader = new InputStreamReader(is, StandardCharsets.UTF_8)) {
             return new PropertyResourceBundle(reader);
@@ -61,7 +61,6 @@ public class ManagerLanguage {
     public static void setOnLangChange(Runnable r) {
         onLangChange = r;
     }
-
 
     /**
      * Получить сообщение по ключу на текущем языке
