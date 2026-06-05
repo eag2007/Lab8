@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+/**
+ * Класс хранящий все команды
+ */
 public class ManagerCommands {
     private static final Map<String, Command> commands = new HashMap<>();
     private static final LinkedList<String> history = new LinkedList<>();
@@ -29,18 +32,36 @@ public class ManagerCommands {
         commands.put("history", new History());
     }
 
+    /**
+     * Получить команду по названию
+     *
+     * @param name название команды
+     * @return класс команды
+     */
     public static Command get(String name) {
         return commands.get(name);
     }
 
+    /**
+     * Добавить команду в историю команд
+     *
+     * @param cmd название команды
+     */
     public static void addToHistory(String cmd) {
-        if (cmd == null || cmd.isBlank()) return;
+        if (cmd == null || cmd.isBlank()) {
+            return;
+        }
         history.add(cmd);
         if (history.size() > 14) {
             history.removeFirst();
         }
     }
 
+    /**
+     * Получить историю команд
+     *
+     * @return строка, содержащая последние 14 команд
+     */
     public static String getHistory() {
         if (history.isEmpty()) {
             return "История пуста";
@@ -52,6 +73,11 @@ public class ManagerCommands {
         return sb.toString();
     }
 
+    /**
+     * Получить справку по командам
+     *
+     * @return большая справка по командам
+     */
     public static String getHelp() {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, Command> e : commands.entrySet()) {

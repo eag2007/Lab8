@@ -10,7 +10,8 @@ import java.nio.channels.SocketChannel;
 public class WriteModule {
     /**
      * Отправка данных на сервер, запись в канал
-     * @param server - адрес сервера SocketChannel
+     *
+     * @param server        - адрес сервера SocketChannel
      * @param commandPacket - пакет, который отправляем CommandPacket
      * @throws IOException - ошибка, которая может возникнуть при отправке
      */

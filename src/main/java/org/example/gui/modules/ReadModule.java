@@ -15,9 +15,10 @@ public class ReadModule {
 
     /**
      * Считывает данные сервера, читает с SocketChannel
+     *
      * @param serverChannel - канал SocketChannel
      * @return десериализованный объект ResponsePacket
-     * @throws IOException - ошибка которая может возникнуть при чтении
+     * @throws IOException            - ошибка которая может возникнуть при чтении
      * @throws ClassNotFoundException - ошибка которая может возникнуть при десериализации
      */
     public ResponsePacket readResponseForClient(SocketChannel serverChannel) throws IOException, ClassNotFoundException {

@@ -22,8 +22,9 @@ public class ReaderThread extends Thread {
 
     /**
      * Инициализация reader - потока чтения
+     *
      * @param serverChannel - адрес сервера, к которому будем подключаться
-     * @param readModule - модуль для чтения
+     * @param readModule    - модуль для чтения
      */
     public ReaderThread(SocketChannel serverChannel, ReadModule readModule) {
         super("reader-thread");

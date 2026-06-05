@@ -9,6 +9,12 @@ import java.util.List;
 
 public class ManagerValidation {
 
+    /**
+     * Функция для валидации данных со скрипта
+     *
+     * @param values - строки из скрипта
+     * @return возвращает объект RouteClient
+     */
     public RouteClient validateFromScript(List<String> values) {
         String[] labels = {"name", "X", "Y", "From X", "From Y", "From Z", "To X", "To Y", "To Z", "distance", "price"};
 
@@ -24,12 +30,29 @@ public class ManagerValidation {
         return validateFromFields(v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8], v[9], v[10]);
     }
 
+    /**
+     * Функция валидации данных с GUI приложения
+     *
+     * @param name     - Название маршрута
+     * @param coordX   - Координата X
+     * @param coordY   - Координата Y
+     * @param fromX    - От X
+     * @param fromY    - От Y
+     * @param fromZ    - От X
+     * @param toX      - Куда X
+     * @param toY      - КУда Y
+     * @param toZ      - Куда Z
+     * @param distance - Значение дистанции
+     * @param price    - Значения стоимости
+     * @return Возвращет объект RouteClient
+     */
     public RouteClient validateFromFields(String name, String coordX, String coordY,
                                           String fromX, String fromY, String fromZ,
                                           String toX, String toY, String toZ,
                                           String distance, String price) {
 
-        if (name == null || name.trim().isEmpty()) throw new IllegalArgumentException(ManagerLanguage.get("error.name.empty"));
+        if (name == null || name.trim().isEmpty())
+            throw new IllegalArgumentException(ManagerLanguage.get("error.name.empty"));
         if (name.trim().length() > 255) throw new IllegalArgumentException(ManagerLanguage.get("error.name.length"));
 
         long x;
@@ -110,7 +133,8 @@ public class ManagerValidation {
         BigDecimal priceBd;
         try {
             priceBd = new BigDecimal(price.trim().replace(',', '.'));
-            if (priceBd.compareTo(BigDecimal.ZERO) <= 0) throw new IllegalArgumentException(ManagerLanguage.get("error.price.invalid"));
+            if (priceBd.compareTo(BigDecimal.ZERO) <= 0)
+                throw new IllegalArgumentException(ManagerLanguage.get("error.price.invalid"));
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ManagerLanguage.get("error.price.invalid"));
         }

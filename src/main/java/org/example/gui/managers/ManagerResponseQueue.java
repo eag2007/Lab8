@@ -8,6 +8,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * Класс очереди для ответов с сервера
+ */
 public class ManagerResponseQueue {
 
     private static final ManagerResponseQueue INSTANCE = new ManagerResponseQueue();
@@ -27,6 +30,7 @@ public class ManagerResponseQueue {
 
     /**
      * Кладет ответ с сервера в потокобезопасную очередь
+     *
      * @param packet - ответ с сервера
      * @throws InterruptedException - ошибка потока
      */
@@ -47,6 +51,7 @@ public class ManagerResponseQueue {
 
     /**
      * Возвращает элемент с верхушки стека
+     *
      * @return ResponsePacket
      * @throws InterruptedException - ошибка потока
      */
@@ -57,6 +62,7 @@ public class ManagerResponseQueue {
 
     /**
      * Бронирует элемент в очереди
+     *
      * @return объект ResponsePacket
      */
     public CompletableFuture<ResponsePacket> expectResponse() {

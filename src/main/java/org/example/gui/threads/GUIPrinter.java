@@ -62,6 +62,7 @@ public class GUIPrinter extends Thread {
 
     /**
      * Метод распределения ответов от сервера
+     *
      * @param packet - ответ с сервера
      */
     private void handle(ResponsePacket packet) {
@@ -75,7 +76,7 @@ public class GUIPrinter extends Thread {
             handleAverage(packet);
         } else if (packet.getType() == ResponseType.FILTER_LESS_THAN_DISTANCE) {
             handleFilterLessThanDistance(packet);
-        } else  if (packet.getType() == ResponseType.HELP) {
+        } else if (packet.getType() == ResponseType.HELP) {
             handleHelp(packet);
         } else if (packet.getType() == ResponseType.HISTORY) {
             handleHistory(packet);
@@ -91,6 +92,7 @@ public class GUIPrinter extends Thread {
 
     /**
      * Отрисовка команды filter_less_than_distance
+     *
      * @param packet - ответ с сервера
      */
     @SuppressWarnings("unchecked")
@@ -110,6 +112,7 @@ public class GUIPrinter extends Thread {
 
     /**
      * Отрисовка команды average_of_distance
+     *
      * @param packet - ответ с сервера
      */
     private void handleAverage(ResponsePacket packet) {
@@ -124,6 +127,7 @@ public class GUIPrinter extends Thread {
 
     /**
      * Отрисовка окна average_of_distance
+     *
      * @param average - среднее арифмитическое distance
      */
     private void showAverageDialog(double average) {
@@ -153,6 +157,7 @@ public class GUIPrinter extends Thread {
 
     /**
      * Обработчик push уведомлений, при push обновляет таблицу
+     *
      * @param packet - ответ с сервера
      */
     public void handlePush(ResponsePacket packet) {
@@ -162,6 +167,7 @@ public class GUIPrinter extends Thread {
 
     /**
      * Обработчик info
+     *
      * @param packet - ответ с сервера
      */
     private void handleInfo(ResponsePacket packet) {
@@ -180,6 +186,7 @@ public class GUIPrinter extends Thread {
 
     /**
      * Обработчик show
+     *
      * @param packet - ответ с сервера
      */
     @SuppressWarnings("unchecked")
@@ -199,6 +206,7 @@ public class GUIPrinter extends Thread {
 
     /**
      * Обработчик help команды
+     *
      * @param packet - заглушка
      */
     public void handleHelp(ResponsePacket packet) {
@@ -209,8 +217,9 @@ public class GUIPrinter extends Thread {
 
     /**
      * Отрисовщик диалогового окна команды help
+     *
      * @param title - название окна
-     * @param text - текст в окне
+     * @param text  - текст в окне
      */
     private void showHelpDialog(String title, String text) {
         try {
@@ -242,8 +251,9 @@ public class GUIPrinter extends Thread {
 
     /**
      * Отрисовщик диалогового окна команды history
+     *
      * @param title - название окна
-     * @param text - текст в окне
+     * @param text  - текст в окне
      */
     private void showHistoryDialog(String title, String text) {
         try {
@@ -275,6 +285,7 @@ public class GUIPrinter extends Thread {
 
     /**
      * Обработчик команды history
+     *
      * @param packet - ответ с сервера
      */
     public void handleHistory(ResponsePacket packet) {
@@ -285,8 +296,9 @@ public class GUIPrinter extends Thread {
 
     /**
      * Отрисовщик диалогового окна команды info
+     *
      * @param title - название окна
-     * @param text - текст в окне
+     * @param text  - текст в окне
      */
     private void showDialog(String title, String text) {
         try {
@@ -317,19 +329,20 @@ public class GUIPrinter extends Thread {
 
     /**
      * Показывает диалог с информацией о маршруте (вызывается с FX-потока при клике на точку)
+     *
      * @param route - маршрут для отображения
      */
     public static void showRouteInfo(Route route) {
         String text =
                 "ID: " + route.getId() + "\n" +
-                "Name: " + route.getName() + "\n" +
-                "Coordinates: (" + route.getCoordinates().getX() + ", " + route.getCoordinates().getY() + ")\n" +
-                "From: (" + route.getFrom().getX() + ", " + route.getFrom().getY() + ", " + route.getFrom().getZ() + ")\n" +
-                "To: (" + route.getTo().getX() + ", " + route.getTo().getY() + ", " + route.getTo().getZ() + ")\n" +
-                "Distance: " + route.getDistance() + "\n" +
-                "Price: " + route.getPrice() + "\n" +
-                "Author: " + route.getAuthor() + "\n" +
-                "Date: " + route.getCreationDate().toLocalDateTime();
+                        "Name: " + route.getName() + "\n" +
+                        "Coordinates: (" + route.getCoordinates().getX() + ", " + route.getCoordinates().getY() + ")\n" +
+                        "From: (" + route.getFrom().getX() + ", " + route.getFrom().getY() + ", " + route.getFrom().getZ() + ")\n" +
+                        "To: (" + route.getTo().getX() + ", " + route.getTo().getY() + ", " + route.getTo().getZ() + ")\n" +
+                        "Distance: " + route.getDistance() + "\n" +
+                        "Price: " + route.getPrice() + "\n" +
+                        "Author: " + route.getAuthor() + "\n" +
+                        "Date: " + route.getCreationDate().toLocalDateTime();
         try {
             FXMLLoader loader = new FXMLLoader(GUIPrinter.class.getResource("/org/example/fxml/info.fxml"));
             VBox root = loader.load();

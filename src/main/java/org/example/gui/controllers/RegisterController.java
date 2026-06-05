@@ -18,17 +18,30 @@ import static org.example.gui.Main.*;
 
 public class RegisterController {
 
-    @FXML private TextField regLoginField;
-    @FXML private PasswordField regPasswordField;
-    @FXML private PasswordField confirmPasswordField;
-    @FXML private VBox registerBox;
-    @FXML private Label titleLabel;
-    @FXML private Label subtitleLabel;
-    @FXML private Button registerBtn;
-    @FXML private Hyperlink loginLink;
-    @FXML private ProgressIndicator loadingSpinner;
-    @FXML private ComboBox<String> langCombo;
+    @FXML
+    private TextField regLoginField;
+    @FXML
+    private PasswordField regPasswordField;
+    @FXML
+    private PasswordField confirmPasswordField;
+    @FXML
+    private VBox registerBox;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private Label subtitleLabel;
+    @FXML
+    private Button registerBtn;
+    @FXML
+    private Hyperlink loginLink;
+    @FXML
+    private ProgressIndicator loadingSpinner;
+    @FXML
+    private ComboBox<String> langCombo;
 
+    /**
+     * Инициализирует локаль на окне регистрации
+     */
     @FXML
     private void initialize() {
         langCombo.getItems().addAll("RU", "EN", "IT", "SL");
@@ -37,6 +50,9 @@ public class RegisterController {
         ManagerLanguage.setOnLangChange(this::updateTexts);
     }
 
+    /**
+     * Обрабатывает нажатие смены языка в выпадающем списке
+     */
     @FXML
     private void onLangChange() {
         String val = langCombo.getValue();
@@ -45,10 +61,13 @@ public class RegisterController {
             case "EN" -> ManagerLanguage.set(ManagerLanguage.EN);
             case "IT" -> ManagerLanguage.set(ManagerLanguage.IT);
             case "SL" -> ManagerLanguage.set(ManagerLanguage.SL);
-            default   -> ManagerLanguage.set(ManagerLanguage.RU);
+            default -> ManagerLanguage.set(ManagerLanguage.RU);
         }
     }
 
+    /**
+     * Обнволяет текст страницы под выбранную локаль
+     */
     private void updateTexts() {
         titleLabel.setText(ManagerLanguage.get("register.title"));
         subtitleLabel.setText(ManagerLanguage.get("register.subtitle"));
@@ -59,15 +78,23 @@ public class RegisterController {
         confirmPasswordField.setPromptText(ManagerLanguage.get("register.field.confirm"));
     }
 
+    /**
+     * Возвращает текущую выбранную локаль
+     *
+     * @return строку локали
+     */
     private String currentLangLabel() {
         return switch (ManagerLanguage.getCurrent()) {
             case ManagerLanguage.EN -> "EN";
             case ManagerLanguage.IT -> "IT";
             case ManagerLanguage.SL -> "SL";
-            default      -> "RU";
+            default -> "RU";
         };
     }
 
+    /**
+     * Обработчик кнопки зарегистрироваться, если все ок пользователь регистрируется и проходит в приложение
+     */
     @FXML
     private void onRegisterClick() {
         String login = regLoginField.getText();
@@ -87,7 +114,10 @@ public class RegisterController {
 
         new Thread(() -> {
             if (!Main.connect()) {
-                Platform.runLater(() -> { setLoading(false); alert("Сервер недоступен."); });
+                Platform.runLater(() -> {
+                    setLoading(false);
+                    alert("Сервер недоступен.");
+                });
                 return;
             }
             try {
@@ -100,31 +130,56 @@ public class RegisterController {
                     ManagerAuth.setPassword(password);
                     Main.startThreads();
                     SubscribeController.onSubscribe();
-                    Platform.runLater(() -> { setLoading(false); showMainWindow(); });
+                    Platform.runLater(() -> {
+                        setLoading(false);
+                        showMainWindow();
+                    });
                 } else {
                     String msg = response != null ? response.getMessage() : "Нет ответа от сервера";
-                    Platform.runLater(() -> { setLoading(false); alert("Ошибка регистрации: " + msg); });
+                    Platform.runLater(() -> {
+                        setLoading(false);
+                        alert("Ошибка регистрации: " + msg);
+                    });
                 }
             } catch (Exception e) {
-                Platform.runLater(() -> { setLoading(false); alert("Сервер недоступен."); });
+                Platform.runLater(() -> {
+                    setLoading(false);
+                    alert("Сервер недоступен.");
+                });
             }
         }).start();
     }
 
+    /**
+     * Ссылка на окно авторизации
+     */
     @FXML
     private void onLoginLinkClick() {
         showLoginWindow();
     }
 
+    /**
+     * Вызывает окно с ошибкой предупреждением
+     *
+     * @param msg = сообщения с ошибкой
+     */
     private void alert(String msg) {
         AlertController.show("Регистрация", msg);
     }
 
+    /**
+     * Переключает состояние анимации
+     *
+     * @param loading - флаг уставноки или неустанвоки анимации
+     */
     private void setLoading(boolean loading) {
         loadingSpinner.setVisible(loading);
         registerBtn.setDisable(loading);
     }
 
+    /**
+     * Загружает главное окно
+     */
     private void showMainWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fxml/main.fxml"));
@@ -138,6 +193,9 @@ public class RegisterController {
         }
     }
 
+    /**
+     * Загружает окно авторизации
+     */
     private void showLoginWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fxml/login.fxml"));

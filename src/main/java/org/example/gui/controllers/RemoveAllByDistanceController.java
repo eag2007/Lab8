@@ -13,11 +13,21 @@ import org.example.gui.managers.ManagerLanguage;
 
 import static org.example.gui.Main.server;
 
+/**
+ * Контроллер кнопки удаления по дистанции
+ */
 public class RemoveAllByDistanceController {
 
-    @FXML private TextField distanceField;
-    @FXML private Label errorLabel;
+    @FXML
+    private TextField distanceField;
+    @FXML
+    private Label errorLabel;
 
+    /**
+     * Диалоговое окно для ввода distance
+     *
+     * @param owner - принимает владельца (родительское окно)
+     */
     public static void show(Stage owner) {
         try {
             FXMLLoader loader = new FXMLLoader(RemoveAllByDistanceController.class.getResource("/org/example/fxml/remove_all_by_distance.fxml"));
@@ -26,6 +36,7 @@ public class RemoveAllByDistanceController {
             Stage stage = new Stage();
             stage.setTitle(ManagerLanguage.get("remove_all.title"));
             stage.initModality(Modality.APPLICATION_MODAL);
+            /// установка владельца
             stage.initOwner(owner);
             stage.setScene(new Scene(root));
             stage.setResizable(false);
@@ -35,6 +46,9 @@ public class RemoveAllByDistanceController {
         }
     }
 
+    /**
+     * Кнопка удалить в диалоговом окне, считывает данные вызывает соответствующую команду
+     */
     @FXML
     private void onRemoveClick() {
         String distanceText = distanceField.getText().trim();
@@ -57,11 +71,17 @@ public class RemoveAllByDistanceController {
         }
     }
 
+    /**
+     * Кнопка отмемы диалогового окна
+     */
     @FXML
     private void onCancelClick() {
         closeWindow();
     }
 
+    /**
+     * Закрывает диалоговое окно
+     */
     private void closeWindow() {
         Stage stage = (Stage) distanceField.getScene().getWindow();
         stage.close();

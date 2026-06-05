@@ -159,6 +159,9 @@ public class MainController {
 
     private final ManagerValidation validator = new ManagerValidation();
 
+    /**
+     * Инициализация канваса и таблицы
+     */
     @FXML
     private void initialize() {
         vizCanvas.widthProperty().bind(vizPane.widthProperty());
@@ -213,10 +216,15 @@ public class MainController {
         new Show().executeCommand(null, server, null);
     }
 
+    /**
+     * Обработчик смены языка локали
+     */
     @FXML
     private void onLangChange() {
         String val = langCombo.getValue();
-        if (val == null) return;
+        if (val == null) {
+            return;
+        }
         switch (val) {
             case "EN" -> ManagerLanguage.set(ManagerLanguage.EN);
             case "IT" -> ManagerLanguage.set(ManagerLanguage.IT);
@@ -227,6 +235,9 @@ public class MainController {
         refreshDateColumn();
     }
 
+    /**
+     * Обновляет GUI под локаль кнопки
+     */
     private void updateTexts() {
         mainTitle.setText(ManagerLanguage.get("main.topbar.title"));
         showBtn.setText(ManagerLanguage.get("main.btn.show"));
@@ -251,6 +262,11 @@ public class MainController {
         tablePlaceholder.setText(ManagerLanguage.get("main.placeholder"));
     }
 
+    /**
+     * Текущая локализация выбор
+     *
+     * @return возвращает текущую локализацию
+     */
     private String currentLangLabel() {
         return switch (ManagerLanguage.getCurrent()) {
             case ManagerLanguage.EN -> "EN";
@@ -260,12 +276,20 @@ public class MainController {
         };
     }
 
+    /**
+     * Рисует таблицу и канвас
+     *
+     * @param routes - список маршрутов
+     */
     public void fillTableAndCanvas(List<Route> routes) {
         routeTable.setItems(FXCollections.observableArrayList(routes));
         vizRoutes = routes;
         redrawViz();
     }
 
+    /**
+     * Отрисовывает график с точками маршрутов
+     */
     private void redrawViz() {
         double w = vizCanvas.getWidth();
         double h = vizCanvas.getHeight();
@@ -371,6 +395,12 @@ public class MainController {
         }
     }
 
+    /**
+     * Обработка нажатия на элемент визуализации
+     *
+     * @param mx - координата мыши x
+     * @param my - координата мыши y
+     */
     private void onVizClick(double mx, double my) {
         for (int i = 0; i < vizPoints.size(); i++) {
             double[] pt = vizPoints.get(i);
@@ -383,6 +413,12 @@ public class MainController {
         }
     }
 
+    /**
+     * Обработка наведения мыши на элемент визуализации
+     *
+     * @param mx - координата мыши x
+     * @param my - координата мыши y
+     */
     private void onVizHover(double mx, double my) {
         int prev = hoveredRouteIndex;
         hoveredRouteIndex = -1;
@@ -407,6 +443,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Включение анимации визуализации
+     */
     private void startPulse() {
         if (pulseTimer != null) return;
         pulseTimer = new AnimationTimer() {
@@ -420,6 +459,9 @@ public class MainController {
         pulseTimer.start();
     }
 
+    /**
+     * Остановка анимации визуализации
+     */
     private void stopPulse() {
         if (pulseTimer != null) {
             pulseTimer.stop();
@@ -428,23 +470,37 @@ public class MainController {
         pulsePhase = 0;
     }
 
+    /**
+     * Обработчик кнопки показать
+     */
     @FXML
     private void onShowClick() {
         clearDetails();
         new Show().executeCommand(null, server, null);
     }
 
+    /**
+     * Обработчик кнопки информации
+     */
     @FXML
     private void onInfoClick() {
         new Info().executeCommand(null, server, null);
     }
 
+    /**
+     * Обработчик кнопки выхода
+     */
     @FXML
     private void onLogoutClick() {
         Stage stage = (Stage) mainRoot.getScene().getWindow();
         new Logout().executeCommand(null, server, stage);
     }
 
+    /**
+     * Отрисовывает детали маршрута при его выборе
+     *
+     * @param route - Маршрут
+     */
     private void showRouteDetails(Route route) {
         routeIdLabel.setText(String.valueOf(route.getId()));
         routeNameField.setText(route.getName());
@@ -462,6 +518,9 @@ public class MainController {
         routeDateLabel.setText(formatDate(route.getCreationDate().toLocalDateTime()));
     }
 
+    /**
+     * Очищает все поля части: Детали маршрута
+     */
     private void clearDetails() {
         routeIdLabel.setText("");
         routeNameField.setText("");
@@ -479,30 +538,45 @@ public class MainController {
         routeDateLabel.setText("");
     }
 
+    /**
+     * Обработчик кнопки добавить
+     */
     @FXML
     private void onAddClick() {
         Stage stage = (Stage) mainRoot.getScene().getWindow();
         AddController.show(stage);
     }
 
+    /**
+     * Обработчик кнопки add_if_max
+     */
     @FXML
     private void onAddIfMaxClick() {
         Stage stage = (Stage) mainRoot.getScene().getWindow();
         AddIfMaxController.show(stage);
     }
 
+    /**
+     * Обработчик кнопки очистки коллекции
+     */
     @FXML
     private void onClearClick() {
         ClearController.onClearCLick();
         onShowClick();
     }
 
+    /**
+     * Обработчик кнопки удаления первого элемента
+     */
     @FXML
     private void onRemoveFirstClick() {
         RemoveFirstController.onRemoveFirstClick();
         onShowClick();
     }
 
+    /**
+     * Обработчик кнопки удаления объекта по id
+     */
     @FXML
     private void onRemoveByIdClick() {
         Route selected = routeTable.getSelectionModel().getSelectedItem();
@@ -513,6 +587,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Обработчик кнопки удаления всех объектов
+     */
     @FXML
     private void onRemoveAllDistClick() {
         Stage stage = (Stage) mainRoot.getScene().getWindow();
@@ -520,23 +597,35 @@ public class MainController {
         onShowClick();
     }
 
+    /**
+     * Обработчик кнопки подсчёта среднего арифмит. дистанции
+     */
     @FXML
     private void onAverageDistanceClick() {
         AverageOfDistanceController.onAverageDistanceClick();
     }
 
+    /**
+     * Обработчик кнопки filter_less_than_distance
+     */
     @FXML
     private void onFilterDistClick() {
         Stage stage = (Stage) mainRoot.getScene().getWindow();
         FilterLessThanDistanceController.show(stage);
     }
 
+    /**
+     * Обработчик кнопки выполнения скрипта
+     */
     @FXML
     private void onExecuteScriptClick() {
         Stage stage = (Stage) mainRoot.getScene().getWindow();
         ExecuteScriptController.execute(stage);
     }
 
+    /**
+     * Обработчик кнопки обновить
+     */
     @FXML
     private void onUpdateClick() {
         Route selected = routeTable.getSelectionModel().getSelectedItem();
@@ -575,11 +664,17 @@ public class MainController {
         new Help().executeCommand(null, server, null);
     }
 
+    /**
+     * Обработчик кнопки истории
+     */
     @FXML
     private void onHistoryClick() {
         new History().executeCommand(null, server, null);
     }
 
+    /**
+     * Обновляет колонку с датой в таблице
+     */
     private void refreshDateColumn() {
         colDate.setCellValueFactory(cellData -> new SimpleStringProperty(
                 formatDate(cellData.getValue().getCreationDate().toLocalDateTime())
@@ -587,10 +682,19 @@ public class MainController {
         routeTable.refresh();
     }
 
+    /**
+     * Устанавливает название аккаунта в правом верхнем углу
+     */
     public void setUserLogin() {
         userLoginLabel.setText(ManagerAuth.getLogin());
     }
 
+    /**
+     * Форматирует дату под локальный формат
+     *
+     * @param dateTime - текущее время
+     * @return строку с датой в соответсвующей локали
+     */
     public String formatDate(LocalDateTime dateTime) {
         if (dateTime == null) {
             return "";
@@ -602,6 +706,12 @@ public class MainController {
         return dateTime.format(DateTimeFormatter.ofPattern(pattern));
     }
 
+    /**
+     * Генерирует разные цвета для разных авторов
+     *
+     * @param author - значения поля author в колонке
+     * @return вовзращает цвет
+     */
     private String getAuthorColor(String author) {
         int hash = Math.abs(author.hashCode());
         int r = 100 + (hash % 156);
