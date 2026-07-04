@@ -12,11 +12,18 @@ import java.util.List;
 
 import static org.example.gui.Main.server;
 
+/**
+ * Контроллер обработки команды execute_script
+ */
 public class ExecuteScriptController {
 
     private ExecuteScriptController() {
     }
 
+    /**
+     * Метод выбора и исполнения скрипта в отдельном потоке
+     * @param owner - родительское окно
+     */
     public static void execute(Stage owner) {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Выберите файл скрипта");

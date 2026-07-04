@@ -3,6 +3,9 @@ package org.example.packet.collection;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+/**
+ * Класс маршрута на клиенте
+ */
 public class RouteClient implements Serializable {
     private String name;
     private Coordinates coordinates;

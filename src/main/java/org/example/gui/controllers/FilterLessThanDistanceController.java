@@ -13,11 +13,19 @@ import org.example.gui.managers.ManagerLanguage;
 
 import static org.example.gui.Main.server;
 
+/**
+ * Контроллер обрабатывающий кнопку filter_less_than_distance
+ */
 public class FilterLessThanDistanceController {
 
     @FXML private TextField distanceField;
     @FXML private Label errorLabel;
 
+    /**
+     * Загружает и показывает диалоговое окно для ввода значения distance
+     *
+     * @param owner - родительское окно
+     */
     public static void show(Stage owner) {
         try {
             FXMLLoader loader = new FXMLLoader(FilterLessThanDistanceController.class.getResource("/org/example/fxml/filter_less_than_distance.fxml"));
@@ -35,6 +43,9 @@ public class FilterLessThanDistanceController {
         }
     }
 
+    /**
+     * Обработка нажатия кнопки ввода
+     */
     @FXML
     private void onFilterClick() {
         String distanceText = distanceField.getText().trim();
@@ -57,11 +68,17 @@ public class FilterLessThanDistanceController {
         }
     }
 
+    /**
+     * Обработка нажатия кнопки отмена
+     */
     @FXML
     private void onCancelClick() {
         closeWindow();
     }
 
+    /**
+     * Закрывает диалоговое окно
+     */
     private void closeWindow() {
         Stage stage = (Stage) distanceField.getScene().getWindow();
         stage.close();

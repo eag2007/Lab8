@@ -17,6 +17,6 @@
     <TextArea styleClass="help-textarea" fx:id="helpText" editable="false" wrapText="true" VBox.vgrow="ALWAYS"/>
 
     <HBox styleClass="help-footer" alignment="CENTER_RIGHT" prefHeight="55">
-        <Button styleClass="help-close-btn" onAction="#onCloseClick" text="ЗАКРЫТЬ"/>
+        <Button styleClass="help-close-btn" onAction="#onCloseClick" text="ЗАКРЫТЬ" fx:id="helpButton"/>
     </HBox>
 </VBox>

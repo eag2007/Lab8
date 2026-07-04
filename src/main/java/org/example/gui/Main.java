@@ -151,6 +151,7 @@ public class Main extends Application {
 
     /**
      * Отправить команду молча (для системных/скриптовых вызовов).
+     * Отправляет команду на сервер
      *
      * @param packet - объект типа CommandPacket
      *
@@ -237,7 +238,6 @@ public class Main extends Application {
         stopThreads();
         closeServer();
     }
-
 
     /**
      * Старт приложения даже если сервер не доступен

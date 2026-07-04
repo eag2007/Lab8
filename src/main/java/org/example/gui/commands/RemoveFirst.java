@@ -10,6 +10,9 @@ import org.example.packet.collection.RouteClient;
 
 import java.nio.channels.SocketChannel;
 
+/**
+ * Класс исполнения команды remove_first
+ */
 public class RemoveFirst implements Command {
 
     @Override

@@ -10,6 +10,9 @@ import org.example.packet.collection.RouteClient;
 
 import java.nio.channels.SocketChannel;
 
+/**
+ * Класс исполнения команды update
+ */
 public class Update implements Command {
 
     @Override

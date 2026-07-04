@@ -10,6 +10,9 @@ import org.example.packet.collection.RouteClient;
 
 import java.nio.channels.SocketChannel;
 
+/**
+ * Класс исполнения команды clear
+ */
 public class Clear implements Command {
 
     @Override

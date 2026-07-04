@@ -10,8 +10,19 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.zip.GZIPOutputStream;
 
+/**
+ * Модуль почанковой записи данных в канал
+ * (сначала отправляется размер данных, а потом и сами данные)
+ */
 public class WriteModule {
 
+    /**
+     * Метод, который записывает данные в канал
+     *
+     * @param client - соединение с клиентом
+     * @param response - ответ в виде класса ResponsePacket
+     * @throws IOException - ошибка которая может возникнуть
+     */
     public void writeResponseForClient(SocketChannel client, ResponsePacket response) throws IOException {
         synchronized (client) {
             /**

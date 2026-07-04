@@ -16,6 +16,9 @@ import org.example.packet.enums.Codes;
 
 import static org.example.gui.Main.*;
 
+/**
+ * Контроллер обрабатывающий регистрацию пользователя
+ */
 public class RegisterController {
 
     @FXML
@@ -116,7 +119,7 @@ public class RegisterController {
             if (!Main.connect()) {
                 Platform.runLater(() -> {
                     setLoading(false);
-                    alert("Сервер недоступен.");
+                    alert(ManagerLanguage.get("error.server"));
                 });
                 return;
             }

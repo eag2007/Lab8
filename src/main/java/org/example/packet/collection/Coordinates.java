@@ -2,6 +2,9 @@ package org.example.packet.collection;
 
 import java.io.Serializable;
 
+/**
+ * Часть класс route
+ */
 public class Coordinates implements Comparable<Coordinates>, Serializable {
     private long x;
     private long y;

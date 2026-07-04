@@ -10,6 +10,9 @@ import org.example.packet.collection.RouteClient;
 
 import java.nio.channels.SocketChannel;
 
+/**
+ * Класс исполнения команды remove_all_by_distance
+ */
 public class RemoveAllByDistance implements Command {
 
     @Override

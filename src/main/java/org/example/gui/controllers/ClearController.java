@@ -5,6 +5,9 @@ import org.example.gui.commands.Show;
 
 import static org.example.gui.Main.server;
 
+/**
+ * Контроллер обработки команды clear
+ */
 public class ClearController {
     public static void onClearCLick() {
         new Clear().executeCommand(null, server, null);

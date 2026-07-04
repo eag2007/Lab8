@@ -10,6 +10,9 @@ import org.example.packet.collection.RouteClient;
 
 import java.nio.channels.SocketChannel;
 
+/**
+ * Класс исполнения команды add_if_max
+ */
 public class AddIfMax implements Command {
 
     @Override

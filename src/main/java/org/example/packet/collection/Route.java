@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
+/**
+ * Полноценный класс маршрута на сервере
+ */
 public class Route implements Comparable<Route>, Serializable {
     private long id;
     private String name;

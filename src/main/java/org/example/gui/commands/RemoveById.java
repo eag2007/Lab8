@@ -10,6 +10,9 @@ import org.example.packet.collection.RouteClient;
 
 import java.nio.channels.SocketChannel;
 
+/**
+ * Класс исполнения команды remove_by_id
+ */
 public class RemoveById implements Command {
 
     @Override

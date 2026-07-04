@@ -10,10 +10,19 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 
+/**
+ * Модуль подключения к серверу, отключения от сервера
+ */
 public class ConnectModule {
     private ServerSocketChannel server;
     private Selector selector;
 
+    /**
+     * Запускает сервер на указанном порту
+     *
+     * @param port - порт
+     * @throws IOException - ошибка которая может выскачить при запуске сервера
+     */
     public void startServer(int port) throws IOException {
         try {
             this.server = ServerSocketChannel.open();
@@ -33,10 +42,21 @@ public class ConnectModule {
         }
     }
 
+    /**
+     * Позволяет получить доступ к текущему селектору
+     *
+     * @return текущий селектор
+     */
     public Selector getSelector() {
         return this.selector;
     }
 
+    /**
+     * Возвращает клиента, который только что присоединился, перерегистрирует его канал на чтения
+     *
+     * @return соединение с клиентом
+     * @throws IOException ошибка которая возникает при создании соединения
+     */
     public SocketChannel acceptConnection() throws IOException {
         SocketChannel client = server.accept();
         if (client != null) {
@@ -47,6 +67,11 @@ public class ConnectModule {
         return client;
     }
 
+    /**
+     * Останавливает сервер
+     *
+     * @throws IOException возвращает возможную ошибку, которая может возникнуть при закрытии канала
+     */
     public void stopServer() throws IOException {
         if (server != null && server.isOpen())
             server.close();

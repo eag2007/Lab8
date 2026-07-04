@@ -2,6 +2,9 @@ package org.example.packet.enums;
 
 import java.io.Serializable;
 
+/**
+ * enum со всеми кодами ошибок и их соответствиями
+ */
 public enum Codes implements Serializable {
     OK(200),
     WARNING(400),

@@ -2,6 +2,9 @@ package org.example.packet.enums;
 
 import java.io.Serializable;
 
+/**
+ * enum со всеми командами
+ */
 public enum ResponseType implements Serializable {
     PUSH("push"),
     ADD("add"),

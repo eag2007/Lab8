@@ -10,6 +10,9 @@ import org.example.packet.collection.RouteClient;
 
 import java.nio.channels.SocketChannel;
 
+/**
+ * Класс исполнения команды filter_less_than_distance
+ */
 public class FilterLessThanDistance implements Command {
 
     @Override

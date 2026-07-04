@@ -16,6 +16,9 @@ import org.example.gui.managers.ManagerLanguage;
 
 import static org.example.gui.Main.server;
 
+/**
+ * Контроллер обработки кнопки add_if_max
+ */
 public class AddIfMaxController {
 
     @FXML private TextField nameField;
@@ -33,6 +36,10 @@ public class AddIfMaxController {
 
     private final ManagerValidation validator = new ManagerValidation();
 
+    /**
+     * Показывает диалоговое окно
+     * @param owner - родительское окно
+     */
     public static void show(Stage owner) {
         try {
             FXMLLoader loader = new FXMLLoader(AddController.class.getResource("/org/example/fxml/add_if_max.fxml"));
@@ -50,6 +57,9 @@ public class AddIfMaxController {
         }
     }
 
+    /**
+     * Обработчик нажатия кнопки добавить, создает RouteClient и запускает команду AddIfMax()
+     */
     @FXML
     private void onAddIfMaxClick() {
         try {
@@ -75,11 +85,17 @@ public class AddIfMaxController {
         }
     }
 
+    /**
+     * Обработчик кнопки отмена
+     */
     @FXML
     private void onCancelClick() {
         closeWindow();
     }
 
+    /**
+     * Обработчик кнопки закрытия окна
+     */
     private void closeWindow() {
         Stage stage = (Stage) nameField.getScene().getWindow();
         stage.close();

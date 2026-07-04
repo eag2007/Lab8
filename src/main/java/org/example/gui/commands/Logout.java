@@ -11,6 +11,9 @@ import org.example.gui.managers.ManagerLanguage;
 
 import java.nio.channels.SocketChannel;
 
+/**
+ * Класс исполнения команды logout
+ */
 public class Logout implements Command {
 
     @Override

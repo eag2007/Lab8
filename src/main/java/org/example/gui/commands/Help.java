@@ -10,6 +10,9 @@ import org.example.packet.enums.ResponseType;
 
 import java.nio.channels.SocketChannel;
 
+/**
+ * Класс исполнения команды help
+ */
 public class Help implements Command {
     @Override
     public String toString() {

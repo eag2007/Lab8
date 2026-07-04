@@ -36,6 +36,9 @@ import java.util.Objects;
 
 import static org.example.gui.Main.server;
 
+/**
+ * Контроллер обрабатыващий главное окно
+ */
 public class MainController {
 
     /// Колонки

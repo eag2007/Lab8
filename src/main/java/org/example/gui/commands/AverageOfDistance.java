@@ -10,6 +10,9 @@ import org.example.packet.collection.RouteClient;
 
 import java.nio.channels.SocketChannel;
 
+/**
+ * Класс исполнения команды average_of_distance
+ */
 public class AverageOfDistance implements Command {
 
     @Override

@@ -5,7 +5,7 @@ public class ManagerAuth {
     private static String password = null;
 
     /**
-     * Усттановить логин
+     * Установить логин
      *
      * @param _login - логин
      */

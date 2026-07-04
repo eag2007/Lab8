@@ -16,6 +16,9 @@ import org.example.gui.managers.ManagerLanguage;
 
 import static org.example.gui.Main.server;
 
+/**
+ * Контроллер обработки кнопки add
+ */
 public class AddController {
 
     @FXML private TextField nameField;
@@ -33,6 +36,10 @@ public class AddController {
 
     private final ManagerValidation validator = new ManagerValidation();
 
+    /**
+     * Показывает диалоговое окно
+     * @param owner - родительское окно
+     */
     public static void show(Stage owner) {
         try {
             FXMLLoader loader = new FXMLLoader(AddController.class.getResource("/org/example/fxml/add.fxml"));
@@ -50,6 +57,9 @@ public class AddController {
         }
     }
 
+    /**
+     * Обработчик нажатия на кнопку добавить
+     */
     @FXML
     private void onAddClick() {
         try {
@@ -75,11 +85,17 @@ public class AddController {
         }
     }
 
+    /**
+     * Обработчик кнопки отмены
+     */
     @FXML
     private void onCancelClick() {
         closeWindow();
     }
 
+    /**
+     * Обработчик кнопки закрыть
+     */
     private void closeWindow() {
         Stage stage = (Stage) nameField.getScene().getWindow();
         stage.close();

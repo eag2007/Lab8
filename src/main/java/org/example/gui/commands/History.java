@@ -10,6 +10,9 @@ import org.example.packet.enums.ResponseType;
 
 import java.nio.channels.SocketChannel;
 
+/**
+ * Класс исполнения команды history
+ */
 public class History implements Command {
     @Override
     public String toString() {

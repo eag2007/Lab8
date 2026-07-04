@@ -9,9 +9,19 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.Arrays;
 
+/**
+ * Модуль, который считывает почанково данные с канала
+ */
 public class ReadModule {
     private static final int BUFFER_SIZE = 8192;
 
+    /**
+     * Метод считывания
+     *
+     * @param clientChannel - канал (соединение откуда читаем)
+     * @return объект CommandPacket
+     * @throws IOException возможная ошибка при считывании
+     */
     public CommandPacket readPacketForServer(SocketChannel clientChannel) throws IOException {
         try {
             ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);

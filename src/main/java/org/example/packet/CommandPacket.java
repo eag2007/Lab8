@@ -4,6 +4,9 @@ import org.example.packet.collection.RouteClient;
 
 import java.io.Serializable;
 
+/**
+ * Класс пакета-команды для отправки на сервер
+ */
 public class CommandPacket implements Serializable {
     private final String type;
     private final String[] args;

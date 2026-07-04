@@ -5,6 +5,9 @@ import org.example.packet.enums.ResponseType;
 
 import java.io.Serializable;
 
+/**
+ * Класс пакета-ответа с сервера
+ */
 public class ResponsePacket implements Serializable {
     private final ResponseType type;
     private final Codes statusCode;
