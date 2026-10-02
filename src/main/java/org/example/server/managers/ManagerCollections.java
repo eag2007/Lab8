@@ -11,6 +11,9 @@ import java.util.PriorityQueue;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+/**
+ * Управляет коллекцией маршрутов и выполняет операции над ней.
+ */
 public class ManagerCollections {
     private PriorityQueue<Route> collectionsRoute;
     private ZonedDateTime timeInit;

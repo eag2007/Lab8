@@ -26,6 +26,9 @@ import java.util.Map;
 
 import static org.example.gui.Main.managerResponseQueue;
 
+/**
+ * Поток для передачи сообщений сервера в графический интерфейс.
+ */
 public class GUIPrinter extends Thread {
 
     private volatile boolean running = true;

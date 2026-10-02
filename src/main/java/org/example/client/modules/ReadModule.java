@@ -10,6 +10,9 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.zip.GZIPInputStream;
 
+/**
+ * Читает и распаковывает данные, поступившие по сетевому каналу.
+ */
 public class ReadModule {
     private static final int BUFFER_SIZE = 8192;
 

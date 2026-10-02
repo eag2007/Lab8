@@ -9,6 +9,9 @@ import java.util.*;
 import static org.example.client.Client.managerInputOutput;
 import static org.example.client.Client.server;
 
+/**
+ * Разбирает введённые пользователем команды и создаёт соответствующие запросы.
+ */
 public class ManagerParserClient {
     private final HashMap<String, Command> commands;
     private final List<String> historyCommands;

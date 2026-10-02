@@ -6,6 +6,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+/**
+ * Преобразует полученные данные в объекты приложения.
+ */
 public class ManagerDeserialize {
     /**
      * Десериализует пакет команды из массива байтов

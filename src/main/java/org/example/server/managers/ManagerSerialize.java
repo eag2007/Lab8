@@ -7,6 +7,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+/**
+ * Преобразует объекты приложения в данные для отправки.
+ */
 public class ManagerSerialize {
     /**
      * Сериализует ответ сервера в массив байтов

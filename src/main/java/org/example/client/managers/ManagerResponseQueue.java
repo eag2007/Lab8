@@ -8,6 +8,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * Хранит и передаёт ответы сервера ожидающим обработчикам.
+ */
 public class ManagerResponseQueue {
 
     private static final ManagerResponseQueue INSTANCE = new ManagerResponseQueue();

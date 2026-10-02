@@ -9,6 +9,9 @@ import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Properties;
 
+/**
+ * Создаёт хэши паролей с использованием соли и дополнительного значения.
+ */
 public class ManagerHasher {
     private static final String PEPER = peper();
 

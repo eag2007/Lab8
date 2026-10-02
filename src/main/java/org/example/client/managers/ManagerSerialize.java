@@ -4,6 +4,9 @@ import org.example.packet.CommandPacket;
 
 import java.io.*;
 
+/**
+ * Преобразует объекты приложения в данные для отправки.
+ */
 public class ManagerSerialize {
     public static byte[] serialize(CommandPacket packet) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

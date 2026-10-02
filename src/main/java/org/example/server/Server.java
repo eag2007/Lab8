@@ -19,6 +19,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Сервер для приёма клиентских подключений и обработки запросов.
+ */
 public class Server {
     public static ManagerCollections managerCollections = new ManagerCollections();
     public static ManagerParserServer managerParserServer = new ManagerParserServer();

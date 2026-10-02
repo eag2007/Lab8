@@ -7,6 +7,9 @@ import org.example.server.Server;
 import java.nio.channels.SocketChannel;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Отправляет подписчикам уведомления об изменениях коллекции.
+ */
 public class ManagerPush {
     private final ConcurrentHashMap<String, Boolean> userSubscribes = new ConcurrentHashMap<>();
 

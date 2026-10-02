@@ -7,6 +7,9 @@ import org.example.packet.collection.RouteClient;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * Проверяет корректность данных перед отправкой запроса.
+ */
 public class ManagerValidation {
 
     /**

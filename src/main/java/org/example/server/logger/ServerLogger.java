@@ -3,6 +3,9 @@ package org.example.server.logger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Настраивает журналирование событий и ошибок сервера.
+ */
 public class    ServerLogger {
     private static final Logger logger = LogManager.getLogger("Server");
 

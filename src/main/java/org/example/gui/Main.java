@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.SocketChannel;
 
+/**
+ * Точка входа графического клиента и настройка его главного окна.
+ */
 public class Main extends Application {
     public static ManagerResponseQueue managerResponseQueue = ManagerResponseQueue.getInstance();
 

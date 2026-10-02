@@ -11,6 +11,9 @@ import java.time.ZonedDateTime;
 
 import static org.example.client.Client.managerInputOutput;
 
+/**
+ * Проверяет корректность данных перед отправкой запроса.
+ */
 public class ManagerValidation {
     public RouteClient validateFromInput() {
         String name = validateSetName();

@@ -3,6 +3,9 @@ package org.example.server.managers;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Запускает фоновые задачи и хранит сведения об их выполнении.
+ */
 public class ManagerTask {
     public enum TaskStatus {
         PENDING,

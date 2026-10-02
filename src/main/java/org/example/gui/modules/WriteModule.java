@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
+/**
+ * Сериализует, сжимает и отправляет данные по сетевому каналу.
+ */
 public class WriteModule {
     /**
      * Отправка данных на сервер, запись в канал

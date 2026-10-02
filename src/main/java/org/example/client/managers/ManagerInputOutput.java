@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
+/**
+ * Обрабатывает ввод пользователя и вывод сообщений консольного клиента.
+ */
 public class ManagerInputOutput {
     private static ManagerInputOutput managerInputOutput;
     private static LineReader lineReader;

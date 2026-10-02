@@ -16,6 +16,9 @@ import java.net.InetSocketAddress;
 import java.nio.channels.SocketChannel;
 import java.util.NoSuchElementException;
 
+/**
+ * Консольный клиент для подключения к серверу и выполнения команд пользователя.
+ */
 public class Client {
     public static ManagerValidation managerValidation = new ManagerValidation();
     public static ManagerInputOutput managerInputOutput = ManagerInputOutput.getInstance();

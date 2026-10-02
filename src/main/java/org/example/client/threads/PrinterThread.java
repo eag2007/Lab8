@@ -13,6 +13,9 @@ import java.util.Map;
 
 import static org.example.client.Client.*;
 
+/**
+ * Поток для вывода сообщений и результатов команд в консоль.
+ */
 public class PrinterThread extends Thread {
 
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("HH:mm:ss").withZone(ZoneId.systemDefault());

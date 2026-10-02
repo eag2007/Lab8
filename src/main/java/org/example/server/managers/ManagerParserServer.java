@@ -15,6 +15,9 @@ import java.util.*;
 
 import static org.example.server.Server.managerDataBase;
 
+/**
+ * Разбирает запросы клиентов и подготавливает их к обработке сервером.
+ */
 public class ManagerParserServer {
     private final HashMap<String, Command> commands;
 

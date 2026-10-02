@@ -12,6 +12,9 @@ import java.nio.channels.SocketChannel;
 import static org.example.gui.Main.managerResponseQueue;
 
 
+/**
+ * Поток для чтения сообщений, полученных от сервера.
+ */
 public class ReaderThread extends Thread {
 
     private final SocketChannel serverChannel;

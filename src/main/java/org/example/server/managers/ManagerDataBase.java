@@ -15,6 +15,9 @@ import java.util.PriorityQueue;
 import java.util.Properties;
 
 
+/**
+ * Обеспечивает подключение к базе данных и работу с её записями.
+ */
 public class ManagerDataBase {
     private static ManagerDataBase instance;
     private static Connection connection;

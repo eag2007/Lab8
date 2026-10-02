@@ -1,5 +1,8 @@
 package org.example.gui.managers;
 
+/**
+ * Хранит данные текущей авторизации графического клиента.
+ */
 public class ManagerAuth {
     private static String login = null;
     private static String password = null;
