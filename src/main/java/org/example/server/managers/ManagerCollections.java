@@ -16,11 +16,19 @@ public class ManagerCollections {
     private ZonedDateTime timeInit;
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
+    /**
+     * Создаёт пустую коллекцию маршрутов
+     */
     public ManagerCollections() {
         this.collectionsRoute = new PriorityQueue<>();
         this.timeInit = ZonedDateTime.now();
     }
 
+    /**
+     * Добавляет маршрут в коллекцию
+     *
+     * @param element - маршрут
+     */
     public void addCollections(Route element) {
         lock.writeLock().lock();
         try {
@@ -30,6 +38,11 @@ public class ManagerCollections {
         }
     }
 
+    /**
+     * Удаляет из коллекции маршруты пользователя
+     *
+     * @param login - логин владельца маршрутов
+     */
     public void clearCollections(String login) {
         lock.writeLock().lock();
         try {
@@ -39,6 +52,11 @@ public class ManagerCollections {
         }
     }
 
+    /**
+     * Заменяет коллекцию переданными маршрутами
+     *
+     * @param routes - новая коллекция маршрутов
+     */
     public void removeAllByDistanceCollections(PriorityQueue<Route> routes) {
         lock.writeLock().lock();
         try {
@@ -48,6 +66,11 @@ public class ManagerCollections {
         }
     }
 
+    /**
+     * Получить маршруты в отсортированном виде
+     *
+     * @return отсортированный список маршрутов
+     */
     public List<Route> getSortedCollections() {
         lock.readLock().lock();
         try {
@@ -59,6 +82,11 @@ public class ManagerCollections {
         }
     }
 
+    /**
+     * Получить очередь маршрутов
+     *
+     * @return очередь маршрутов
+     */
     public PriorityQueue<Route> getCollectionsRoute() {
         lock.readLock().lock();
         try {
@@ -68,6 +96,11 @@ public class ManagerCollections {
         }
     }
 
+    /**
+     * Получить количество маршрутов
+     *
+     * @return размер коллекции
+     */
     public int getSizeCollections() {
         lock.readLock().lock();
         try {
@@ -77,6 +110,11 @@ public class ManagerCollections {
         }
     }
 
+    /**
+     * Получить время инициализации коллекции
+     *
+     * @return время создания коллекции
+     */
     public ZonedDateTime getTimeInit() {
         lock.readLock().lock();
         try {
@@ -86,6 +124,12 @@ public class ManagerCollections {
         }
     }
 
+    /**
+     * Удаляет маршрут с указанным идентификатором
+     *
+     * @param id - идентификатор маршрута
+     * @return true если маршрут найден и удалён
+     */
     public boolean removeRouteById(long id) {
         lock.writeLock().lock();
         try {
@@ -95,6 +139,12 @@ public class ManagerCollections {
         }
     }
 
+    /**
+     * Заменяет маршрут с таким же идентификатором
+     *
+     * @param newRoute - обновлённый маршрут
+     * @return true если маршрут добавлен в коллекцию
+     */
     public boolean updateRoute(Route newRoute) {
         lock.writeLock().lock();
         try {
@@ -105,6 +155,11 @@ public class ManagerCollections {
         }
     }
 
+    /**
+     * Загружает маршруты из базы данных в коллекцию
+     *
+     * @param routes - маршруты из базы данных
+     */
     public void loadAllRoutes(PriorityQueue<Route> routes) {
         lock.writeLock().lock();
         try {

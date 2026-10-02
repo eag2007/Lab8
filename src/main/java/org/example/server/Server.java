@@ -37,6 +37,11 @@ public class Server {
 
     private static final ConcurrentHashMap<String, SocketChannel> loginToChannel = new ConcurrentHashMap<>();
 
+    /**
+     * Загружает данные, запускает сервер и обрабатывает сетевые события
+     *
+     * @param args аргументы запуска, первым можно указать порт
+     */
     public static void main(String[] args) {
         try {
             ServerLogger.info("Запуск сервера");
@@ -140,6 +145,9 @@ public class Server {
         }
     }
 
+    /**
+     * Запускает чтение команд управления сервером из консоли
+     */
     public static void inputOutputServer() {
         new Thread(() -> {
             Scanner scanner = new Scanner(System.in);
@@ -167,6 +175,9 @@ public class Server {
         }).start();
     }
 
+    /**
+     * Добавляет обработчик завершения сервера для закрытия соединения с БД
+     */
     public static void ifCloseServer() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             ServerLogger.info("Завершение работы сервера, Экстренное сохранение");
@@ -182,6 +193,12 @@ public class Server {
         }));
     }
 
+    /**
+     * Получить порт из аргументов запуска
+     *
+     * @param args аргументы запуска
+     * @return заданный порт или порт по умолчанию
+     */
     public static int parsePortFromArgs(String[] args) {
         if (args.length > 0) {
             try {
@@ -211,6 +228,15 @@ public class Server {
         return loginToChannel;
     }
 
+    /**
+     * Отправляет клиенту ответ в отдельном потоке
+     *
+     * @param type тип ответа
+     * @param status_code код выполнения команды
+     * @param message сообщение для клиента
+     * @param data данные ответа
+     * @param clientChannel канал клиента
+     */
     public static void writeExecutor(ResponseType type, Codes status_code, String message, Object data, SocketChannel clientChannel) {
         ResponsePacket response = new ResponsePacket(
                 type,

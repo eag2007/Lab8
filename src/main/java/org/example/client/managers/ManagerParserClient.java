@@ -14,6 +14,9 @@ public class ManagerParserClient {
     private final List<String> historyCommands;
     private static final int MAX_SIZE_LEN_HISTORY = 14;
 
+    /**
+     * Создаёт список доступных команд клиента
+     */
     public ManagerParserClient() {
         this.commands = new HashMap<String, Command>();
         this.historyCommands = new ArrayList<>(MAX_SIZE_LEN_HISTORY);
@@ -42,18 +45,38 @@ public class ManagerParserClient {
         this.commands.put("subscribe", new Subscribe());
     }
 
+    /**
+     * Получить названия команд клиента
+     *
+     * @return список команд
+     */
     public List<String> getCommandNames() {
         return new ArrayList<>(this.commands.keySet());
     }
 
+    /**
+     * Получить объекты команд клиента
+     *
+     * @return список команд
+     */
     public List<Command> getCommands() {
         return new ArrayList<>(this.commands.values());
     }
 
+    /**
+     * Получить историю введённых команд
+     *
+     * @return список последних команд
+     */
     public List<String> getHistoryCommands() {
         return historyCommands;
     }
 
+    /**
+     * Находит команду по введённой строке и запускает её
+     *
+     * @param s строка команды с аргументами
+     */
     public void parserCommand(String s) {
         String[] command = s.trim().replaceAll("\\s+", " ").split(" ");
 

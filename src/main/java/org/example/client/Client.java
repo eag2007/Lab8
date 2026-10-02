@@ -33,6 +33,11 @@ public class Client {
     private static ReaderThread readerThread = null;
     private static PrinterThread printerThread = null;
 
+    /**
+     * Подключает клиента к серверу и запускает обработку команд
+     *
+     * @param args аргументы запуска, первым можно указать порт сервера
+     */
     public static void main(String[] args) {
         try {
             managerInputOutput.setCommands(managerParserClient.getCommandNames());
@@ -112,6 +117,11 @@ public class Client {
         }
     }
 
+    /**
+     * Подключается к серверу с повторными попытками
+     *
+     * @param port порт сервера
+     */
     private static void connect(int port) {
         boolean connected = false;
         while (!connected) {
@@ -133,6 +143,11 @@ public class Client {
         }
     }
 
+    /**
+     * Восстанавливает сессию после переподключения к серверу
+     *
+     * @return true если повторный вход выполнен
+     */
     private static boolean relogin() {
         try {
             CommandPacket packet = new CommandPacket("login", null, null, login, password_hash);
@@ -147,6 +162,9 @@ public class Client {
         return false;
     }
 
+    /**
+     * Запускает потоки чтения ответов сервера и их вывода
+     */
     private static void startBackgroundThreads() {
         stopBackgroundThreads();
         readerThread = new ReaderThread(server, readModule);
@@ -155,6 +173,9 @@ public class Client {
         printerThread.start();
     }
 
+    /**
+     * Останавливает фоновые потоки клиента
+     */
     public static void stopBackgroundThreads() {
         if (readerThread != null) {
             readerThread.stopReader();
@@ -166,6 +187,9 @@ public class Client {
         }
     }
 
+    /**
+     * Закрывает соединение с сервером
+     */
     private static void closeServer() {
         try {
             if (server != null && server.isOpen()) {
@@ -176,6 +200,11 @@ public class Client {
         }
     }
 
+    /**
+     * Завершает работу клиента и освобождает ресурсы
+     *
+     * @param message сообщение перед завершением
+     */
     private static void shutdown(String message) {
         managerInputOutput.writeLineIO(message + "\n", Colors.GREEN);
         managerInputOutput.closeIO();
@@ -206,6 +235,11 @@ public class Client {
         password_hash = null;
     }
 
+    /**
+     * Показывает меню входа и регистрации
+     *
+     * @return true если пользователь вошёл в аккаунт
+     */
     private static boolean authenticate() {
         try {
             while (true) {
